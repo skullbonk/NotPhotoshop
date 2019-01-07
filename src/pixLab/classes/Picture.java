@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.text.*;
 import java.util.*;
 import java.util.List; // resolves problem with java.awt.List and java.util.List
+import java.util.Random;
 
 /**
  * A class that represents a picture.  This class inherits from 
@@ -195,6 +196,45 @@ public class Picture extends SimplePicture
     }
   }
   
+  
+  public void mirrorGull()
+  {
+	  Random rando = new Random();
+	  int mirrorPoint = 300;
+	  Pixel oldPixel = null;
+	  Pixel newPixel = null;
+	  int count = 0;
+	  Pixel[][] pixels = this.getPixels2D();
+	  for (count = 0; count < rando.nextInt(30); count++)
+	  {
+
+			  for (int col = 230; col < 353; col++)
+			  {
+				  oldPixel = pixels[row][col];
+			  
+				  newPixel = pixels[row][col + 180];
+			  
+//				  newPixel = pixels[row][rando.nextInt(pixels[0].length)];
+			  
+				  newPixel.setColor(oldPixel.getColor());
+			  }
+
+	  }
+  }
+  
+  
+  /*
+  public void mirrorHorizontal()
+  {
+	 Pixel totalHPixels[][] = this.getPixels2D();
+	 int mirrorPoint = (totalHPixels[0].length / 2);
+	 int count = 0;
+	 
+	
+  }
+  */
+  
+  
   /** copy from the passed fromPic to the
     * specified startRow and startCol in the
     * current picture
@@ -276,10 +316,10 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("beach.jpg");
-    beach.explore();
-    beach.zeroBlue();
-    beach.explore();
+    Picture gull = new Picture("seagull.jpg");
+    gull.explore();
+    gull.zeroGreen();
+    gull.explore();
   }
   
 } // this } is the end of class Picture, put all new methods before this
