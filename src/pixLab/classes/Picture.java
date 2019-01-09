@@ -1,4 +1,5 @@
 package pixLab.classes;
+import pixLab.classes.*;
 import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.*;
@@ -7,6 +8,7 @@ import java.text.*;
 import java.util.*;
 import java.util.List; // resolves problem with java.awt.List and java.util.List
 import java.util.Random;
+import javax.swing.*;;
 
 /**
  * A class that represents a picture.  This class inherits from 
@@ -199,20 +201,20 @@ public class Picture extends SimplePicture
   
   public void mirrorGull()
   {
-	  Random rando = new Random();
+	  Random random = new Random();
 	  int mirrorPoint = 300;
 	  Pixel oldPixel = null;
 	  Pixel newPixel = null;
 	  int count = 0;
 	  Pixel[][] pixels = this.getPixels2D();
-	  for (count = 0; count < rando.nextInt(30); count++)
+	  for (count = 0; count < random.nextInt(30); count++)
 	  {
 
 			  for (int col = 230; col < 353; col++)
 			  {
-				  oldPixel = pixels[row][col];
+				  oldPixel = pixels[count][col];
 			  
-				  newPixel = pixels[row][col + 180];
+				  newPixel = pixels[count][col + 180];
 			  
 //				  newPixel = pixels[row][rando.nextInt(pixels[0].length)];
 			  
@@ -221,6 +223,102 @@ public class Picture extends SimplePicture
 
 	  }
   }
+  
+  
+  
+  public void chopItUp()
+  {
+	  Random random = new Random();
+	  SimplePicture image = new SimplePicture();
+	  Pixel originalPixel = null;
+	  Pixel freshPixel = null;
+	  Pixel[][] replaceBox = this.getPixels2D();
+	  int reps = 0;
+	  int rRow = 0;
+	  int rCol = 0;
+	  for (reps = 0; reps < random.nextInt(7); reps++)
+	  {
+		  
+	  }
+	  
+	  
+  }
+  
+  public void glitchGang()
+  {
+//	  SimplePicture picture = new SimplePicture();
+	  Pixel[][] pixelRef = this.getPixels2D();
+	  Random random = new Random();
+	  Pixel startPixel = null;
+	  Pixel endPixel = null;
+	  boolean rowIsEven = false;
+	  boolean colIsEven = false;
+	  for (int go = 0; go < random.nextInt(30); go++)
+	  {
+		  int randomRow = random.nextInt(pixelRef.length + 1);
+		  int randomCol = random.nextInt(pixelRef[0].length + 1);
+		  /*
+		  if(randomRow + 50 > pixelRef.length)
+		  {
+			  randomRow = randomRow - 50;
+		  }
+		  
+		  if(randomCol + 50 > pixelRef[0].length)
+		  {
+			  randomCol = randomCol - 50;
+		  }
+		  */
+		  
+		  for (int row = randomRow; row < randomRow + random.nextInt(pixelRef.length - randomRow); row++)
+		  {
+			  for(int col = randomCol; col < randomCol + random.nextInt(pixelRef[0].length - randomCol); col++)
+			  {
+				  startPixel = pixelRef[row][col];
+				  
+				  /*
+				  if(row % 2 == 0)
+				  {
+					  rowIsEven = true;
+				  }
+				  else {rowIsEven = false;}
+				  
+				  if(col % 2 == 0)
+				  {
+					  colIsEven = true;
+				  }
+				  else {colIsEven = false;}
+				  */
+				  
+				  startPixel.setColor(pixelRef[row][col].getColor());
+				  
+				  
+				  endPixel = pixelRef[randomRow % (random.nextInt(5) + 1)][randomCol % (random.nextInt(5) + 1)];
+				  
+				  endPixel.setColor(startPixel.getColor());
+				  endPixel.setRed(endPixel.getRed() + 256 - startPixel.getRed());
+				  endPixel.setGreen(endPixel.getGreen() + 256 - startPixel.getGreen());
+				  endPixel.setRed(endPixel.getBlue() + 256 - startPixel.getBlue());
+				  
+				  
+				  
+				  
+//				  pixelRef[endPixel.getX()][endPixel.getY()].setColor(endPixel.getColor());
+			  }
+		  }
+		  /*
+		  for (int row = 0; row < pixelRef.length; row++)
+		  {
+			  for(int col = 0; col < pixelRef.length; col++)
+			  {
+				  startPixel = pixelRef[row][col+2];
+				  endPixel.setColor(startPixel.getColor());
+				  
+			  }
+		  }
+		  */
+	  }
+  }
+  
   
   
   /*
@@ -265,6 +363,9 @@ public class Picture extends SimplePicture
       }
     }   
   }
+  
+  
+  
 
   /** Method to create a collage of several pictures */
   public void createCollage()

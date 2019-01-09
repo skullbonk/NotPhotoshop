@@ -60,6 +60,14 @@ public class PictureTester
     swan.explore();
   }
   
+  public static void testGlitchGang()
+  {
+	  Picture temple = new Picture("temple.jpg");
+	  temple.explore();
+	  temple.glitchGang();
+	  temple.explore();
+  }
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -77,7 +85,7 @@ public class PictureTester
     //testMirrorVertical();
     //testMirrorTemple();
     //testMirrorArms();
-    testMirrorGull();
+//    testMirrorGull();
     //testMirrorDiagonal();
     //testCollage();
     //testCopy();
@@ -89,5 +97,6 @@ public class PictureTester
     //testSetRedToHalfValueInTopHalf();
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
+    testGlitchGang();
   }
 }

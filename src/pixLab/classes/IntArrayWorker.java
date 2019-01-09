@@ -35,7 +35,7 @@ public class IntArrayWorker
 		  
 	  return count;
   }
-  
+  /*
   public int getBiggest()
   {
 	  int biggest = Integer.MIN_VALUE;
@@ -48,7 +48,7 @@ public class IntArrayWorker
 		  }
 	  }
   }
-  
+  */
   
   /**
    * Method to return the total 
