@@ -68,6 +68,14 @@ public class PictureTester
 	  temple.explore();
   }
   
+  public static void testFizzle()
+  {
+	  Picture kitten2 = new Picture("kitten2.jpg");
+	  kitten2.explore();
+	  kitten2.fizzle();
+	  kitten2.explore();  
+  }
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -97,6 +105,7 @@ public class PictureTester
     //testSetRedToHalfValueInTopHalf();
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
+	testFizzle();
     testGlitchGang();
   }
 }

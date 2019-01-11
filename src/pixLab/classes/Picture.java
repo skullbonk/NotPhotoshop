@@ -256,19 +256,9 @@ public class Picture extends SimplePicture
 //	  boolean colIsEven = false;
 	  for (int go = 0; go < random.nextInt(3000); go++)
 	  {
-		  int randomRow = random.nextInt(pixelRef.length + 1);
-		  int randomCol = random.nextInt(pixelRef[0].length + 1);
-		  /*
-		  if(randomRow + 50 > pixelRef.length)
-		  {
-			  randomRow = randomRow - 50;
-		  }
+		  int randomRow = random.nextInt(pixelRef.length - 16);
+		  int randomCol = random.nextInt(pixelRef[0].length -16);
 		  
-		  if(randomCol + 50 > pixelRef[0].length)
-		  {
-			  randomCol = randomCol - 50;
-		  }
-		  */
 		  
 		  for (int row = randomRow; row < randomRow + random.nextInt((pixelRef.length - randomRow) - 2); row++)
 		  {
@@ -280,26 +270,8 @@ public class Picture extends SimplePicture
 				  int endRowMax = (pixelRef.length - row - 1);
 				  int endColMax = (pixelRef[0].length - col - 1);
 				  
-				  
-				 
-				  
-				  /*
-				  if(row % 2 == 0)
-				  {
-					  rowIsEven = true;
-				  }
-				  else {rowIsEven = false;}
-				  
-				  if(col % 2 == 0)
-				  {
-					  colIsEven = true;
-				  }
-				  else {colIsEven = false;}
-				  */
-				  
 				  startPixel.setColor(pixelRef[row][col].getColor());
-				  
-				  
+				
 				  endPixel = pixelRef[row + random.nextInt(endRowMax)][col + random.nextInt(endColMax)];
 				  
 				  endPixel.setColor(startPixel.getColor());
@@ -315,8 +287,7 @@ public class Picture extends SimplePicture
 					  endPixel.setRed(startPixel.getRed() + random.nextInt(256 - startPixel.getRed()));
 				  }
 				  
-				  
-				  
+				
 				  if(endPixel.getGreen() > 127)
 				  {
 					  endPixel.setGreen(startPixel.getGreen() - random.nextInt(startPixel.getGreen()));
@@ -326,8 +297,7 @@ public class Picture extends SimplePicture
 					  endPixel.setGreen(startPixel.getGreen() + random.nextInt(256 - startPixel.getGreen()));
 				  }
 				  
-				  
-				  
+				 
 				  if(endPixel.getBlue() > 127)
 				  {
 					  endPixel.setBlue(startPixel.getBlue() - random.nextInt(startPixel.getBlue()));
@@ -335,27 +305,9 @@ public class Picture extends SimplePicture
 				  if(endPixel.getBlue() < 128)
 				  {
 					  endPixel.setBlue(startPixel.getBlue() + random.nextInt(256 - startPixel.getBlue()));
-				  }
-				  
-				  
-				  
-//				  endPixel.setRed(endPixel.getRed() - random.nextInt());
-//				  endPixel.setGreen(endPixel.getGreen() + 256 - startPixel.getGreen());
-//				  endPixel.setRed(endPixel.getBlue() + 256 - startPixel.getBlue());
-			  
+				  }				  			 
 			  }
-		  }
-		  /*
-		  for (int row = 0; row < pixelRef.length; row++)
-		  {
-			  for(int col = 0; col < pixelRef.length; col++)
-			  {
-				  startPixel = pixelRef[row][col+2];
-				  endPixel.setColor(startPixel.getColor());
-				  
-			  }
-		  }
-		  */
+		  }	  
 	  }
   }
   
@@ -363,9 +315,36 @@ public class Picture extends SimplePicture
   {
 	  Pixel[][] pixelRef = this.getPixels2D();
 	  Random random = new Random();
-	  Pixel sourcePixel = null;
-	  Pixel resultPixel = null;
+	  Picture sub = new Picture(this);
+	  Pixel[][] dupe = sub.getPixels2D();
+	 
+	  int rRow = random.nextInt(pixelRef.length);
+	  int rCol = random.nextInt(pixelRef[0].length);
+	 
+	  
+	  for(int reps = 0; reps < 300; reps++)
+	  {  
+		  for(int row = rRow; row < pixelRef.length; row++)
+		  {
+			  for(int col = rCol; col < pixelRef[0].length; col++)
+			  {
+				  int addToRow = row + (pixelRef.length - rRow);
+				  int addToCol = col + (pixelRef[0].length - rCol);
+				  dupe[row][col].setColor(pixelRef[addToRow][addToCol].getColor());		
+			  }  
+		  }
+		  
+		  for(int row = 0; row < pixelRef.length; row++)
+		  {
+			  for(int col = 0; col < pixelRef[0].length; col++)
+			  {
+				  pixelRef = dupe;
+			  }
+		  }
+	  }
   }
+  
+  
   
   public void shiftLeftRight(int amount)
   {
@@ -378,7 +357,7 @@ public class Picture extends SimplePicture
 	  
 	  for(int row = 0; row < pixels.length; row++)
 	  {
-		  for(int col = 0; col < pixels.length; row++)
+		  for(int col = 0; col < pixels[0].length; row++)
 		  {
 			  shiftedValue = (col + amount) % width;
 			  copied[row][col].setColor(pixels[row][shiftedValue].getColor());
