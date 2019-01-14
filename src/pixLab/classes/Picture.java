@@ -316,6 +316,8 @@ public class Picture extends SimplePicture
 	  Pixel[][] pixelRef = this.getPixels2D();
 	  Picture sub = new Picture(this);
 	  Pixel[][] dupe = sub.getPixels2D();
+	  Pixel original = null;
+	  Pixel replace = null;
 	  
 	  int maxRow = pixelRef.length;
 	  int maxCol = pixelRef[0].length;
@@ -326,24 +328,22 @@ public class Picture extends SimplePicture
 	  {  
 		  int startRow = getR(maxRow - (maxRow / 4));
 		  int startCol = getR(maxCol - (maxCol / 4));
-		  for(int row = startRow; row < getR(maxRow / 2); row++)
+		  
+		  int endRow = startRow + getR((maxRow - startRow) / 2);
+		  int endCol = startCol + getR((maxCol - startCol) / 2);
+		  
+		  for(int row = startRow; row < endRow; row++)
 		  {
-			  for(int col = startCol; col < getR(startCol / 2); col++)
+			  for(int col = startCol; col < endCol; col++)
 			  {
-				  int modifier = getR(64);
-				  if((row + modifier > maxRow) || (col + modifier > maxCol))
-				  {
-					  if(row + modifier > maxRow)
-					  {					  
-						  modifier = modifier - 64;
-					  }
-					  if(col + modifier > maxCol)
-					  {
-						  modifier = modifier - 64;
-					  }
-				  }
+				  int newRow = ((endRow - startRow) / row); 
+				  int newCol = ((endCol - startCol) / col);
+				
+				  original = pixelRef[newRow][newCol];
+				  replace = original;
+				  dupe[row][col].setColor(replace.getColor());
+				 
 						  
-				  dupe[row][col].setColor(pixelRef[row + modifier][col + modifier].getColor()); 
 				  
 			
 			  }  
@@ -352,10 +352,11 @@ public class Picture extends SimplePicture
 		  for(int row = 0; row < pixelRef.length; row++)
 		  {
 			  for(int col = 0; col < pixelRef[0].length; col++)
-			  {
+			  {				 
 				  pixelRef[row][col].setColor(dupe[row][col].getColor());
 			  }
 		  }
+		  
 	  }
   }
   
