@@ -93,7 +93,7 @@ public class PictureTester
     //testMirrorVertical();
     //testMirrorTemple();
     //testMirrorArms();
-//    testMirrorGull();
+    //testMirrorGull();
     //testMirrorDiagonal();
     //testCollage();
     //testCopy();
@@ -106,6 +106,6 @@ public class PictureTester
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
 	testFizzle();
-    testGlitchGang();
+    //testGlitchGang();
   }
 }

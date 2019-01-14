@@ -321,23 +321,31 @@ public class Picture extends SimplePicture
 	  
 	  int maxRow = pixelRef.length;
 	  int maxCol = pixelRef[0].length;
+	  
+	  int startRow;
+	  int startCol;
+	  int endRow;
+	  int endCol;
+	  
+	  int newRow;
+	  int newCol;
 	 
 	 
 	  
 	  for(int reps = 0; reps < 30; reps++)
 	  {  
-		  int startRow = getR(maxRow - (maxRow / 4));
-		  int startCol = getR(maxCol - (maxCol / 4));
+		  startRow = getR(maxRow - 2);
+		  startCol = getR(maxCol - 2);
 		  
-		  int endRow = startRow + getR((maxRow - startRow) / 2);
-		  int endCol = startCol + getR((maxCol - startCol) / 2);
+		  endRow = startRow + getR((maxRow - startRow) / 2);
+		  endCol = startCol + getR((maxCol - startCol) / 2);
 		  
 		  for(int row = startRow; row < endRow; row++)
 		  {
 			  for(int col = startCol; col < endCol; col++)
 			  {
-				  int newRow = ((endRow - startRow) / row); 
-				  int newCol = ((endCol - startCol) / col);
+				  newRow = ((endRow - row) / (startRow) + 1); 
+				  newCol = ((endCol - col) / (startCol) + 1);
 				
 				  original = pixelRef[newRow][newCol];
 				  replace = original;
