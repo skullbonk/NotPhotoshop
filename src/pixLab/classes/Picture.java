@@ -314,23 +314,38 @@ public class Picture extends SimplePicture
   public void fizzle()
   {
 	  Pixel[][] pixelRef = this.getPixels2D();
-	  Random random = new Random();
 	  Picture sub = new Picture(this);
 	  Pixel[][] dupe = sub.getPixels2D();
+	  
+	  int maxRow = pixelRef.length;
+	  int maxCol = pixelRef[0].length;
 	 
-	  int rRow = random.nextInt(pixelRef.length);
-	  int rCol = random.nextInt(pixelRef[0].length);
 	 
 	  
-	  for(int reps = 0; reps < 300; reps++)
+	  for(int reps = 0; reps < 30; reps++)
 	  {  
-		  for(int row = rRow; row < pixelRef.length; row++)
+		  int startRow = getR(maxRow - (maxRow / 4));
+		  int startCol = getR(maxCol - (maxCol / 4));
+		  for(int row = startRow; row < getR(maxRow / 2); row++)
 		  {
-			  for(int col = rCol; col < pixelRef[0].length; col++)
+			  for(int col = startCol; col < getR(startCol / 2); col++)
 			  {
-				  int addToRow = row + (pixelRef.length - rRow);
-				  int addToCol = col + (pixelRef[0].length - rCol);
-				  dupe[row][col].setColor(pixelRef[addToRow][addToCol].getColor());		
+				  int modifier = getR(64);
+				  if((row + modifier > maxRow) || (col + modifier > maxCol))
+				  {
+					  if(row + modifier > maxRow)
+					  {					  
+						  modifier = modifier - 64;
+					  }
+					  if(col + modifier > maxCol)
+					  {
+						  modifier = modifier - 64;
+					  }
+				  }
+						  
+				  dupe[row][col].setColor(pixelRef[row + modifier][col + modifier].getColor()); 
+				  
+			
 			  }  
 		  }
 		  
@@ -338,7 +353,7 @@ public class Picture extends SimplePicture
 		  {
 			  for(int col = 0; col < pixelRef[0].length; col++)
 			  {
-				  pixelRef = dupe;
+				  pixelRef[row][col].setColor(dupe[row][col].getColor());
 			  }
 		  }
 	  }
@@ -458,6 +473,13 @@ public class Picture extends SimplePicture
           leftPixel.setColor(Color.WHITE);
       }
     }
+  }
+  
+  public int getR(int max)
+  {
+	  Random random = new Random();
+	  int rInt = random.nextInt(max);
+	  return rInt;
   }
   
   
