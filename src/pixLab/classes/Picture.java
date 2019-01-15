@@ -344,11 +344,14 @@ public class Picture extends SimplePicture
 		  {
 			  for(int col = startCol; col < endCol; col++)
 			  {
-				  newRow = ((endRow - row) / (startRow) + 1); 
-				  newCol = ((endCol - col) / (startCol) + 1);
+				  newRow = (startRow + endRow / maxRow); 
+				  newCol = (startCol + endCol / maxCol);
 				
 				  original = pixelRef[newRow][newCol];
+				  original.setColor(pixelRef[newRow][newCol].getColor());
 				  replace = original;
+				  replace.setColor(original.getColor());
+				  replace.setBlue(pixelRef[getR(newRow)][getR(newCol)].getBlue() - getR(original.getRed()) );
 				  dupe[row][col].setColor(replace.getColor());
 				 
 						  
@@ -366,6 +369,93 @@ public class Picture extends SimplePicture
 		  }
 		  
 	  }
+  }
+  
+  
+  
+  public void fizzleRemastered()
+  {
+	  Pixel[][] grid = this.getPixels2D();
+	  Picture soap = new Picture(this);
+	  Pixel[][] frickedGrid = soap.getPixels2D();
+	  Pixel laserCut;
+	  Pixel hotGlue;
+	  
+	  int maxRow = grid.length;
+	  int maxCol = grid[0].length;
+	  
+	  int startRow = 0;
+	  int startCol = 0; 
+	  
+	  int pixelsFricked = 0;
+	  
+	  
+	  for(int iterations = 0; iterations < 128; iterations++)
+	  {
+		  startRow = getR(maxRow);
+		  startCol = getR(maxCol);
+		  
+		  for(int row = startRow; row < startRow + getR((maxRow - startRow)); row ++)
+		  {
+			  willFrick();
+//			  if(willFrick())
+//			  {
+				  for(int col = startCol; col < startCol + getR((maxCol - startCol)); col ++)
+				  {
+					  pixelsFricked = 0;
+					  while(pixelsFricked < 65)
+					  {
+						  laserCut = grid[row][col];
+						  laserCut.setColor(grid[row][col].getColor());
+						  
+						  if(pixelsFricked % 5 == 0)
+						  {
+							  hotGlue = laserCut;
+							  hotGlue.setColor(laserCut.getColor());
+							  hotGlue.setBlue(getR(laserCut.getRow()));
+							  
+							  
+						  }
+						  else
+						  {
+							  if(pixelsFricked % 3 == 0)
+							  {
+								  hotGlue = laserCut;
+								  hotGlue.setColor(laserCut.getColor());
+								  hotGlue.setGreen(grid[row - startRow][getR(startCol)].getBlue());
+							  }
+							  else
+							  {  
+								  hotGlue = laserCut;
+								  hotGlue.setColor(laserCut.getColor());
+								  hotGlue.setRed((laserCut.getRed() + laserCut.getGreen() + laserCut.getBlue()) / 3);	  
+							  }
+							  
+						  }
+						  
+						  frickedGrid[row][col].setColor(hotGlue.getColor());
+						  
+						  pixelsFricked ++;  
+					  }	  
+				  }
+//			  }  
+		  }	  
+	  }
+	  /*
+	  for(int row = 0, col = 0; row < maxRow && col < maxCol; row++, col++)
+	  {
+		  grid[row][col].setColor(frickedGrid[row][col].getColor()); 
+	  }
+	  
+	  for(int doThing = 0; doThing < 90; doThing++)
+	  {
+		  for(int row = getR(maxRow), col = getR(maxCol); row < maxRow && col < maxCol; row++, col++)
+		  {
+			  
+			  
+		  }
+	  }
+	  */
   }
   
   
@@ -489,6 +579,21 @@ public class Picture extends SimplePicture
 	  Random random = new Random();
 	  int rInt = random.nextInt(max);
 	  return rInt;
+  }
+  
+  public boolean willFrick()
+  {
+	  int rInt = 0;
+	  rInt = getR(1);
+	  
+	  if(rInt == 1)
+	  {
+		  return true;
+	  }
+	  else
+	  {
+		  return false;
+	  }
   }
   
   

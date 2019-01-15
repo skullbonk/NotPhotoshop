@@ -76,6 +76,14 @@ public class PictureTester
 	  kitten2.explore();  
   }
   
+  public static void testFizzleRemastered()
+  {
+	  Picture ratpic = new Picture("cliff'd.png");
+	  ratpic.explore();
+	  ratpic.fizzleRemastered();
+	  ratpic.explore();  
+  }
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -105,7 +113,8 @@ public class PictureTester
     //testSetRedToHalfValueInTopHalf();
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
-	testFizzle();
+	//testFizzle();
+	testFizzleRemastered();
     //testGlitchGang();
   }
 }
