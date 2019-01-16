@@ -378,8 +378,8 @@ public class Picture extends SimplePicture
 	  Pixel[][] grid = this.getPixels2D();
 	  Picture soap = new Picture(this);
 	  Pixel[][] frickedGrid = soap.getPixels2D();
-	  Pixel laserCut;
-	  Pixel hotGlue;
+	  Pixel old;
+	  Pixel shiny;
 	  
 	  int maxRow = grid.length;
 	  int maxCol = grid[0].length;
@@ -397,67 +397,36 @@ public class Picture extends SimplePicture
 		  
 		  for(int row = startRow; row < startRow + getR((maxRow - startRow)); row ++)
 		  {
-			  willFrick();
-//			  if(willFrick())
-//			  {
 				  for(int col = startCol; col < startCol + getR((maxCol - startCol)); col ++)
 				  {
 					  pixelsFricked = 0;
-					  while(pixelsFricked < 65)
+					  while(pixelsFricked < 64)
 					  {
-						  laserCut = grid[row][col];
-						  laserCut.setColor(grid[row][col].getColor());
+						  old = grid[row][col];
 						  
-						  if(pixelsFricked % 5 == 0)
-						  {
-							  hotGlue = laserCut;
-							  hotGlue.setColor(laserCut.getColor());
-							  hotGlue.setBlue(getR(laserCut.getRow()));
-							  
-							  
-						  }
-						  else
-						  {
-							  if(pixelsFricked % 3 == 0)
-							  {
-								  hotGlue = laserCut;
-								  hotGlue.setColor(laserCut.getColor());
-								  hotGlue.setGreen(grid[row - startRow][getR(startCol)].getBlue());
-							  }
-							  else
-							  {  
-								  hotGlue = laserCut;
-								  hotGlue.setColor(laserCut.getColor());
-								  hotGlue.setRed((laserCut.getRed() + laserCut.getGreen() + laserCut.getBlue()) / 3);	  
-							  }
-							  
-						  }
+						  shiny = old;					
+
 						  
-						  frickedGrid[row][col].setColor(hotGlue.getColor());
+						  
+						  
+						  
+						  
+						  frickedGrid[row][col].setColor(shiny.getColor());
 						  
 						  pixelsFricked ++;  
 					  }	  
-				  }
-//			  }  
+				  } 
 		  }	  
 	  }
-	  /*
-	  for(int row = 0, col = 0; row < maxRow && col < maxCol; row++, col++)
-	  {
-		  grid[row][col].setColor(frickedGrid[row][col].getColor()); 
-	  }
-	  
-	  for(int doThing = 0; doThing < 90; doThing++)
-	  {
-		  for(int row = getR(maxRow), col = getR(maxCol); row < maxRow && col < maxCol; row++, col++)
-		  {
-			  
-			  
-		  }
-	  }
-	  */
   }
   
+  
+  public void sortAttempt1()
+  {
+	  Pixel[][] grid = this.getPixels2D();
+	  Picture temp = new Picture(this);
+	  
+  }
   
   
   public void shiftLeftRight(int amount)
@@ -594,6 +563,13 @@ public class Picture extends SimplePicture
 	  {
 		  return false;
 	  }
+  }
+  
+  
+  public int makeHalf(int input)
+  {
+	  int half = input / 2;
+	  return half;
   }
   
   
