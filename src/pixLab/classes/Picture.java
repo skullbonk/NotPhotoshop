@@ -381,19 +381,71 @@ public class Picture extends SimplePicture
 	  Pixel old;
 	  Pixel shiny;
 	  
+	  Pixel revOld;
+	  Pixel revShiny;
+	  
+	  Pixel test;
+	  Pixel flip;
+	  
 	  int maxRow = grid.length;
 	  int maxCol = grid[0].length;
 	  
 	  int startRow = 0;
 	  int startCol = 0; 
 	  
+	  int revEndRow = 0;
+	  int revEndCol = 0;
+	  
+	  int average;
+	  
 	  int pixelsFricked = 0;
 	  
 	  
-	  for(int iterations = 0; iterations < 128; iterations++)
+	  for(int iterations = 0; iterations < 150; iterations++)
 	  {
 		  startRow = getR(maxRow);
 		  startCol = getR(maxCol);
+		  
+		  
+		  /*
+		   * Passes all pixels, changes if they meet requirements
+		   */
+		  for(int row = 0; row < maxRow; row ++)
+		  {
+			  for(int col = 0; col < maxCol; col ++)
+			  {
+				  test = grid[row][col];
+				  flip = test;
+				  if(test.getRed() > 190 && test.getGreen() > 130)
+				  {
+					  average = (int) test.getAverage();
+					  flip.setRed(test.getRed() - (test.getGreen() / 3));
+					  flip.setGreen(test.getGreen() - (test.getRed() / 3));
+					  flip.setBlue((int)average * getR(average) / Math.abs(getR(average) + 1));
+				  }
+				  
+				  if(test.getRed() > 150 && test.getGreen() > 150 && test.getBlue() > 150)
+				  {
+					  flip.setRed(maxRow / (row + 1) * 2);
+					  flip.setGreen(maxRow * maxCol / getR(col));
+					  flip.setBlue(grid[getR(maxRow)][getR(maxCol)].getRed());
+				  }
+				  
+				  if(test.getRed() > 210)
+				  {
+					  flip.setRed((test.getRed() / (col + 1) ) * 4);
+				  }
+				  
+				  if(test.getRed() > 200 && test.getGreen() > 110)
+				  {
+					  flip.setGreen(flip.getGreen() / 2);
+					  flip.setBlue((flip.getGreen() + flip.getBlue() + getR(flip.getRed() / 9)) / 3);
+					  flip.setRed(test.getRed() - test.getRed() / getR(5));
+				  }
+				  
+			  }
+		  }
+		  
 		  
 		  for(int row = startRow; row < startRow + getR((maxRow - startRow)); row ++)
 		  {
@@ -404,8 +456,17 @@ public class Picture extends SimplePicture
 					  {
 						  old = grid[row][col];
 						  
-						  shiny = old;					
+						  shiny = old;		
 
+						  if(old.getAverage() > grid[startRow][startCol].getAverage())
+						  {
+							  average = (int) old.getAverage();
+							 
+							  shiny.setRed(old.getBlue() - 20);
+							  shiny.setGreen(old.getGreen() * getR(3));
+							  shiny.setBlue(old.getBlue() * 2);
+						  }
+						  
 						  
 						  
 						  
@@ -416,7 +477,43 @@ public class Picture extends SimplePicture
 						  pixelsFricked ++;  
 					  }	  
 				  } 
-		  }	  
+		  }
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  int maxRowReduced = maxRow - 1;
+		  int maxColReduced = maxCol - 1;
+		  
+		  revEndRow = getR(maxRowReduced);
+		  revEndCol = getR(maxColReduced);
+		  
+		  for(int row = maxRowReduced, col = getR(maxColReduced); row > revEndRow && col > revEndCol; row--, col--)
+		  {
+			  
+			  revOld = grid[row][col];
+			  revShiny = revOld;
+			  
+			  if(revOld.getCol() > startCol)
+			  {
+				  revShiny.setGreen(revOld.getGreen() / 3);
+				  revShiny.setBlue(getR(256));
+			  }
+			  
+			  frickedGrid[row][col].setColor(revShiny.getColor());
+		  }
+			  
+			  
+		  for(int row = 0, col = 0; row < maxRow && col < maxCol; row++, col++)
+		  {
+			  grid[row][col].setColor(frickedGrid[row][col].getColor());  
+		  }
 	  }
   }
   
@@ -425,6 +522,29 @@ public class Picture extends SimplePicture
   {
 	  Pixel[][] grid = this.getPixels2D();
 	  Picture temp = new Picture(this);
+	  Pixel[][] newGrid = temp.getPixels2D();
+	  
+	  Pixel previousPixel;
+	  Pixel nextPixel;
+	  
+	  int maxRow = grid.length;
+	  int maxCol = grid[0].length;
+	  
+	  double difference;
+	  
+	  for(int row = 0, col = 0; row < maxRow && col < maxCol; row++, col++)
+	  {
+		  previousPixel = grid[row][col];
+		  nextPixel = grid[row + 1][col + 1];
+		  
+		  difference = nextPixel.colorDistance(previousPixel.getColor());
+		  
+		  if(difference < 3)
+		  {
+			  
+		  }
+	  }
+	  
 	  
   }
   
@@ -546,7 +666,16 @@ public class Picture extends SimplePicture
   public int getR(int max)
   {
 	  Random random = new Random();
+	  while(max < 1)
+	  {
+		  max ++;
+	  }
 	  int rInt = random.nextInt(max);
+	  
+	  while(rInt < 1)
+	  {
+		  rInt ++;
+	  }
 	  return rInt;
   }
   
@@ -571,6 +700,7 @@ public class Picture extends SimplePicture
 	  int half = input / 2;
 	  return half;
   }
+  
   
   
   /* Main method for testing - each class in Java can have a main 

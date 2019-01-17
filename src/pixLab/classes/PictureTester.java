@@ -122,8 +122,8 @@ public class PictureTester
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
 	//testFizzle();
-	//testFizzleRemastered();
-	  testSortAttempt1();
+	testFizzleRemastered();
+	//testSortAttempt1();
 	
 	
     //testGlitchGang();
