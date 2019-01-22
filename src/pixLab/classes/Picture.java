@@ -401,6 +401,9 @@ public class Picture extends SimplePicture
 	  int pixelsFricked = 0;
 	  
 	  
+	  int rMod;
+	  
+	  
 	  for(int iterations = 0; iterations < 150; iterations++)
 	  {
 		  startRow = getR(maxRow);
@@ -416,32 +419,54 @@ public class Picture extends SimplePicture
 			  {
 				  test = grid[row][col];
 				  flip = test;
-				  if(test.getRed() > 190 && test.getGreen() > 130)
+				  
+				  int[] mods = {test.getRed(), test.getGreen(), test.getBlue(), test.getRow(), test.getCol(), (int) test.getAverage(), flip.getRed(), flip.getGreen(), flip.getBlue(), flip.getRow(), flip.getCol(), row, col, maxRow, maxCol};
+				  
+				  int modMax = mods.length;
+				  rMod = mods[getR(modMax)];
+				 
+				  
+				  
+				  test.setRed(256 - test.getRed());
+				  test.setGreen(256 - test.getGreen());
+				  test.setBlue(256 - test.getBlue());
+				  
+				  
+				  if(test.getRed() > 190 && test.getGreen() > 60 + getR(196))
 				  {
 					  average = (int) test.getAverage();
-					  flip.setRed(test.getRed() - (test.getGreen() / 3));
-					  flip.setGreen(test.getGreen() - (test.getRed() / 3));
-					  flip.setBlue((int)average * getR(average) / Math.abs(getR(average) + 1));
+					  flip.setRed(test.getRed() - (test.getGreen() / notZero(mods[getR(modMax)])));
+					  flip.setGreen(test.getGreen() - (test.getRed() / notZero(rMod)));
+					  test.setBlue((int)average * getR(average) / notZero(average));
 				  }
 				  
-				  if(test.getRed() > 150 && test.getGreen() > 150 && test.getBlue() > 150)
+				  if(flip.getGreen() > 210)
 				  {
-					  flip.setRed(maxRow / (row + 1) * 2);
-					  flip.setGreen(maxRow * maxCol / getR(col));
+					  flip.setGreen(flip.getGreen() - rMod % notZero(getR(rMod)) * getR(4));
+				  }
+				  
+				  if(test.getRed() > getR(256) && test.getBlue() > 150)
+				  {
+					  test.setRed(maxRow / (notZero(row)) * rMod);
+					  flip.setGreen(maxRow * rMod / notZero(getR(rMod)));
 					  flip.setBlue(grid[getR(maxRow)][getR(maxCol)].getRed());
 				  }
 				  
+				  
+				  
 				  if(test.getRed() > 210)
 				  {
-					  flip.setRed((test.getRed() / (col + 1) ) * 4);
+					  flip.setRed((flip.getRed() / (notZero(col))));
 				  }
 				  
-				  if(test.getRed() > 200 && test.getGreen() > 110)
+				  
+				  if(test.getRed() < 30 && test.getGreen() < 30 && test.getBlue() < 30)
 				  {
-					  flip.setGreen(flip.getGreen() / 2);
-					  flip.setBlue((flip.getGreen() + flip.getBlue() + getR(flip.getRed() / 9)) / 3);
-					  flip.setRed(test.getRed() - test.getRed() / getR(5));
+					//  flip.setGreen(test.getGreen() * (rMod + test.getBlue()) / (notZero(row) * notZero(col) * notZero(getR(notZero(rMod)))));
+					  flip.setBlue(rMod * rMod / notZero(rMod));
 				  }
+				  
+				
 				  
 			  }
 		  }
@@ -452,18 +477,25 @@ public class Picture extends SimplePicture
 				  for(int col = startCol; col < startCol + getR((maxCol - startCol)); col ++)
 				  {
 					  pixelsFricked = 0;
+					  
+					  
+					  
 					  while(pixelsFricked < 64)
 					  {
 						  old = grid[row][col];
 						  
 						  shiny = old;		
+						  
+						  int[] mods = {old.getRed(), old.getGreen(), old.getBlue(), old.getRow(), old.getCol(), (int) old.getAverage(), shiny.getRed(), shiny.getGreen(), shiny.getBlue(), shiny.getRow(), shiny.getCol()};
+						  int modMax = mods.length;
+						  rMod = mods[getR(modMax)];
 
 						  if(old.getAverage() > grid[startRow][startCol].getAverage())
 						  {
 							  average = (int) old.getAverage();
 							 
-							  shiny.setRed(old.getBlue() - 20);
-							  shiny.setGreen(old.getGreen() * getR(3));
+							  shiny.setRed(rMod);
+							  shiny.setGreen(old.getGreen() * getR(rMod));
 							  shiny.setBlue(old.getBlue() * 2);
 						  }
 						  
@@ -573,16 +605,6 @@ public class Picture extends SimplePicture
 	  }
   }
   
-  /*
-  public void mirrorHorizontal()
-  {
-	 Pixel totalHPixels[][] = this.getPixels2D();
-	 int mirrorPoint = (totalHPixels[0].length / 2);
-	 int count = 0;
-	 
-	
-  }
-  */
 
   
   /** copy from the passed fromPic to the
@@ -663,6 +685,8 @@ public class Picture extends SimplePicture
     }
   }
   
+  
+  
   public int getR(int max)
   {
 	  Random random = new Random();
@@ -699,6 +723,16 @@ public class Picture extends SimplePicture
   {
 	  int half = input / 2;
 	  return half;
+  }
+  
+  public int notZero(int input)
+  {
+	  int toUnZero = input;
+	  while(toUnZero < 1)
+	  {
+		  toUnZero ++;
+	  }
+	  return toUnZero;
   }
   
   
