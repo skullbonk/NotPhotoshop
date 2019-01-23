@@ -427,12 +427,10 @@ public class Picture extends SimplePicture
 				 
 				  
 				  
-				  test.setRed(256 - test.getRed());
-				  test.setGreen(256 - test.getGreen());
-				  test.setBlue(256 - test.getBlue());
+				
 				  
 				  
-				  if(test.getRed() > 190 && test.getGreen() > 60 + getR(196))
+				  if(test.getRed() > 190 && test.getGreen() > getR(196))
 				  {
 					  average = (int) test.getAverage();
 					  flip.setRed(test.getRed() - (test.getGreen() / notZero(mods[getR(modMax)])));
@@ -440,21 +438,21 @@ public class Picture extends SimplePicture
 					  test.setBlue((int)average * getR(average) / notZero(average));
 				  }
 				  
-				  if(flip.getGreen() > 210)
+				  if(test.getGreen() > getR(256))
 				  {
 					  flip.setGreen(flip.getGreen() - rMod % notZero(getR(rMod)) * getR(4));
 				  }
 				  
 				  if(test.getRed() > getR(256) && test.getBlue() > 150)
 				  {
-					  test.setRed(maxRow / (notZero(row)) * rMod);
+					  flip.setRed(flip.getRed() * flip.getBlue());
 					  flip.setGreen(maxRow * rMod / notZero(getR(rMod)));
 					  flip.setBlue(grid[getR(maxRow)][getR(maxCol)].getRed());
 				  }
 				  
 				  
 				  
-				  if(test.getRed() > 210)
+				  if(flip.getRed() < 60)
 				  {
 					  flip.setRed((flip.getRed() / (notZero(col))));
 				  }
@@ -463,9 +461,12 @@ public class Picture extends SimplePicture
 				  if(test.getRed() < 30 && test.getGreen() < 30 && test.getBlue() < 30)
 				  {
 					//  flip.setGreen(test.getGreen() * (rMod + test.getBlue()) / (notZero(row) * notZero(col) * notZero(getR(notZero(rMod)))));
-					  flip.setBlue(rMod * rMod / notZero(rMod));
+					  flip.setBlue(flip.getBlue() * rMod / notZero(rMod));
 				  }
 				  
+//				  flip.setRed(256 - flip.getRed());
+//				  flip.setGreen(256 - flip.getGreen());
+//				  flip.setBlue(256 - flip.getBlue());
 				
 				  
 			  }
@@ -480,7 +481,7 @@ public class Picture extends SimplePicture
 					  
 					  
 					  
-					  while(pixelsFricked < 64)
+					  while(pixelsFricked < 256)
 					  {
 						  old = grid[row][col];
 						  
@@ -546,6 +547,50 @@ public class Picture extends SimplePicture
 		  {
 			  grid[row][col].setColor(frickedGrid[row][col].getColor());  
 		  }
+	  }
+  }
+  
+  public void hidePicture(Picture hidden)
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel[][] hiddenPixels = hidden.getPixels2D();
+	  
+	  for(int row = 0; row < pixels.length && row < hiddenPixels.length; row++)
+	  {
+		  for(int col = 0; col < pixels[0].length && col < hiddenPixels[0].length; col++)
+		  {
+			  if(hiddenPixels[row][col].colorDistance(Color.WHITE) > 5)
+			  {
+				  if(pixels[row][col].getRed() > 0 && pixels[row][col].getRed() % 2 != 1)
+				  {
+					  pixels[row][col].setRed(pixels[row][col].getRed() - 1);
+				  }
+			  }
+			  else if(pixels[row][col].getRed() > 0 && pixels[row][col].getRed() % 2 == 1)
+			  {
+				  pixels[row][col].setRed(pixels[row][col].getRed() - 1);
+			  }
+		  }
+	  }
+  }
+  
+  public void revealPicture()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  
+	  for(int row = 0; row < pixels.length; row++)
+	  {
+		for(int col = 0; col < pixels[0].length; col++)
+		{
+			if(pixels[row][col].getRed() % 2 != 1)
+			{
+				pixels[row][col].setColor(Color.darkGray);
+			}
+			else if(pixels[row][col].getRed() % 2 == 1)
+			{
+				pixels[row][col].setColor(Color.lightGray);
+			}
+		}
 	  }
   }
   

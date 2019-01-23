@@ -7,8 +7,112 @@ package pixLab.classes;
  * 
  * @author Barbara Ericson 
  */
+import javax.swing.JOptionPane;
+
+
+
+//import java.lang.invoke.MethodHandles;
+//import java.lang.reflect.InvocationTargetException;
+//import java.lang.reflect.Method;
+
+
+import java.util.ArrayList;
 public class PictureTester
 {
+	public static ArrayList<String> images;
+	
+	public static void imageSelector()
+	{
+		String response;
+		String check;
+		createImageList();
+		
+		
+		response = JOptionPane.showInputDialog(null, "which image would you like to screw up?"
+				+ " type collection to do the best ones."
+				+ " just be aware that this will take a"
+				+ " few minutes to load, because I'm "
+				+ "great at programming");
+		
+		if(response.equalsIgnoreCase("collection"))
+		{
+			testCollection();
+		}
+		for(int listIndex = 0; listIndex < images.size() - 1; listIndex++)
+		{
+			check = images.get(listIndex);
+			if(response.equalsIgnoreCase(check))
+			{
+				Picture nicePicture = new Picture(response);
+				nicePicture.explore();
+				glitchSelector(nicePicture);
+				nicePicture.explore();
+				
+			}
+		}
+		
+	}
+	
+	public static void glitchSelector(Picture image)
+	{
+		String response;
+		
+		
+		response = JOptionPane.showInputDialog(null, "which glitch would you like to apply?");
+		
+		if(response.equalsIgnoreCase("zero blue") || response.equalsIgnoreCase("zeroblue"))
+		{
+			testZeroBlue();
+		}
+		else if(response.equalsIgnoreCase("mirror vertical") || response.equalsIgnoreCase("mirror vertical"))
+		
+		
+	}
+	
+	
+	public static void createImageList()
+	{
+		images.add("640x480.jpg");
+		images.add("7inX95in.jpg");
+		images.add("arch.jpg");
+		images.add("barbaraS.jpg");
+		images.add("betsoaccused.JPG");
+		images.add("betsoinvestigate.JPG");
+		images.add("blue-mark.jpg");
+		images.add("blueMotorcycle.jpg");
+		images.add("butterfly1.jpg");
+		images.add("caterpillar.jpg");
+		images.add("cliff'd.png");
+		images.add("CumberlandIsland.jpg");
+		images.add("femaleLionAndHall.jpg");
+		images.add("flower1.jpg");
+		images.add("flower2.jpg");
+		images.add("gorge.jpg");
+		images.add("goy.PNG");
+		images.add("jenny-red.jpg");
+		images.add("KatieFancy.jpg");
+		images.add("kitten2.jpg");
+		images.add("koala.jpg");
+		images.add("lob.PNG");
+		images.add("moon-surface.jpg");
+		images.add("msg.jpg");
+		images.add("pozzo.JPG");
+		images.add("redMotorcycle.jpg");
+		images.add("robot.jpg");
+		images.add("seagull.jpg");
+		images.add("smolgoy.png");
+		images.add("snowman.jpg");
+		images.add("sock.PNG");
+		images.add("swan.jpg");
+		images.add("temple.jpg");
+		images.add("thruDoor.jpg");
+		images.add("vollog.jpg");
+		images.add("wall.jpg");
+		images.add("water.jpg");
+		images.add("wendo.PNG");
+		images.add("whiteFlower.jpg");	
+	}
+	
   /** Method to test zeroBlue */
   public static void testZeroBlue()
   {
@@ -92,6 +196,24 @@ public class PictureTester
 	  ratpic.explore();
   }
   
+  public static void testCollection()
+  {
+	  Picture collectionEntry;
+	  String[] pictureNames = {"lob.PNG","vollog.jpg", "pozzo.jpg", "sock.PNG", "goy.PNG"};
+	  for(int index = 0; index < pictureNames.length; index++)
+	  {
+		  collectionEntry = new Picture(pictureNames[index]);
+		  collectionEntry.explore();
+		  collectionEntry.fizzleRemastered();
+		  collectionEntry.explore();
+	  }
+  }
+  
+  public static void testStagenography()
+  {
+	  
+  }
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -122,10 +244,9 @@ public class PictureTester
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
 	//testFizzle();
-	testFizzleRemastered();
+	//testFizzleRemastered();
 	//testSortAttempt1();
-	
-	
-    //testGlitchGang();
+	//testCollection();
+	  imageSelector();
   }
 }

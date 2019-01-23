@@ -67,16 +67,17 @@ public class IntArrayWorker
     return total;
   }
   
-  /*
-  public int getColTotal()
+ 
+  public int getColTotal(int row)
   {
 	  int colTotal = 0;
-	  for (int col = 0; col < matrix[0].length; col++)
+	  for (int col = 0; col < matrix[row].length; col++)
 	  {
-		  colTotal = colTotal + matrix[col];
+		  colTotal = colTotal + matrix[row][col];
 	  }
+	  return colTotal;
   }
-  */
+ 
   
   
   /**
