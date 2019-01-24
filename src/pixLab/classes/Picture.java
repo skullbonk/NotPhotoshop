@@ -594,6 +594,11 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  public void mathClass()
+  {
+	  MathClass math = new MathClass(this);
+  }
+  
   
   public void sortAttempt1()
   {

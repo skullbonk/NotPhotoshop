@@ -67,7 +67,12 @@ public class PictureTester
 		Picture toHide;
 		
 		
-		response = JOptionPane.showInputDialog(null, "which glitch would you like to apply?");
+		response = JOptionPane.showInputDialog(null, "which glitch would you like to apply? type help if you need a list.");
+		
+		if(response.equalsIgnoreCase("help"))
+		{
+			response = JOptionPane.showInputDialog(null, "OPTIONS ARE: 'zero blue', 'mirror vertical', 'mirror temple', 'mirror gull', 'glitch gang', 'fizzle', 'fizzle remastered', 'hide picture', 'reveal picture', 'math class'");
+		}
 		
 		if(response.equalsIgnoreCase("zero blue") || response.equalsIgnoreCase("zeroblue"))
 		{
@@ -106,7 +111,12 @@ public class PictureTester
 		else if(response.equalsIgnoreCase("reveal picture") || response.equalsIgnoreCase("revealpicture"))
 		{
 			image.revealPicture();
-		}	
+		}
+		else if(response.equalsIgnoreCase("math class") || response.equalsIgnoreCase("mathclass"))
+		{
+			image.mathClass();
+		}
+		
 	}
 	
 	
