@@ -310,6 +310,7 @@ public class Pixel
     updatePicture(alpha, getRed(), getGreen(), getBlue());
   } 
   
+  
   /**
   * Method to get the distance between this pixel's color and the passed color
   * @param testColor the color to compare to
