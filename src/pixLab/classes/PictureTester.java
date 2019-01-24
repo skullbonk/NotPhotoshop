@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 public class PictureTester
 {
-	public static ArrayList<String> images;
+	public static ArrayList<String> images = new ArrayList<String>();
 	
 	public static void imageSelector()
 	{
@@ -36,8 +36,17 @@ public class PictureTester
 		
 		if(response.equalsIgnoreCase("collection"))
 		{
-			testCollection();
+			Picture collectionEntry;
+			String[] pictureNames = {"lob.PNG","vollog.jpg", "pozzo.jpg", "sock.PNG", "goy.PNG"};
+			for(int index = 0; index < pictureNames.length; index++)
+			{
+				collectionEntry = new Picture(pictureNames[index]);
+				collectionEntry.explore();
+				collectionEntry.fizzleRemastered();
+				collectionEntry.explore();
+			}
 		}
+		else
 		for(int listIndex = 0; listIndex < images.size() - 1; listIndex++)
 		{
 			check = images.get(listIndex);
@@ -46,27 +55,58 @@ public class PictureTester
 				Picture nicePicture = new Picture(response);
 				nicePicture.explore();
 				glitchSelector(nicePicture);
-				nicePicture.explore();
-				
+				nicePicture.explore();	
 			}
 		}
-		
 	}
 	
 	public static void glitchSelector(Picture image)
 	{
 		String response;
+		String hideResponse;
+		Picture toHide;
 		
 		
 		response = JOptionPane.showInputDialog(null, "which glitch would you like to apply?");
 		
 		if(response.equalsIgnoreCase("zero blue") || response.equalsIgnoreCase("zeroblue"))
 		{
-			testZeroBlue();
+			image.zeroBlue();
 		}
-		else if(response.equalsIgnoreCase("mirror vertical") || response.equalsIgnoreCase("mirror vertical"))
-		
-		
+		else if(response.equalsIgnoreCase("mirrorvertical") || response.equalsIgnoreCase("mirror vertical"))
+		{
+			image.mirrorVertical();
+		}
+		else if(response.equalsIgnoreCase("mirror temple") || response.equalsIgnoreCase("mirrortemple"))
+		{
+			image.mirrorTemple();
+		}
+		else if(response.equalsIgnoreCase("mirror gull") || response.equalsIgnoreCase("mirrorgull"))
+		{
+			image.mirrorGull();
+		}
+		else if(response.equalsIgnoreCase("glitch gang") || response.equalsIgnoreCase("glitchgang"))
+		{
+			image.glitchGang();
+		}
+		else if(response.equalsIgnoreCase("fizzle"))
+		{
+			image.fizzle();
+		}
+		else if(response.equalsIgnoreCase("fizzle remastered") || response.equalsIgnoreCase("fizzleremastered"))
+		{
+			image.fizzleRemastered();
+		}
+		else if(response.equalsIgnoreCase("hide picture") || response.equalsIgnoreCase("hidepicture"))
+		{
+			hideResponse = JOptionPane.showInputDialog(null, "which image do you want to hide?");
+			toHide = new Picture(hideResponse);
+			image.hidePicture(toHide);
+		}
+		else if(response.equalsIgnoreCase("reveal picture") || response.equalsIgnoreCase("revealpicture"))
+		{
+			image.revealPicture();
+		}	
 	}
 	
 	
