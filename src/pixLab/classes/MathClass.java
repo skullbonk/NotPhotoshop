@@ -13,16 +13,20 @@ import javax.swing.*;;
 
 public class MathClass
 {
+	public static Picture toMath = new Picture(PictureTester.imageSelector());
 
 	public MathClass()
 	{
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public MathClass(Picture image)
 	{
+		toMath = image;
 		greenUnder30Glitch(image);
 	}
+	
+
 	
 //////////////////////////////////// T H I N G S /////////////////////////////////////
 	
@@ -82,8 +86,8 @@ public class MathClass
 	
 	public static void main(String[] args)
 	{
-		// TODO Auto-generated method stub
-
+		MathClass mathClass = new MathClass();
+		mathClass.greenUnder30Glitch(toMath);
 	}
 
 }

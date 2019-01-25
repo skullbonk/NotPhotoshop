@@ -20,104 +20,42 @@ import java.util.ArrayList;
 public class PictureTester
 {
 	public static ArrayList<String> images = new ArrayList<String>();
+	public static ArrayList<String> glitches = new ArrayList<String>();
 	
-	public static void imageSelector()
+	public static MathClass mathClass = new MathClass();
+	
+	public static String glitch;
+	
+	public static Picture image; // Creates an image when run with imageSelector() as a parameter
+	
+	public static String imageSelector()
 	{
-		String response;
-		String check;
-		createImageList();
+		String request;
 		
-		
-		response = JOptionPane.showInputDialog(null, "which image would you like to screw up?"
-				+ " type collection to do the best ones."
-				+ " just be aware that this will take a"
-				+ " few minutes to load, because I'm "
-				+ "great at programming");
-		
-		if(response.equalsIgnoreCase("collection"))
-		{
-			Picture collectionEntry;
-			String[] pictureNames = {"lob.PNG","vollog.jpg", "pozzo.jpg", "sock.PNG", "goy.PNG"};
-			for(int index = 0; index < pictureNames.length; index++)
-			{
-				collectionEntry = new Picture(pictureNames[index]);
-				collectionEntry.explore();
-				collectionEntry.fizzleRemastered();
-				collectionEntry.explore();
-			}
-		}
-		else
-		for(int listIndex = 0; listIndex < images.size() - 1; listIndex++)
-		{
-			check = images.get(listIndex);
-			if(response.equalsIgnoreCase(check))
-			{
-				Picture nicePicture = new Picture(response);
-				nicePicture.explore();
-				glitchSelector(nicePicture);
-				nicePicture.explore();	
-			}
-		}
+
+			request = JOptionPane.showInputDialog(null, "which image would you like to screw up?"
+					+ " type collection to do the best ones."
+					+ " just be aware that this will take a"
+					+ " few minutes to load, because I'm "
+					+ "great at programming");
+			
+		return request;
 	}
 	
-	public static void glitchSelector(Picture image)
+	public static String glitchSelector()
 	{
 		String response;
-		String hideResponse;
-		Picture toHide;
 		
 		
 		response = JOptionPane.showInputDialog(null, "which glitch would you like to apply? type help if you need a list.");
 		
-		if(response.equalsIgnoreCase("help"))
-		{
-			response = JOptionPane.showInputDialog(null, "OPTIONS ARE: 'zero blue', 'mirror vertical', 'mirror temple', 'mirror gull', 'glitch gang', 'fizzle', 'fizzle remastered', 'hide picture', 'reveal picture', 'math class'");
-		}
 		
-		if(response.equalsIgnoreCase("zero blue") || response.equalsIgnoreCase("zeroblue"))
-		{
-			image.zeroBlue();
-		}
-		else if(response.equalsIgnoreCase("mirrorvertical") || response.equalsIgnoreCase("mirror vertical"))
-		{
-			image.mirrorVertical();
-		}
-		else if(response.equalsIgnoreCase("mirror temple") || response.equalsIgnoreCase("mirrortemple"))
-		{
-			image.mirrorTemple();
-		}
-		else if(response.equalsIgnoreCase("mirror gull") || response.equalsIgnoreCase("mirrorgull"))
-		{
-			image.mirrorGull();
-		}
-		else if(response.equalsIgnoreCase("glitch gang") || response.equalsIgnoreCase("glitchgang"))
-		{
-			image.glitchGang();
-		}
-		else if(response.equalsIgnoreCase("fizzle"))
-		{
-			image.fizzle();
-		}
-		else if(response.equalsIgnoreCase("fizzle remastered") || response.equalsIgnoreCase("fizzleremastered"))
-		{
-			image.fizzleRemastered();
-		}
-		else if(response.equalsIgnoreCase("hide picture") || response.equalsIgnoreCase("hidepicture"))
-		{
-			hideResponse = JOptionPane.showInputDialog(null, "which image do you want to hide?");
-			toHide = new Picture(hideResponse);
-			image.hidePicture(toHide);
-		}
-		else if(response.equalsIgnoreCase("reveal picture") || response.equalsIgnoreCase("revealpicture"))
-		{
-			image.revealPicture();
-		}
-		else if(response.equalsIgnoreCase("math class") || response.equalsIgnoreCase("mathclass"))
-		{
-			image.mathClass();
-		}
+		
+		return response;
 		
 	}
+	
+	
 	
 	
 	public static void createImageList()
@@ -162,6 +100,208 @@ public class PictureTester
 		images.add("wendo.PNG");
 		images.add("whiteFlower.jpg");	
 	}
+	
+	public static void createGlitchList()
+	{
+		glitches.add("zero blue");
+		glitches.add("mirror vertical");
+		glitches.add("mirror temple");
+		glitches.add("mirror gull");
+		glitches.add("glitch gang");
+		glitches.add("fizzle");
+		glitches.add("fizzle remastered");
+		glitches.add("hide picture");
+		glitches.add("reveal picture");
+		glitches.add("math class");
+	}
+	
+	public static void setupGlitch()
+	{
+		boolean glitchStarted = false;
+		boolean imageIsValid = false;
+		String imageToGlitch = "NO";
+		String glitchToRun = "NO";
+		createImageList();
+		createGlitchList();
+		
+		
+		while(!imageIsValid)
+		{
+			imageToGlitch = imageSelector();
+			if(images.contains(imageToGlitch))
+			{
+				imageIsValid = true;
+			}
+		}
+		
+		image = new Picture(imageToGlitch);
+		
+		image.explore();
+		
+		glitch = glitchSelector();
+		
+		for(int glitchIndex = 0; glitchIndex < glitches.size() - 1; glitchIndex++)
+		{
+			if(glitches.get(glitchIndex).equals(glitch))
+			{
+				glitchToRun = glitch;
+				System.out.println("glitch successfully selected");
+			}
+		}
+		
+		
+		
+		/*
+		while(glitchStarted == false)
+		{
+			if(glitch.equalsIgnoreCase("help"))
+			{
+				glitch = JOptionPane.showInputDialog(null, "OPTIONS ARE: " + glitches.toString());
+			}
+			
+				if(glitch.equalsIgnoreCase("collection"))
+				{
+					Picture collectionEntry;
+					String[] pictureNames = {"lob.PNG","vollog.jpg", "pozzo.jpg", "sock.PNG", "goy.PNG"};
+					for(int index = 0; index < pictureNames.length; index++)
+					{
+						collectionEntry = new Picture(pictureNames[index]);
+						collectionEntry.explore();
+						collectionEntry.fizzleRemastered();
+						collectionEntry.explore();
+						glitchStarted = true;
+					}
+				}
+				
+					if(glitch.equalsIgnoreCase("zero blue") || glitch.equalsIgnoreCase("zeroblue"))
+					{
+						image.zeroBlue();
+						glitchStarted = true;
+					}
+					if(glitch.equalsIgnoreCase("mirrorvertical") || glitch.equalsIgnoreCase("mirror vertical"))
+					{
+						image.mirrorVertical();
+						glitchStarted = true;
+					}
+					if(glitch.equalsIgnoreCase("mirror temple") || glitch.equalsIgnoreCase("mirrortemple"))
+					{
+						image.mirrorTemple();
+						glitchStarted = true;
+					}
+					if(glitch.equalsIgnoreCase("mirror gull") || glitch.equalsIgnoreCase("mirrorgull"))
+					{
+						image.mirrorGull();
+						glitchStarted = true;
+					}
+					if(glitch.equalsIgnoreCase("glitch gang") || glitch.equalsIgnoreCase("glitchgang"))
+					{
+						image.glitchGang();
+						glitchStarted = true;
+					}
+					if(glitch.equalsIgnoreCase("fizzle"))
+					{
+						image.fizzle();
+						glitchStarted = true;
+					}
+					if(glitch.equalsIgnoreCase("fizzle remastered") || glitch.equalsIgnoreCase("fizzleremastered"))
+					{
+						image.fizzleRemastered();
+						glitchStarted = true;
+					}
+					if(glitch.equalsIgnoreCase("hide picture") || glitch.equalsIgnoreCase("hidepicture"))
+					{
+						String hideResponse = JOptionPane.showInputDialog(null, "which image do you want to hide?");
+						Picture toHide = new Picture(hideResponse);
+						image.hidePicture(toHide);
+						glitchStarted = true;
+					}
+					if(glitch.equalsIgnoreCase("reveal picture") || glitch.equalsIgnoreCase("revealpicture"))
+					{
+						image.revealPicture();
+						glitchStarted = true;
+					}
+					if(glitch.equalsIgnoreCase("math class") || glitch.equalsIgnoreCase("mathclass"))
+					{
+						mathClass.greenUnder30Glitch(image);
+						glitchStarted = true;
+					}
+					else
+					{
+						glitch = glitchSelector();
+					}
+		}
+		*/
+		System.out.println(glitch);
+		runGlitch(glitch);
+		image.explore();
+	}
+	
+	public static void runGlitch(String glitch)
+	{
+		String method = glitch;
+		
+		if(method.equals(glitches.get(0)))
+		{
+			image.zeroBlue();
+		}
+		
+
+		if(method.equals(glitches.get(1)))
+		{
+			image.mirrorVertical();
+		}
+		
+
+		if(method.equals(glitches.get(2)))
+		{
+			image.mirrorTemple();
+		}
+		
+
+		if(method.equals(glitches.get(3)))
+		{
+			image.mirrorGull();
+		}
+		
+
+		if(method.equals(glitches.get(4)))
+		{
+			image.glitchGang();
+		}
+		
+
+		if(method.equals(glitches.get(5)))
+		{
+			image.fizzle();
+		}
+		
+
+		if(method.equals(glitches.get(6)))
+		{
+			image.fizzleRemastered();
+		}
+		
+
+/*
+		if(method.equals(glitches.get(7)))
+		{
+			image.hidePicture();
+		}
+*/		
+		
+		if(method.equals(glitches.get(8)))
+		{
+			image.revealPicture();
+		}
+		
+
+		if(method.equals(glitches.get(9)))
+		{
+			image.mathClass();
+		}
+	}
+	
+	public static void
 	
   /** Method to test zeroBlue */
   public static void testZeroBlue()
@@ -297,6 +437,6 @@ public class PictureTester
 	//testFizzleRemastered();
 	//testSortAttempt1();
 	//testCollection();
-	  imageSelector();
+	  setupGlitch();
   }
 }
