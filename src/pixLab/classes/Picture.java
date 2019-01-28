@@ -440,7 +440,7 @@ public class Picture extends SimplePicture
 				  
 				  if(test.getGreen() > getR(256))
 				  {
-					  flip.setGreen(flip.getGreen() - rMod % notZero(getR(rMod)) * getR(4));
+					  flip.setGreen(flip.getGreen() % notZero(getR(rMod)) * getR(4));
 				  }
 				  
 				  if(test.getRed() > getR(256) && test.getBlue() > 150)

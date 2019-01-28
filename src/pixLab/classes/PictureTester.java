@@ -99,6 +99,7 @@ public class PictureTester
 		images.add("water.jpg");
 		images.add("wendo.PNG");
 		images.add("whiteFlower.jpg");	
+		images.add("streetsaber.png");
 	}
 	
 	public static void createGlitchList()
@@ -301,7 +302,6 @@ public class PictureTester
 		}
 	}
 	
-	public static void
 	
   /** Method to test zeroBlue */
   public static void testZeroBlue()
