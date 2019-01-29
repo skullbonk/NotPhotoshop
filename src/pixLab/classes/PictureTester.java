@@ -141,7 +141,7 @@ public class PictureTester
 		
 		glitch = glitchSelector();
 		
-		for(int glitchIndex = 0; glitchIndex < glitches.size() - 1; glitchIndex++)
+		for(int glitchIndex = 0; glitchIndex < glitches.size(); glitchIndex++)
 		{
 			if(glitches.get(glitchIndex).equals(glitch))
 			{
@@ -150,88 +150,6 @@ public class PictureTester
 			}
 		}
 		
-		
-		
-		/*
-		while(glitchStarted == false)
-		{
-			if(glitch.equalsIgnoreCase("help"))
-			{
-				glitch = JOptionPane.showInputDialog(null, "OPTIONS ARE: " + glitches.toString());
-			}
-			
-				if(glitch.equalsIgnoreCase("collection"))
-				{
-					Picture collectionEntry;
-					String[] pictureNames = {"lob.PNG","vollog.jpg", "pozzo.jpg", "sock.PNG", "goy.PNG"};
-					for(int index = 0; index < pictureNames.length; index++)
-					{
-						collectionEntry = new Picture(pictureNames[index]);
-						collectionEntry.explore();
-						collectionEntry.fizzleRemastered();
-						collectionEntry.explore();
-						glitchStarted = true;
-					}
-				}
-				
-					if(glitch.equalsIgnoreCase("zero blue") || glitch.equalsIgnoreCase("zeroblue"))
-					{
-						image.zeroBlue();
-						glitchStarted = true;
-					}
-					if(glitch.equalsIgnoreCase("mirrorvertical") || glitch.equalsIgnoreCase("mirror vertical"))
-					{
-						image.mirrorVertical();
-						glitchStarted = true;
-					}
-					if(glitch.equalsIgnoreCase("mirror temple") || glitch.equalsIgnoreCase("mirrortemple"))
-					{
-						image.mirrorTemple();
-						glitchStarted = true;
-					}
-					if(glitch.equalsIgnoreCase("mirror gull") || glitch.equalsIgnoreCase("mirrorgull"))
-					{
-						image.mirrorGull();
-						glitchStarted = true;
-					}
-					if(glitch.equalsIgnoreCase("glitch gang") || glitch.equalsIgnoreCase("glitchgang"))
-					{
-						image.glitchGang();
-						glitchStarted = true;
-					}
-					if(glitch.equalsIgnoreCase("fizzle"))
-					{
-						image.fizzle();
-						glitchStarted = true;
-					}
-					if(glitch.equalsIgnoreCase("fizzle remastered") || glitch.equalsIgnoreCase("fizzleremastered"))
-					{
-						image.fizzleRemastered();
-						glitchStarted = true;
-					}
-					if(glitch.equalsIgnoreCase("hide picture") || glitch.equalsIgnoreCase("hidepicture"))
-					{
-						String hideResponse = JOptionPane.showInputDialog(null, "which image do you want to hide?");
-						Picture toHide = new Picture(hideResponse);
-						image.hidePicture(toHide);
-						glitchStarted = true;
-					}
-					if(glitch.equalsIgnoreCase("reveal picture") || glitch.equalsIgnoreCase("revealpicture"))
-					{
-						image.revealPicture();
-						glitchStarted = true;
-					}
-					if(glitch.equalsIgnoreCase("math class") || glitch.equalsIgnoreCase("mathclass"))
-					{
-						mathClass.greenUnder30Glitch(image);
-						glitchStarted = true;
-					}
-					else
-					{
-						glitch = glitchSelector();
-					}
-		}
-		*/
 		System.out.println(glitch);
 		runGlitch(glitch);
 		image.explore();
@@ -296,7 +214,7 @@ public class PictureTester
 		}
 		
 
-		if(method.equals(glitches.get(9)))
+		if(method.equals("math class"))
 		{
 			image.mathClass();
 		}

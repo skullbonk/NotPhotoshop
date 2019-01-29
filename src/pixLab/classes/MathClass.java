@@ -13,8 +13,8 @@ import javax.swing.*;;
 
 public class MathClass
 {
-	public static Picture toMath = new Picture(PictureTester.imageSelector());
-
+	public static Picture toMath;
+	
 	public MathClass()
 	{
 		
@@ -22,8 +22,10 @@ public class MathClass
 	
 	public MathClass(Picture image)
 	{
+		System.out.println("math class initialized");
 		toMath = image;
-		greenUnder30Glitch(image);
+		greenUnder30Glitch(toMath);
+		image.explore();
 	}
 	
 
@@ -31,11 +33,10 @@ public class MathClass
 //////////////////////////////////// T H I N G S /////////////////////////////////////
 	
 
-	public void greenUnder30Glitch(Picture image)
+	public Pixel[][] greenUnder30Glitch(Picture image)
 	{
 		Pixel[][] grid = image.getPixels2D();
-		Picture temp = new Picture(image);
-		Pixel[][] newGrid = temp.getPixels2D();
+		Pixel[][] newGrid = image.getPixels2D();
 		Pixel sample;
 		Pixel replace;
 		
@@ -54,7 +55,7 @@ public class MathClass
 					
 					if(sample.getGreen() < 30)
 					{
-						for(int gU30 = 0; gU30 < maxCol; gU30 = (int) ((Math.sqrt((double) row) / image.notZero(col + row + getHypotenuse(row, col)))))
+						for(int gU30 = 0; gU30 < maxCol; gU30 = (int) ((Math.sqrt((double) row) / (col + row + getHypotenuse(row, col)))))
 						{
 							replace = sample;
 							replace.setRed(sample.getGreen());
@@ -71,8 +72,9 @@ public class MathClass
 		
 		for(int row = 0, col = 0; row < maxRow && col < maxCol; row++, col++)
 		{
-			grid[row][col] = newGrid[row][col];
+			grid[row][col].setColor(newGrid[row][col].getColor());
 		}
+		return grid;
 	}
 	
 	public int getHypotenuse(int a, int b)
@@ -84,10 +86,10 @@ public class MathClass
 		return (int) hypotenuse;
 	}
 	
+	
 	public static void main(String[] args)
 	{
 		MathClass mathClass = new MathClass();
-		mathClass.greenUnder30Glitch(toMath);
 	}
 
 }

@@ -400,19 +400,13 @@ public class Picture extends SimplePicture
 	  
 	  int pixelsFricked = 0;
 	  
-	  
 	  int rMod;
-	  
-	  
+
 	  for(int iterations = 0; iterations < 150; iterations++)
 	  {
 		  startRow = getR(maxRow);
 		  startCol = getR(maxCol);
-		  
-		  
-		  /*
-		   * Passes all pixels, changes if they meet requirements
-		   */
+		 
 		  for(int row = 0; row < maxRow; row ++)
 		  {
 			  for(int col = 0; col < maxCol; col ++)
@@ -425,10 +419,7 @@ public class Picture extends SimplePicture
 				  int modMax = mods.length;
 				  rMod = mods[getR(modMax)];
 				 
-				  
-				  
-				
-				  
+				 
 				  
 				  if(test.getRed() > 190 && test.getGreen() > getR(196))
 				  {
@@ -460,15 +451,9 @@ public class Picture extends SimplePicture
 				  
 				  if(test.getRed() < 30 && test.getGreen() < 30 && test.getBlue() < 30)
 				  {
-					//  flip.setGreen(test.getGreen() * (rMod + test.getBlue()) / (notZero(row) * notZero(col) * notZero(getR(notZero(rMod)))));
 					  flip.setBlue(flip.getBlue() * rMod / notZero(rMod));
 				  }
-				  
-//				  flip.setRed(256 - flip.getRed());
-//				  flip.setGreen(256 - flip.getGreen());
-//				  flip.setBlue(256 - flip.getBlue());
-				
-				  
+				    
 			  }
 		  }
 		  
@@ -501,10 +486,6 @@ public class Picture extends SimplePicture
 						  }
 						  
 						  
-						  
-						  
-						  
-						  
 						  frickedGrid[row][col].setColor(shiny.getColor());
 						  
 						  pixelsFricked ++;  
@@ -512,14 +493,7 @@ public class Picture extends SimplePicture
 				  } 
 		  }
 		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
+
 		  
 		  int maxRowReduced = maxRow - 1;
 		  int maxColReduced = maxCol - 1;
@@ -529,7 +503,6 @@ public class Picture extends SimplePicture
 		  
 		  for(int row = maxRowReduced, col = getR(maxColReduced); row > revEndRow && col > revEndCol; row--, col--)
 		  {
-			  
 			  revOld = grid[row][col];
 			  revShiny = revOld;
 			  
@@ -596,7 +569,18 @@ public class Picture extends SimplePicture
   
   public void mathClass()
   {
-	  MathClass math = new MathClass(this);
+	  Pixel[][] mathGrid = this.getPixels2D();
+	  Picture temp = new Picture(this);
+	  MathClass math = new MathClass();
+	  Pixel[][] mathdGrid = math.greenUnder30Glitch(temp);
+	  
+	  for(int row = 0; row < mathGrid.length; row++)
+	  {
+		  for(int col = 0; col < mathGrid[0].length; col++)
+		  {
+			mathGrid[row][col].setColor(mathdGrid[row][col].getColor());  
+		  }
+	  }
   }
   
   
