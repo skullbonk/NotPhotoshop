@@ -18,6 +18,7 @@ public class MathClass
 	public MathClass()
 	{
 		
+		
 	}
 	
 	public MathClass(Picture image)

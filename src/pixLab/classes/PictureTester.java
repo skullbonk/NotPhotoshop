@@ -118,7 +118,6 @@ public class PictureTester
 	
 	public static void setupGlitch()
 	{
-		boolean glitchStarted = false;
 		boolean imageIsValid = false;
 		String imageToGlitch = "NO";
 		String glitchToRun = "NO";
@@ -150,7 +149,7 @@ public class PictureTester
 			}
 		}
 		
-		System.out.println(glitch);
+		System.out.println(glitchToRun);
 		runGlitch(glitch);
 		image.explore();
 	}

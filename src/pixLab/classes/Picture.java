@@ -481,7 +481,7 @@ public class Picture extends SimplePicture
 							  average = (int) old.getAverage();
 							 
 							  shiny.setRed(rMod);
-							  shiny.setGreen(old.getGreen() * getR(rMod));
+							  shiny.setGreen(old.getGreen() * notZero(getR(rMod)));
 							  shiny.setBlue(old.getBlue() * 2);
 						  }
 						  
@@ -569,18 +569,8 @@ public class Picture extends SimplePicture
   
   public void mathClass()
   {
-	  Pixel[][] mathGrid = this.getPixels2D();
-	  Picture temp = new Picture(this);
-	  MathClass math = new MathClass();
-	  Pixel[][] mathdGrid = math.greenUnder30Glitch(temp);
+	  Pixel[][] grid = this.getPixels2D();
 	  
-	  for(int row = 0; row < mathGrid.length; row++)
-	  {
-		  for(int col = 0; col < mathGrid[0].length; col++)
-		  {
-			mathGrid[row][col].setColor(mathdGrid[row][col].getColor());  
-		  }
-	  }
   }
   
   
