@@ -114,6 +114,7 @@ public class PictureTester
 		glitches.add("hide picture");
 		glitches.add("reveal picture");
 		glitches.add("math class");
+		glitches.add("take chunks");
 	}
 	
 	public static void setupGlitch()
@@ -151,6 +152,7 @@ public class PictureTester
 		
 		System.out.println(glitchToRun);
 		runGlitch(glitch);
+		System.out.println("glitch " + glitchToRun);
 		image.explore();
 	}
 	
@@ -216,6 +218,11 @@ public class PictureTester
 		if(method.equals("math class"))
 		{
 			image.mathClass();
+		}
+		
+		if(method.equals("take chunks"))
+		{
+			image.takeChunks();
 		}
 	}
 	

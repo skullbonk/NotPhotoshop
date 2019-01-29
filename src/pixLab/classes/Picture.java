@@ -523,6 +523,49 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  public void takeChunks()
+  {
+	  Pixel[][] grid = this.getPixels2D();
+	  Picture temp = new Picture(this);
+	  Pixel[][] freshGrid = temp.getPixels2D();	  
+	  
+	  Pixel source;
+	  Pixel result;
+	  
+	  int maxRow = grid.length;
+	  int maxCol = grid[0].length;
+	  
+	  for(int row = 0; row < maxRow; row += getR(12))
+	  {														
+		  for(int col = 0; col < maxCol; col += getR(row))
+		  {
+			  
+			  for(int rowMod = row; rowMod < maxRow - (row + getR(48) + 5); rowMod++)
+			  {
+				  for(int colMod = col; colMod < maxCol - (col + getR(64) + 5); colMod++)
+				  {
+					  source = grid[row][col];
+					  result = source;
+					  
+					  result.setRed(source.getGreen());
+					  result.setGreen(source.getBlue());
+					  result.setBlue(source.getRed());
+					  
+					  freshGrid[rowMod][colMod].setColor(result.getColor());
+					  
+				  }
+			  }
+			  
+			  
+		  }
+	  }
+	  
+	  for(int row = 0, col = 0; row < maxRow && col < maxCol; row++, col++)
+	  {
+		  grid[row][col].setColor(freshGrid[row][col].getColor());
+	  }
+  }
+  
   public void hidePicture(Picture hidden)
   {
 	  Pixel[][] pixels = this.getPixels2D();
