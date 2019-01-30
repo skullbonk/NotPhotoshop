@@ -532,37 +532,71 @@ public class Picture extends SimplePicture
 	  Pixel source;
 	  Pixel result;
 	  
+	  
 	  int maxRow = grid.length;
 	  int maxCol = grid[0].length;
 	  
+	  int colLength;
+	  
 	  for(int row = 0; row < maxRow; row += getR(12))
 	  {														
-		  for(int col = 0; col < maxCol; col += getR(row))
+		  for(int col = 0; col < maxCol; col += getR(12))
 		  {
 			  
-			  for(int rowMod = row; rowMod < maxRow - (row + getR(48) + 5); rowMod++)
+			  for(int rowMod = row; rowMod < (row + getR(48) + 5) && rowMod < maxRow; rowMod++)
 			  {
-				  for(int colMod = col; colMod < maxCol - (col + getR(64) + 5); colMod++)
+				  colLength = col + getR(64) + 5;
+				  for(int colMod = col; colMod < colLength && colMod < maxCol; colMod++)
 				  {
 					  source = grid[row][col];
-					  result = source;
+					  result = freshGrid[row][col];
+					  
+					  result.setColor(source.getColor()); 
+					  
 					  
 					  result.setRed(source.getGreen());
 					  result.setGreen(source.getBlue());
 					  result.setBlue(source.getRed());
 					  
-					  freshGrid[rowMod][colMod].setColor(result.getColor());
+					  if(source.getRed() < 30)
+					  {
+						  result.setRed(source.getRed() + (source.getGreen() * row / 3));
+					  }
 					  
+					  if(source.getGreen() > 110)
+					  {
+						  result.setGreen(source.getGreen() - (source.getRow() / 2));
+					  }
+					  
+					  if(source.getGreen() > 100 && source.getGreen() < 130)
+					  {
+						  int randomGreen = source.getGreen();
+						  randomGreen += getR(40);
+						  result.setGreen(randomGreen);
+					  }
+					  
+					  if(col % 9 < 3)
+					  {
+						  result.setBlue((int) ((double) result.getBlue() * 1.5));
+					  }
+					  
+					  if(col % 2 == 0)
+					  {
+						  result.setGreen(result.getGreen() + 2);
+					  }
+					  
+					  freshGrid[rowMod][colMod].setColor(result.getColor());	  
 				  }
-			  }
-			  
-			  
+			  }  
 		  }
 	  }
 	  
-	  for(int row = 0, col = 0; row < maxRow && col < maxCol; row++, col++)
+	  for(int row = 0; row < maxRow; row++)
 	  {
-		  grid[row][col].setColor(freshGrid[row][col].getColor());
+		  for(int col = 0; col < maxCol; col++)
+		  {  
+			  grid[row][col].setColor(freshGrid[row][col].getColor());
+		  }
 	  }
   }
   

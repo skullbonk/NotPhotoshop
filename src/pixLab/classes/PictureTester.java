@@ -37,7 +37,12 @@ public class PictureTester
 					+ " type collection to do the best ones."
 					+ " just be aware that this will take a"
 					+ " few minutes to load, because I'm "
-					+ "great at programming");
+					+ "great at programming. type help for a list");
+			
+			if(request == "help")
+			{
+				request = JOptionPane.showInputDialog(null, "options are: " + glitches.toString());
+			}
 			
 		return request;
 	}
@@ -100,6 +105,7 @@ public class PictureTester
 		images.add("wendo.PNG");
 		images.add("whiteFlower.jpg");	
 		images.add("streetsaber.png");
+		images.add("lobchunkd.png");
 	}
 	
 	public static void createGlitchList()
@@ -133,6 +139,11 @@ public class PictureTester
 			{
 				imageIsValid = true;
 			}
+			else
+			{
+				images.add(imageToGlitch);
+				System.out.println("added image " + imageToGlitch + " to list 'glitches'");
+			}
 		}
 		
 		image = new Picture(imageToGlitch);
@@ -154,7 +165,10 @@ public class PictureTester
 		runGlitch(glitch);
 		System.out.println("glitch " + glitchToRun);
 		image.explore();
+		save(image);
 	}
+	
+	
 	
 	public static void runGlitch(String glitch)
 	{
@@ -162,42 +176,49 @@ public class PictureTester
 		
 		if(method.equals(glitches.get(0)))
 		{
+			System.out.println("Running glitch " + method);
 			image.zeroBlue();
 		}
 		
 
 		if(method.equals(glitches.get(1)))
 		{
+			System.out.println("Running glitch " + method);
 			image.mirrorVertical();
 		}
 		
 
 		if(method.equals(glitches.get(2)))
 		{
+			System.out.println("Running glitch " + method);
 			image.mirrorTemple();
 		}
 		
 
 		if(method.equals(glitches.get(3)))
 		{
+			System.out.println("Running glitch " + method);
 			image.mirrorGull();
 		}
 		
 
 		if(method.equals(glitches.get(4)))
 		{
+			System.out.println("Running glitch " + method);
 			image.glitchGang();
 		}
 		
 
 		if(method.equals(glitches.get(5)))
 		{
+			System.out.println("Running glitch " + method);
 			image.fizzle();
 		}
 		
 
 		if(method.equals(glitches.get(6)))
 		{
+			System.out.println("Running glitch " + method);
 			image.fizzleRemastered();
 		}
 		
@@ -211,18 +232,35 @@ public class PictureTester
 		
 		if(method.equals(glitches.get(8)))
 		{
+			System.out.println("Running glitch " + method);
 			image.revealPicture();
 		}
 		
 
 		if(method.equals("math class"))
 		{
+			System.out.println("Running glitch " + method);
 			image.mathClass();
 		}
 		
 		if(method.equals("take chunks"))
 		{
+			System.out.println("Running glitch " + method);
 			image.takeChunks();
+		}
+		
+		System.out.println("complete");
+	}
+	
+	public static void save(Picture image)
+	{
+		String response = JOptionPane.showInputDialog(null, "Save image? y/n");
+		if(response.equals("y"))
+		{
+			String path = JOptionPane.showInputDialog(null, "What do you want to call it?");
+			image.write(path);
+			System.out.println("saved");
+			JOptionPane.showMessageDialog(null, "Success(?)");
 		}
 	}
 	
