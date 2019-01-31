@@ -69,8 +69,8 @@ public class PictureTester
 		images.add("7inX95in.jpg");
 		images.add("arch.jpg");
 		images.add("barbaraS.jpg");
-		images.add("betsoaccused.JPG");
-		images.add("betsoinvestigate.JPG");
+		images.add("betsoaccused.jpg");
+		images.add("betsoinvestigate.jpg");
 		images.add("blue-mark.jpg");
 		images.add("blueMotorcycle.jpg");
 		images.add("butterfly1.jpg");
@@ -81,28 +81,28 @@ public class PictureTester
 		images.add("flower1.jpg");
 		images.add("flower2.jpg");
 		images.add("gorge.jpg");
-		images.add("goy.PNG");
+		images.add("goy.png");
 		images.add("jenny-red.jpg");
 		images.add("KatieFancy.jpg");
 		images.add("kitten2.jpg");
 		images.add("koala.jpg");
-		images.add("lob.PNG");
+		images.add("lob.png");
 		images.add("moon-surface.jpg");
 		images.add("msg.jpg");
-		images.add("pozzo.JPG");
+		images.add("pozzo.jpg");
 		images.add("redMotorcycle.jpg");
 		images.add("robot.jpg");
 		images.add("seagull.jpg");
 		images.add("smolgoy.png");
 		images.add("snowman.jpg");
-		images.add("sock.PNG");
+		images.add("sock.png");
 		images.add("swan.jpg");
 		images.add("temple.jpg");
 		images.add("thruDoor.jpg");
 		images.add("vollog.jpg");
 		images.add("wall.jpg");
 		images.add("water.jpg");
-		images.add("wendo.PNG");
+		images.add("wendo.png");
 		images.add("whiteFlower.jpg");	
 		images.add("streetsaber.png");
 		images.add("lobchunkd.png");
@@ -165,7 +165,7 @@ public class PictureTester
 		runGlitch(glitch);
 		System.out.println("glitch " + glitchToRun);
 		image.explore();
-		save(image);
+//		save(image);
 	}
 	
 	

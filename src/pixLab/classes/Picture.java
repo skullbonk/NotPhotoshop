@@ -234,14 +234,15 @@ public class Picture extends SimplePicture
 	  Pixel originalPixel = null;
 	  Pixel freshPixel = null;
 	  Pixel[][] replaceBox = this.getPixels2D();
+	  
 	  int reps = 0;
 	  int rRow = 0;
 	  int rCol = 0;
 	  for (reps = 0; reps < random.nextInt(7); reps++)
 	  {
 		  
+		  
 	  }
-	  
 	  
   }
   
@@ -527,16 +528,25 @@ public class Picture extends SimplePicture
   {
 	  Pixel[][] grid = this.getPixels2D();
 	  Picture temp = new Picture(this);
-	  Pixel[][] freshGrid = temp.getPixels2D();	  
+	  Pixel[][] freshGrid = temp.getPixels2D();	
+	  Pixel[][] subGrid = freshGrid;
+	  
 	  
 	  Pixel source;
 	  Pixel result;
+	  
+	  Pixel previous;
+	  Pixel postSource;
+	  Pixel postResult;
 	  
 	  
 	  int maxRow = grid.length;
 	  int maxCol = grid[0].length;
 	  
 	  int colLength;
+	  
+	  int clumpRow;
+	  int clumpCol;
 	  
 	  for(int row = 0; row < maxRow; row += getR(12))
 	  {														
@@ -546,50 +556,93 @@ public class Picture extends SimplePicture
 			  for(int rowMod = row; rowMod < (row + getR(48) + 5) && rowMod < maxRow; rowMod++)
 			  {
 				  colLength = col + getR(64) + 5;
-				  for(int colMod = col; colMod < colLength && colMod < maxCol; colMod++)
+				  while(colLength + col > maxCol)
+				  {
+					  colLength --;
+				  }
+				  for(int colMod = col; colMod < col + colLength; colMod++)
 				  {
 					  source = grid[row][col];
 					  result = freshGrid[row][col];
 					  
 					  result.setColor(source.getColor()); 
 					  
+//					  // BEGIN MESSING OF UP //
 					  
-					  result.setRed(source.getGreen());
-					  result.setGreen(source.getBlue());
-					  result.setBlue(source.getRed());
-					  
-					  if(source.getRed() < 30)
+					  if((row + col) / 2 > 300)
 					  {
-						  result.setRed(source.getRed() + (source.getGreen() * row / 3));
+						  result.setRed(source.getBlue());  
+						  result.setGreen(source.getRed());
+						  result.setBlue(source.getGreen());
 					  }
-					  
-					  if(source.getGreen() > 110)
-					  {
-						  result.setGreen(source.getGreen() - (source.getRow() / 2));
-					  }
-					  
-					  if(source.getGreen() > 100 && source.getGreen() < 130)
-					  {
-						  int randomGreen = source.getGreen();
-						  randomGreen += getR(40);
-						  result.setGreen(randomGreen);
-					  }
-					  
-					  if(col % 9 < 3)
-					  {
-						  result.setBlue((int) ((double) result.getBlue() * 1.5));
-					  }
-					  
+					 
 					  if(col % 2 == 0)
 					  {
-						  result.setGreen(result.getGreen() + 2);
+						  result.setRed(2 * (source.getRed() / 3));
+						  result.setGreen(result.getRed() / 2 + ((result.getRed() * 2) / notZero(colMod)));								  
+						  result.setBlue(rowMod * source.getGreen() / notZero(colMod));
 					  }
 					  
-					  freshGrid[rowMod][colMod].setColor(result.getColor());	  
+					  if(source.getBlue() > 50  && source.getBlue() < 70)
+					  {
+						  result.setRed(result.getBlue());
+					  }
+					  
+					  if(source.getRed() < source.getBlue())
+					  {
+						  if(col % 2 == 0)
+						  {
+							  result.setRed(source.getRed() - (source.getBlue() / 3));
+						  }
+						  else
+						  {
+							  result.setRed(source.getRed() + (source.getBlue() / 3));
+						  }
+					  }
+					  
+					  
+					  
+					 
+//					  // COMMIT MESSING OF UP //
+					  
+					  subGrid[rowMod][colMod].setColor(result.getColor());	  
+					  
+					  
+					  if(row % 2 == 0 && col % 2 == 0)
+					  {
+						  clumpRow = row + notZero(getR(7));
+						  clumpCol = col + notZero(getR(getR(48)));
+						  
+						  while(clumpRow > maxRow)
+						  {
+							  clumpRow --;
+						  }
+						  while(clumpCol > maxCol)
+						  {
+							  clumpCol --;
+						  }
+						  
+						  for(int chunkRow = row; chunkRow < clumpRow; chunkRow ++)
+						  {
+							  for(int chunkCol = col; chunkCol < clumpCol; chunkCol ++)
+							  {
+								  previous = subGrid[notZero(row - (clumpRow - row))][notZero(col - (clumpCol - col))];
+								  
+								  previous.setRed((int) ((double) source.getRed() * 1.75));
+								  previous.setGreen((int) ((double) source.getGreen() * 1.75));
+								  previous.setBlue((int) ((double) source.getBlue() * 1.75));
+								  
+								  result.setColor(previous.getColor());
+								  freshGrid[chunkRow][chunkCol].setColor(subGrid[row][col].getColor());
+							  }
+						  }
+					  }
 				  }
 			  }  
 		  }
 	  }
+	  
+//	  // APPLY MESSING OF UP //
 	  
 	  for(int row = 0; row < maxRow; row++)
 	  {
@@ -599,6 +652,8 @@ public class Picture extends SimplePicture
 		  }
 	  }
   }
+  
+  
   
   public void hidePicture(Picture hidden)
   {
