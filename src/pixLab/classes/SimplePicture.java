@@ -634,7 +634,7 @@ public class SimplePicture implements DigitalPicture
    {
      fileName = FileChooser.getMediaPath(fileName);
      file = new File(fileName);
-     fileLoc = file.getParentFile(); 
+     fileLoc = file.getParentFile();
    }
    
    // check that you can write to the directory 
