@@ -402,7 +402,7 @@ public class Picture extends SimplePicture
 	  
 	  int rotations;
 
-	  for(int iterations = 0; iterations < 150; iterations++)
+	  for(int iterations = 0; iterations < 256; iterations++)
 	  {
 		  startRow = getR(maxRow);
 		  startCol = getR(maxCol);
@@ -441,11 +441,18 @@ public class Picture extends SimplePicture
 					  flip.setRed((flip.getRed() / (notZero(col))));
 				  }
 				  
+				  if(row % 5 == 0 && col % 5 == 0)
+				  {
+					  flip.setGreen(flip.getGreen() + test.getGreen());
+				  }
+				  
 				  if(test.getRed() < 30 && test.getGreen() < 30 && test.getBlue() < 30)
 				  {
 					  flip.setBlue(flip.getBlue() * rMod(mods) / notZero(rMod(mods)));
 				  }   
 				  frickedGrid[row][col].setColor(flip.getColor());
+				  
+				  
 			  }
 //			  if(row % 5 == 0)
 //			  {
@@ -512,15 +519,16 @@ public class Picture extends SimplePicture
 		  }
 		
 		  
-		  for(int row = getR(maxRow - 1), col = row; row < maxRow && col < maxCol; row ++, col ++)
+		  for(int row = getR(maxRow - 1), col = getR(row); row < maxRow && col < maxCol; row ++, col ++)
 		  {
 			  
 			  frickedGrid[row][col].setGreen(frickedGrid[maxRow - row][maxCol - col].getGreen() + iterations);
+			  frickedGrid[row][col].setBlue(frickedGrid[row][col].getBlue() - getR(256 - iterations));
 		  }
 
 		  
 		  
-		 
+//		 COMMIT TO GRID AND DISPLAY
 			  
 		  for(int row = 0; row < maxRow; row++)
 		  {
