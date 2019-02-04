@@ -517,6 +517,11 @@ public class Picture extends SimplePicture
 //					  this.repaint();
 //				  }
 		  }
+		  
+		  for(int row = 0; row < maxRow; row ++)
+		  {
+			  
+		  }
 		
 		  
 		  for(int row = getR(maxRow - 1), col = getR(row); row < maxRow && col < maxCol; row ++, col ++)
@@ -566,113 +571,108 @@ public class Picture extends SimplePicture
 	  int clumpRow;
 	  int clumpCol;
 	  
-	  for(int row = 0; row < maxRow; row += getR(12))
-	  {	
-		  this.show();
-		  for(int col = 0; col < maxCol; col += getR(12))
-		  {
-			  
-			  for(int rowMod = row; rowMod < (row + getR(48) + 5) && rowMod < maxRow; rowMod++)
+	  this.show();
+	  
+	  for(int iterations = 0; iterations < 2; iterations ++)
+	  {
+		  for(int row = 0; row < maxRow; row += getR(12))
+		  {	
+			  for(int col = 0; col < maxCol; col += getR(12))
 			  {
-				  colLength = col + getR(64) + 5;
-				  while(colLength + col > maxCol)
+				  
+				  for(int rowMod = row; rowMod < (row + getR(48) + 5) && rowMod < maxRow; rowMod++)
 				  {
-					  colLength --;
-				  }
-				  for(int colMod = col; colMod < col + colLength; colMod++)
-				  {
-					  source = grid[row][col];
-					  result = freshGrid[row][col];
-					  
-					  result.setColor(source.getColor()); 
-					  
+					  colLength = col + getR(64) + 5;
+					  while(colLength + col > maxCol)
+					  {
+						  colLength -= getR(10);
+					  }
+					  for(int colMod = col; colMod < col + colLength; colMod++)
+					  {
+						  source = grid[row][col];
+						  result = subGrid[row][col];
+						  
+						  result.setColor(source.getColor()); 
+						  
 //					  // BEGIN MESSING OF UP //
-					  
-					  if((row + col) / 2 > 300)
-					  {
-						  result.setRed(source.getBlue());  
-						  result.setGreen(source.getRed());
-						  result.setBlue(source.getGreen());
-					  }
-					 
-					  if(col % 2 == 0)
-					  {
-						  result.setRed(2 * (source.getRed() / 3));
-						  result.setGreen(result.getRed() / 2 + ((result.getRed() * 2) / notZero(colMod)));								  
-						  result.setBlue(rowMod * source.getGreen() / notZero(colMod));
-					  }
-					  
-					  if(source.getBlue() > 50  && source.getBlue() < 70)
-					  {
-						  result.setRed(result.getBlue());
-					  }
-					  
-					  if(source.getRed() < source.getBlue())
-					  {
+						  
+						  if((row + col) / 2 > ((maxRow + maxCol) / 2) / 2)
+						  {
+							  result.setRed(source.getBlue());  
+							  result.setGreen(source.getRed());
+							  result.setBlue(source.getGreen());
+						  }
+						  
 						  if(col % 2 == 0)
 						  {
-							  result.setRed(source.getRed() - (source.getBlue() / 3));
-						  }
-						  else
-						  {
-							  result.setRed(source.getRed() + (source.getBlue() / 3));
-						  }
-					  }
-					  
-					  
-					  
-					 
-//					  // COMMIT MESSING OF UP //
-					  
-					  subGrid[rowMod][colMod].setColor(result.getColor());	  
-					  
-					  
-					  if(row % 2 == 0 && col % 2 == 0)
-					  {
-						  clumpRow = row + notZero(getR(7));
-						  clumpCol = col + notZero(getR(getR(48)));
-						  
-						  while(clumpRow > maxRow)
-						  {
-							  clumpRow --;
-						  }
-						  while(clumpCol > maxCol)
-						  {
-							  clumpCol --;
+							 result.setRed((result.getRed() + source.getRed()) / 2);
 						  }
 						  
-						  for(int chunkRow = row; chunkRow < clumpRow; chunkRow ++)
+						  if(source.getBlue() > 50  && source.getBlue() < 80)
 						  {
-							  for(int chunkCol = col; chunkCol < clumpCol; chunkCol ++)
+							  result.setGreen(result.getBlue());
+						  }
+						  
+						  if(source.getRed() < source.getBlue())
+						  {
+							  if(col % 4 == 0)
 							  {
-								  previous = subGrid[notZero(row - (clumpRow - row))][notZero(col - (clumpCol - col))];
-								  
-								  previous.setRed((int) ((double) source.getRed() * 1.75));
-								  previous.setGreen((int) ((double) source.getGreen() * 1.75));
-								  previous.setBlue((int) ((double) source.getBlue() * 1.75));
-								  
-								  result.setColor(previous.getColor());
-								  freshGrid[chunkRow][chunkCol].setColor(subGrid[row][col].getColor());
+								  result.setRed(source.getRed() - (source.getBlue() / 3));
+							  }
+							  else
+							  {
+								  result.setRed(source.getRed() + (source.getBlue() / 3));
 							  }
 						  }
 						  
+						  
+						  subGrid[rowMod][colMod].setColor(result.getColor());	  
+						  
+						  
+						  
 					  }
-				  }
-			  }  
+				  }  
+			  }
 		  }
-	  }
-	  
+		  
+		  for(int row = getR(maxRow); row < (maxRow - getR((int) ((double)(maxRow * .7)))); row ++)
+		  {
+			  for(int col = getR(maxCol); col < (maxCol - getR((int) ((double)(maxCol * .7)))); col ++)
+			  {
+				  source = subGrid[row][col];
+				  result = source;
+				  
+				  result.setRed((int) ((double) source.getBlue() * 1.2));
+				  result.setGreen((int) ((double) source.getRed() * 1.2));
+				  result.setBlue((int) ((double) source.getGreen() * 1.2));
+				  
+				  freshGrid[row][col].setColor(result.getColor());
+			  }
+			  this.repaint();
+		  }
+		  
+//		  for(int row = 0; row < maxRow; row ++)
+//		  {
+//			  for(int col = 0; col < maxCol; col ++)
+//			  {
+//				  
+//			  }
+//		  }
+		  
 //	  // APPLY MESSING OF UP //
-	  
-	  for(int row = 0; row < maxRow; row++)
-	  {
-		  for(int col = 0; col < maxCol; col++)
-		  {  
-			  grid[row][col].setColor(freshGrid[row][col].getColor());
+		  
+		  for(int row = 0; row < maxRow; row++)
+		  {
+			  for(int col = 0; col < maxCol; col++)
+			  {  
+				  grid[row][col].setColor(freshGrid[row][col].getColor());
+			  }
+			  this.repaint();
 		  }
+		  System.out.println("take chunks iterated " + iterations + " times");
 	  }
-  }
-  
+  	}
+	  
   
   
   public void hidePicture(Picture hidden)

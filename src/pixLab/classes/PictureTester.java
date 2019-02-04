@@ -106,6 +106,12 @@ public class PictureTester
 		images.add("whiteFlower.jpg");	
 		images.add("streetsaber.png");
 		images.add("lobchunkd.png");
+		images.add("sacknpillo.jpg");
+		images.add("sacknpillo-chunkd.png");
+		images.add("sacknpillo-chunkfirst.png");
+		images.add("sacknpillo-fizzle.png");
+		images.add("goyinclass.jpg");
+		images.add("goyinclass-chunkd.png");
 	}
 	
 	public static void createGlitchList()
@@ -142,7 +148,7 @@ public class PictureTester
 			else
 			{
 				images.add(imageToGlitch);
-				System.out.println("added image " + imageToGlitch + " to list 'glitches'");
+				System.out.println("added image " + imageToGlitch + " to list 'images'");
 			}
 		}
 		
