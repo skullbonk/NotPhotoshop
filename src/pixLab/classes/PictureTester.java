@@ -112,6 +112,7 @@ public class PictureTester
 		images.add("sacknpillo-fizzle.png");
 		images.add("goyinclass.jpg");
 		images.add("goyinclass-chunkd.png");
+		images.add("sacknpillo-chunkd2.png");
 	}
 	
 	public static void createGlitchList()
