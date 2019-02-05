@@ -113,6 +113,9 @@ public class PictureTester
 		images.add("goyinclass.jpg");
 		images.add("goyinclass-chunkd.png");
 		images.add("sacknpillo-chunkd2.png");
+		images.add("levys.png");
+		images.add("levyschunkd.png");
+		images.add("levyschunkd2.png");
 	}
 	
 	public static void createGlitchList()

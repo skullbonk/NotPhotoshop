@@ -402,7 +402,7 @@ public class Picture extends SimplePicture
 	  
 	  int rotations;
 
-	  for(int iterations = 0; iterations < 256; iterations++)
+	  for(int iterations = 0; iterations < 128; iterations++)
 	  {
 		  startRow = getR(maxRow);
 		  startCol = getR(maxCol);
@@ -596,14 +596,14 @@ public class Picture extends SimplePicture
 						  
 //					  // BEGIN MESSING OF UP //
 						  
-						  if((row + col) / 2 > ((maxRow + maxCol) / 2) / 2)
+						  if((source.getBlue() + source.getRed() + source.getGreen()) / 2 > (row))
 						  {
-							  result.setRed(source.getBlue());  
-							  result.setGreen(source.getRed());
-							  result.setBlue(source.getGreen());
+							  result.setRed(256 - source.getRed());  
+							  result.setGreen(256 - source.getGreen());
+							  result.setBlue(256 - source.getBlue());
 						  }
 						  
-						  if(col % 2 == 0)
+						  if(col % 3 == 0)
 						  {
 							 result.setRed((result.getRed() + source.getRed()) / 2);
 						  }
@@ -672,6 +672,30 @@ public class Picture extends SimplePicture
 		  System.out.println("take chunks iterated " + iterations + " times");
 	  }
   	}
+  
+  public void onlyHighest()
+  {
+	  Pixel[][] grid = this.getPixels2D();
+	  Picture temp = new Picture(this);
+	  Pixel[][] splitGrid = temp.getPixels2D();
+	  
+	  int maxRow = grid.length;
+	  int maxCol = grid[0].length;
+	  
+	  Pixel test;
+	  Pixel replace;
+	  
+//	   CYCLE THROUGH PIXELS
+	  for(int row = 0; row < maxRow; row ++)
+	  {
+		  for(int col = 0; col < maxCol; col ++)
+		  {
+			  
+		  }
+	  }
+	  
+	  
+  }
 	  
   
   
