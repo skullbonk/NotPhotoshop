@@ -116,6 +116,8 @@ public class PictureTester
 		images.add("levys.png");
 		images.add("levyschunkd.png");
 		images.add("levyschunkd2.png");
+		images.add("koda.png");
+		images.add("kodachunkd.png");
 	}
 	
 	public static void createGlitchList()

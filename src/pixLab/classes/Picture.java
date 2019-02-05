@@ -725,11 +725,9 @@ public class Picture extends SimplePicture
 			  }
 			  else
 			  {
-				  if(red == blue)
-				  {
-					  replace.setRed(256 - red);
-					  replace.setBlue(256 - blue);
-				  }
+				  replace.setRed(256 - red);
+				  replace.setGreen(256 - green);
+				  replace.setBlue(256 - blue);
 			  }
 			  
 			  
