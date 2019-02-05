@@ -401,6 +401,9 @@ public class Picture extends SimplePicture
 	  
 	  
 	  int rotations;
+	  
+	  int masterRow;
+	  int masterCol;
 
 	  for(int iterations = 0; iterations < 128; iterations++)
 	  {
@@ -409,8 +412,10 @@ public class Picture extends SimplePicture
 		 
 		  for(int row = 0; row < maxRow; row ++)
 		  {
+			  masterRow = row;
 			  for(int col = 0; col < maxCol; col ++)
 			  {
+				  masterCol = col;
 				  test = grid[row][col];
 				  flip = test;
 				  
@@ -450,78 +455,70 @@ public class Picture extends SimplePicture
 				  {
 					  flip.setBlue(flip.getBlue() * rMod(mods) / notZero(rMod(mods)));
 				  }   
+				  
+				  
+				  
+				  if(flip.getGreen() < 30)
+				  {
+					  flip.setGreen(flip.getGreen() + flip.getBlue() / 2);
+				  }
+				  
 				  frickedGrid[row][col].setColor(flip.getColor());
 				  
 				  
-			  }
-//			  if(row % 5 == 0)
-//			  {
-//				  this.repaint();
-//			  }
-		  }
-		  
-		  rotations = 0;
-		  
-		  while(rotations < 16)
-		  {
-			  for(int row1 = 0; row1 < maxRow; row1 ++)
-			  {
-				  for(int col1 = 0; col1 < maxCol; col1 ++)
+				  
+				  rotations = 0;
+				  
+				  while(rotations < 3)
 				  {
-					  original = grid[row1][col1];
-					  update = frickedGrid[row1][col1];
+					  
+					  original = grid[row][col];
+					  update = frickedGrid[row][col];
 					  
 					  if(original.getRed() < update.getRed() && original.getBlue() < (256 - getR(255)))
 					  {
-						  update.setGreen(update.getGreen() + (int) ((double) rotations * 1.62));
+						  update.setGreen(update.getGreen() * (int) ((double) rotations * 1.62));
 					  }
-					  frickedGrid[row1][col1].setColor(update.getColor());
-				  }
-//				  if(row1 % 5 == 0)
-//				  {
-//					  this.repaint();
-//				  }
-			  }
-			  rotations += 1;
-		  }
-		  
-		  for(int row = startRow; row < startRow + getR((maxRow - startRow)); row ++)
-		  {
-				  for(int col = startCol; col < startCol + getR((maxCol - startCol)); col ++)
-				  {
-					  pixelsFricked = 0;
-					  while(pixelsFricked < 32)
-					  {
-						  old = grid[row][col];
-						  
-						  shiny = old;		
-						  
-						  int[] mods = {old.getRed(), old.getGreen(), old.getBlue(), old.getRow(), old.getCol(), (int) old.getAverage(), shiny.getRed(), shiny.getGreen(), shiny.getBlue(), shiny.getRow(), shiny.getCol()};
+					  frickedGrid[row][col].setColor(update.getColor());
 
-						  if(old.getAverage() > grid[startRow][startCol].getAverage())
-						  {
-							  average = (int) old.getAverage();
-							 
-							  shiny.setRed(rMod(mods));
-							  shiny.setGreen(old.getGreen() * notZero(getR(rMod(mods))));
-							  shiny.setBlue(old.getBlue() * 2);
-							  frickedGrid[row][col].setColor(shiny.getColor());
-							  pixelsFricked ++;
-						  }
-						  else pixelsFricked ++;
-						  frickedGrid[row][col].setColor(shiny.getColor());
-					  }
+					  rotations += 1;
 				  }
-//				  if(row % 5 == 0)
-//				  {
-//					  this.repaint();
-//				  }
+				  
+				  
+			
+			  }
+			  this.repaint();
 		  }
 		  
-		  for(int row = 0; row < maxRow; row ++)
-		  {
-			  
-		  }
+//		  for(int row = startRow; row < startRow + getR((maxRow - startRow)); row ++)
+//		  {
+//				  for(int col = startCol; col < startCol + getR((maxCol - startCol)); col ++)
+//				  {
+//					  pixelsFricked = 0;
+//					  while(pixelsFricked < 32)
+//					  {
+//						  old = grid[row][col];
+//						  
+//						  shiny = old;		
+//						  
+//						  int[] mods = {old.getRed(), old.getGreen(), old.getBlue(), old.getRow(), old.getCol(), (int) old.getAverage(), shiny.getRed(), shiny.getGreen(), shiny.getBlue(), shiny.getRow(), shiny.getCol()};
+//
+//						  if(old.getAverage() > grid[startRow][startCol].getAverage())
+//						  {
+//							  average = (int) old.getAverage();
+//							 
+//							  shiny.setRed(rMod(mods));
+//							  shiny.setGreen(old.getGreen() * notZero(getR(rMod(mods))));
+//							  shiny.setBlue(old.getBlue() * 2);
+//							  frickedGrid[row][col].setColor(shiny.getColor());
+//							  pixelsFricked ++;
+//						  }
+//						  else pixelsFricked ++;
+//						  frickedGrid[row][col].setColor(shiny.getColor());
+//					  }
+//				  }
+//		  }
+		  
 		
 		  
 		  for(int row = getR(maxRow - 1), col = getR(row); row < maxRow && col < maxCol; row ++, col ++)
@@ -529,6 +526,34 @@ public class Picture extends SimplePicture
 			  
 			  frickedGrid[row][col].setGreen(frickedGrid[maxRow - row][maxCol - col].getGreen() + iterations);
 			  frickedGrid[row][col].setBlue(frickedGrid[row][col].getBlue() - getR(256 - iterations));
+		  }
+		  
+		  for(int gRow = getR(maxRow); gRow < maxRow - getR(maxRow - gRow) / 2; gRow ++)
+		  {
+			  for(int gCol = getR(maxCol); gCol < maxCol - getR(maxCol - gCol); gCol ++)
+			  {
+				  
+				  
+				  pixelsFricked = 0;
+				  while(pixelsFricked < 32)
+				  {
+					  old = grid[gRow][gCol];
+					  
+					  shiny = old;		
+					 
+
+					  if(old.getAverage() > grid[startRow][startCol].getAverage())
+					  {
+						  average = (int) old.getAverage();
+						 
+						  shiny.setBlue(old.getBlue() * 2);
+						  frickedGrid[gRow][gCol].setColor(shiny.getColor());
+						  pixelsFricked ++;
+					  }
+					  else pixelsFricked ++;
+					  frickedGrid[gRow][gCol].setColor(shiny.getColor());
+				  }
+			  }
 		  }
 
 		  
@@ -541,8 +566,11 @@ public class Picture extends SimplePicture
 			  {
 				  grid[row][col].setColor(frickedGrid[row][col].getColor());  
 			  }
+			  if(row % 10 == 0)
+			  {
+				  this.repaint();
+			  }
 		  }
-		  this.repaint();
 		  System.out.println(iterations);
 	  }
   }
