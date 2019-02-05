@@ -131,6 +131,7 @@ public class PictureTester
 		glitches.add("reveal picture");
 		glitches.add("math class");
 		glitches.add("take chunks");
+		glitches.add("only highest");
 	}
 	
 	public static void setupGlitch()
@@ -232,6 +233,7 @@ public class PictureTester
 			image.fizzleRemastered();
 		}
 		
+		
 
 /*
 		if(method.equals(glitches.get(7)))
@@ -257,6 +259,12 @@ public class PictureTester
 		{
 			System.out.println("Running glitch " + method);
 			image.takeChunks();
+		}
+		
+		if(method.equals("only highest"))
+		{
+			System.out.println("Running glitch " + method);
+			image.onlyHighest();
 		}
 		
 		System.out.println("complete");

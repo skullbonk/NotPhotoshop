@@ -686,11 +686,70 @@ public class Picture extends SimplePicture
 	  Pixel replace;
 	  
 //	   CYCLE THROUGH PIXELS
+	  int red;
+	  int green;
+	  int blue;
+	  
+	  this.show();
+	  
 	  for(int row = 0; row < maxRow; row ++)
 	  {
 		  for(int col = 0; col < maxCol; col ++)
 		  {
+			  test = grid[row][col];
+			  replace = test;
 			  
+			  red = test.getRed();
+			  green = test.getGreen();
+			  blue = test.getBlue();
+			  
+			  
+			  
+			  if(red > green && red > blue)
+			  {
+				  replace.setGreen(green / 8);
+				  replace.setBlue(blue / 8);
+				  replace.setRed(red);
+			  }
+			  else if(green > red && green > blue)
+			  {
+				  replace.setRed(red / 8);
+				  replace.setBlue(blue / 8);
+				  replace.setGreen(green);
+			  }
+			  else if(blue > green && blue > red)
+			  {
+				  replace.setRed(red / 8);
+				  replace.setGreen(green / 8);
+				  replace.setBlue(blue);
+			  }
+			  else
+			  {
+				  if(red == blue)
+				  {
+					  replace.setRed(256 - red);
+					  replace.setBlue(256 - blue);
+				  }
+			  }
+			  
+			  
+//			  else
+//			  {
+//				  replace.setRed((red + green + blue) / 3);
+//				  replace.setGreen((red + green + blue) / 3);
+//				  replace.setBlue((red + green + blue) / 3);
+//			  }
+			  
+			  splitGrid[row][col].setColor(replace.getColor());
+		  }
+		  this.repaint();
+	  }
+	  
+	  for(int row = 0; row < maxRow; row ++)
+	  {
+		  for(int col = 0; col < maxCol; col ++)
+		  {
+			  grid[row][col].setColor(splitGrid[row][col].getColor());
 		  }
 	  }
 	  
