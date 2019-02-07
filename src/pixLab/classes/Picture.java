@@ -659,7 +659,6 @@ public class Picture extends SimplePicture
 						  
 						  
 					  }
-					  this.repaint();
 				  }  
 			  }
 		  }
@@ -677,7 +676,6 @@ public class Picture extends SimplePicture
 				  
 				  freshGrid[row][col].setColor(result.getColor());
 			  }
-			  this.repaint();
 		  }
 		  
 //		  for(int row = 0; row < maxRow; row ++)
