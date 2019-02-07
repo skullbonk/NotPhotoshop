@@ -659,6 +659,7 @@ public class Picture extends SimplePicture
 						  
 						  
 					  }
+					  this.repaint();
 				  }  
 			  }
 		  }
@@ -779,6 +780,102 @@ public class Picture extends SimplePicture
 		  }
 	  }
 	  
+	  
+  }
+  
+  public void destruc()
+  {
+	  Pixel[][] grid = this.getPixels2D();
+	  int maxRow = grid.length;
+	  int maxCol = grid[0].length;
+	  
+	  Pixel source;
+	  Pixel squash;
+	  
+	  int startRow;
+	  int endRow;
+	  int startCol;
+	  int endCol;
+	  
+	  int keepColor;
+	  int incDec;
+	  
+	  int iterations = 0;
+	  while(iterations < 32)
+	  {
+		  startRow = getR(maxRow - (maxRow / 12));
+		  startCol = getR(maxCol - (maxCol / 12));
+		  endRow = startRow + getR(maxRow - startRow);
+		  endCol = startCol + getR(maxCol - startCol);
+		  
+		  for(int row = startRow; row < endRow; row ++)
+		  {
+			  for(int col = startCol; col < endCol; col ++)
+			  {
+				  source = grid[startRow][startCol];
+				  squash = grid[row][col];
+				  
+//				  0 = R  |  1 = G  |  2 = B
+				  keepColor = getR(3);
+				  
+// RED
+				  
+				  if(keepColor == 0) // keep source RED
+				  {
+					  incDec = getR(2);
+					  if(incDec == 0) // increase GREEN & BLUE by half of RED
+					  {		
+						  squash.setGreen(source.getGreen() + (source.getRed() / 2));
+						  squash.setBlue(source.getBlue() + (source.getRed() / 2));
+					  }
+					  else // decrease GREEN & BLUE by half of RED
+					  {
+						  squash.setGreen(source.getGreen() - (source.getRed() / 2));
+						  squash.setBlue(source.getBlue() - (source.getRed() / 2)); 
+					  }
+					  squash.setRed(source.getRed());
+				  }
+				  
+// GREEN
+				  
+				  if(keepColor == 1) // keep source GREEN
+				  {
+					 incDec = getR(2); 
+					 if(incDec == 0) // increase RED & BLUE by half of GREEN
+					 {
+						 squash.setRed(source.getRed() + (source.getGreen() / 2));
+						 squash.setBlue(source.getBlue() + (source.getGreen() / 2));
+					 }
+					 else // decrease RED & BLUE by half of GREEN
+					 {
+						 squash.setRed(source.getRed() - (source.getGreen() / 2));
+						 squash.setBlue(source.getBlue() - (source.getGreen() / 2));
+					 }
+					 squash.setGreen(source.getGreen());
+				  }
+				  
+// BLUE			  
+				  
+				  if(keepColor == 2) // keep source BLUE
+				  {
+					  incDec = getR(2);
+					  if(incDec == 0) // increase RED & GREEN by half of BLUE
+					  {
+						  squash.setRed(source.getRed() + (source.getBlue() / 2));
+						  squash.setGreen(source.getGreen() + (source.getBlue() / 2));
+					  }
+					  else // decrease  RED & GREEN by half of BLUE
+					  {
+						  
+					  }
+					  squash.setBlue(source.getBlue());
+				  }  
+			  }
+			  this.repaint();
+		  }
+		  
+		  iterations ++;
+	  }
 	  
   }
 	  
