@@ -526,6 +526,7 @@ public class Picture extends SimplePicture
 			  
 			  frickedGrid[row][col].setGreen(frickedGrid[maxRow - row][maxCol - col].getGreen() + iterations);
 			  frickedGrid[row][col].setBlue(frickedGrid[row][col].getBlue() - getR(256 - iterations));
+			  this.repaint();
 		  }
 		  
 		  for(int gRow = getR(maxRow); gRow < maxRow - getR(maxRow - gRow) / 2; gRow ++)
@@ -554,6 +555,7 @@ public class Picture extends SimplePicture
 					  frickedGrid[gRow][gCol].setColor(shiny.getColor());
 				  }
 			  }
+			  this.repaint();
 		  }
 
 		  
@@ -566,10 +568,7 @@ public class Picture extends SimplePicture
 			  {
 				  grid[row][col].setColor(frickedGrid[row][col].getColor());  
 			  }
-			  if(row % 10 == 0)
-			  {
-				  this.repaint();
-			  }
+			  this.repaint();
 		  }
 		  System.out.println(iterations);
 	  }

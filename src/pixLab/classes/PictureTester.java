@@ -120,7 +120,7 @@ public class PictureTester
 		images.add("kodachunkd.png");
 		images.add("lasanya.png");
 		images.add("randotextkid.jpg");
-		images.add("lasanya_chunkd.jpg");
+		images.add("lasanya_chunkd.png");
 	}
 	
 	public static void createGlitchList()
