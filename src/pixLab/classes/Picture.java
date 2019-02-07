@@ -789,6 +789,8 @@ public class Picture extends SimplePicture
 	  int maxRow = grid.length;
 	  int maxCol = grid[0].length;
 	  
+//	  ArrayList<String> colors = new ArrayList<String>();
+	  
 	  Pixel source;
 	  Pixel squash;
 	  
@@ -812,8 +814,10 @@ public class Picture extends SimplePicture
 		  {
 			  for(int col = startCol; col < endCol; col ++)
 			  {
-				  source = grid[startRow][startCol];
+				  source = grid[row][col];
 				  squash = grid[row][col];
+				  
+				  
 				  
 //				  0 = R  |  1 = G  |  2 = B
 				  keepColor = getR(3);
@@ -828,7 +832,7 @@ public class Picture extends SimplePicture
 						  squash.setGreen(source.getGreen() + (source.getRed() / 2));
 						  squash.setBlue(source.getBlue() + (source.getRed() / 2));
 					  }
-					  else // decrease GREEN & BLUE by half of RED
+					  if(incDec == 1) // decrease GREEN & BLUE by half of RED
 					  {
 						  squash.setGreen(source.getGreen() - (source.getRed() / 2));
 						  squash.setBlue(source.getBlue() - (source.getRed() / 2)); 
@@ -846,14 +850,14 @@ public class Picture extends SimplePicture
 						 squash.setRed(source.getRed() + (source.getGreen() / 2));
 						 squash.setBlue(source.getBlue() + (source.getGreen() / 2));
 					 }
-					 else // decrease RED & BLUE by half of GREEN
+					 if(incDec == 1) // decrease RED & BLUE by half of GREEN
 					 {
 						 squash.setRed(source.getRed() - (source.getGreen() / 2));
 						 squash.setBlue(source.getBlue() - (source.getGreen() / 2));
 					 }
 					 squash.setGreen(source.getGreen());
 				  }
-				  
+				 
 // BLUE			  
 				  
 				  if(keepColor == 2) // keep source BLUE
@@ -864,7 +868,7 @@ public class Picture extends SimplePicture
 						  squash.setRed(source.getRed() + (source.getBlue() / 2));
 						  squash.setGreen(source.getGreen() + (source.getBlue() / 2));
 					  }
-					  else // decrease  RED & GREEN by half of BLUE
+					  if(incDec == 1) // decrease  RED & GREEN by half of BLUE
 					  {
 						  squash.setRed(source.getRed() - (source.getBlue() / 2));
 						  squash.setGreen(source.getGreen() - (source.getBlue() / 2));
