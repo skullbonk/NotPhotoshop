@@ -866,10 +866,13 @@ public class Picture extends SimplePicture
 					  }
 					  else // decrease  RED & GREEN by half of BLUE
 					  {
-						  
+						  squash.setRed(source.getRed() - (source.getBlue() / 2));
+						  squash.setGreen(source.getGreen() - (source.getBlue() / 2));
 					  }
 					  squash.setBlue(source.getBlue());
 				  }  
+				  
+				  grid[row][col] = squash;
 			  }
 			  this.repaint();
 		  }
