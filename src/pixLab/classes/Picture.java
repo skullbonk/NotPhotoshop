@@ -768,8 +768,8 @@ public class Picture extends SimplePicture
 				  }				 
 				  if(swept[row][col].getBlue() > getR(100) || test.getBlue() < notZero(getR(7) * getR(7) * getR(7) / 4))
 				  {
-					  swept[maxRow - row][maxCol - col].setGreen((int) ((double) grid[row][col].getGreen() * 1.23));
-					  swept[maxRow - row + start][maxCol - col + end].setRed(test());
+					  swept[maxRow - row][maxCol - col].setGreen((int) (grid[row][col].getGreen() * getRDouble()));
+					  swept[maxRow - getR(row)][maxCol - getR(row)].setRed((int) (test.getRed() * (getRDouble() + getRDouble())));
 				  }				  				  
 				  grid[row][col].setColor(swept[row][col].getColor());
 			  }
@@ -800,7 +800,7 @@ public class Picture extends SimplePicture
 				  difference = replace.getBlue() - test.getBlue();
 				  if(difference < 30)
 				  {
-					  replace.setBlue(test.getRed());
+					  replace.setBlue((int) (test.getRed() * getRDouble()));
 				  }  
 				  
 				  swept[row][col].setColor(replace.getColor());
@@ -1190,7 +1190,29 @@ public class Picture extends SimplePicture
     }
   }
   
-  
+  public Pixel safeGrid(Pixel[][] grid, int row, int col)
+  {
+	  Pixel[][] safeGrid = grid;
+	  while(row > safeGrid.length)
+	  {
+		  row --;
+	  }
+	  while(row > 0)
+	  {
+		  row ++;
+	  }
+	  
+	  while(col > safeGrid[0].length)
+	  {
+		  col --;
+	  }
+	  while(col < 0)
+	  {
+		  col ++;
+	  }
+	  
+	  return safeGrid[row][col];
+  }
   
   public int getR(int max)
   {
@@ -1208,15 +1230,12 @@ public class Picture extends SimplePicture
 	  return rInt;
   }
   
-  public double getRDouble(int max)
+  public double getRDouble()
   {
 	  double rDouble = 0.0;
+	  Random random = new Random();
 	  
-	  double part1 = getR(max);
-	  double part2 = getR(max);
-	  double part3 = getR(getR(max));
-	  
-	  rDouble = part1 * part2 / notZeroDouble(part3);
+	  rDouble = random.nextDouble();
 	  return rDouble;
   }
   
