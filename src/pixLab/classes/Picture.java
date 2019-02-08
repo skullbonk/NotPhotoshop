@@ -729,13 +729,14 @@ public class Picture extends SimplePicture
 	  int maxCol = grid[0].length;
 	  
 	  
-	  for(int iterations = 0; iterations < 50; iterations ++)
+	  for(int iterations = 0; iterations < 256; iterations ++)
 	  {
+//		  CYCLES THROUGH RIGHT TO LEFT
 		  start = getR(getR(maxRow));
 		  end = notZero(start - getR(maxRow - start));
 		  for(int row = start; row > end; row --)
 		  {
-			  start = getR(getR(getR(maxCol)));
+			  start = getR(getR(maxCol));
 			  end = notZero(start - getR(maxCol - start));
 			  for(int col = start; col > end; col --)
 			  {
@@ -744,7 +745,7 @@ public class Picture extends SimplePicture
 				  
 				  for(int toastRow = row; toastRow < maxRow && toastRow < (maxRow - getR(getR(maxRow / 2))); toastRow += notZero(getR(4)))
 				  {
-					  for(int toastCol = col; toastCol < maxCol && toastCol < maxCol / notZero(getR((row + col + toastRow + toastCol) / 3)); toastCol ++)
+					  for(int toastCol = col; toastCol < maxCol && toastCol < maxCol / notZero(getR((row + col + toastRow + toastCol) / 2)); toastCol ++)
 					  {
 						  test = grid[toastRow][toastCol];
 						  replace = test;
@@ -765,10 +766,11 @@ public class Picture extends SimplePicture
 						  swept[toastRow][toastCol].setColor(replace.getColor());
 					  }
 				  }				 
-//				  if(test.getBlue() > getR(100) && test.getBlue() < notZero(getR(7) * getR(7) * getR(7) * 2))
-//				  {
-//					  
-//				  }				  				  
+				  if(swept[row][col].getBlue() > getR(100) || test.getBlue() < notZero(getR(7) * getR(7) * getR(7) / 4))
+				  {
+					  swept[maxRow - row][maxCol - col].setGreen((int) ((double) grid[row][col].getGreen() * 1.23));
+					  swept[maxRow - row + start][maxCol - col + end].setRed(test());
+				  }				  				  
 				  grid[row][col].setColor(swept[row][col].getColor());
 			  }
 			  
@@ -777,6 +779,38 @@ public class Picture extends SimplePicture
 				  this.repaint();
 			  }
 		  }
+		  
+		  
+		  int colLimit;
+		  int difference;
+		  for(int row = start; row < getR(getR(maxRow)); row ++)
+		  {
+			  colLimit = getR(getR(maxCol));
+			  for(int col = getR(getR(maxCol - 1)); col < colLimit; col ++)
+			  {
+				  test = grid[row][col];
+				  replace = swept[getR(row)][getR(col)];
+				  
+				  difference = replace.getRed() - test.getRed();
+				  if(difference > 30)
+				  {
+					  replace.setRed(test.getRed() / replace.getRed() + difference / 2);
+				  }
+				  
+				  difference = replace.getBlue() - test.getBlue();
+				  if(difference < 30)
+				  {
+					  replace.setBlue(test.getRed());
+				  }  
+				  
+				  swept[row][col].setColor(replace.getColor());
+			  }
+			  if(row % 3 == 0)
+			  {
+				  this.repaint();
+			  }
+		  }
+		  
 	  }  
   }
   
@@ -1174,6 +1208,18 @@ public class Picture extends SimplePicture
 	  return rInt;
   }
   
+  public double getRDouble(int max)
+  {
+	  double rDouble = 0.0;
+	  
+	  double part1 = getR(max);
+	  double part2 = getR(max);
+	  double part3 = getR(getR(max));
+	  
+	  rDouble = part1 * part2 / notZeroDouble(part3);
+	  return rDouble;
+  }
+  
   public boolean willFrick()
   {
 	  int rInt = 0;
@@ -1202,6 +1248,16 @@ public class Picture extends SimplePicture
 	  while(toUnZero < 1)
 	  {
 		  toUnZero ++;
+	  }
+	  return toUnZero;
+  }
+  
+  public double notZeroDouble(double input)
+  {
+	  double toUnZero = input;
+	  while(toUnZero < 0)
+	  {
+		  toUnZero += (double) (getR(9) / 10);
 	  }
 	  return toUnZero;
   }
