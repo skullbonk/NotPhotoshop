@@ -121,6 +121,13 @@ public class PictureTester
 		images.add("lasanya.png");
 		images.add("randotextkid.jpg");
 		images.add("lasanya_chunkd.png");
+		images.add("youaregay.png");
+		images.add("schnuppy.png");
+		images.add("lablur.png");
+		images.add("roy.jpg");
+		images.add("labehair.jpg");
+		images.add("anyablur.png");
+		images.add("krez.jpg");
 	}
 	
 	public static void createGlitchList()

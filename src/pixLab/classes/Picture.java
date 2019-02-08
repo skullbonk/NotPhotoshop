@@ -487,7 +487,10 @@ public class Picture extends SimplePicture
 				  
 			
 			  }
-			  this.repaint();
+			  if(row % 2 == 0)
+			  {
+				  this.repaint();
+			  }
 		  }
 		  
 //		  for(int row = startRow; row < startRow + getR((maxRow - startRow)); row ++)
@@ -521,12 +524,16 @@ public class Picture extends SimplePicture
 		  
 		
 		  
-		  for(int row = getR(maxRow - 1), col = getR(row); row < maxRow && col < maxCol; row ++, col ++)
+		  for(int row = getR(maxRow - 1), col = getR(maxCol); row < maxRow && col < maxCol; row ++, col ++)
 		  {
 			  
 			  frickedGrid[row][col].setGreen(frickedGrid[maxRow - row][maxCol - col].getGreen() + iterations);
 			  frickedGrid[row][col].setBlue(frickedGrid[row][col].getBlue() - getR(256 - iterations));
-			  this.repaint();
+			  
+			  if(row % 2 == 0)
+			  {
+				  this.repaint();
+			  }
 		  }
 		  
 		  for(int gRow = getR(maxRow); gRow < maxRow - getR(maxRow - gRow) / 2; gRow ++)
@@ -555,7 +562,10 @@ public class Picture extends SimplePicture
 					  frickedGrid[gRow][gCol].setColor(shiny.getColor());
 				  }
 			  }
-			  this.repaint();
+			  if(gRow % 2 == 0)
+			  {
+				  this.repaint();
+			  }
 		  }
 
 		  
@@ -568,7 +578,10 @@ public class Picture extends SimplePicture
 			  {
 				  grid[row][col].setColor(frickedGrid[row][col].getColor());  
 			  }
-			  this.repaint();
+//			  if(row % 2 == 0)
+//			  {
+//				  this.repaint();
+//			  }
 		  }
 		  System.out.println(iterations);
 	  }
@@ -693,11 +706,79 @@ public class Picture extends SimplePicture
 			  {  
 				  grid[row][col].setColor(freshGrid[row][col].getColor());
 			  }
-			  this.repaint();
+			  if(row % 2 == 0)
+			  {
+				  this.repaint();
+			  }
 		  }
 		  System.out.println("take chunks iterated " + iterations + " times");
 	  }
   	}
+  
+  public void sweep()
+  {
+	  Pixel[][] grid = this.getPixels2D();
+	  Pixel[][] swept = this.getPixels2D();
+	  
+	  Pixel test;
+	  Pixel replace;
+	  
+	  int start;
+	  int end;
+	  int maxRow = grid.length;
+	  int maxCol = grid[0].length;
+	  
+	  
+	  for(int iterations = 0; iterations < 20; iterations ++)
+	  {
+		  start = getR(getR(getR(getR(maxRow))));
+		  end = notZero(start - getR(maxRow - start));
+		  for(int row = start; row > end; row --)
+		  {
+			  start = getR(getR(getR(getR(maxCol))));
+			  end = notZero(start - getR(maxCol - start));
+			  for(int col = start; col > end; col --)
+			  {
+				  test = grid[row][col];
+				  replace = test;
+				  
+				  for(int toastRow = row; toastRow < maxRow && toastRow < (maxRow - getR(getR(maxRow / 2))); toastRow += notZero(getR(4)))
+				  {
+					  for(int toastCol = col; toastCol < maxCol && toastCol < maxCol / notZero(getR(getR(getR((row + col + toastRow + toastCol) / 4)))); toastCol ++)
+					  {
+						  test = grid[toastRow][toastCol];
+						  replace = test;
+						  
+						  if(test.getRed() > 90 && test.getRed() < 120)
+						  {
+							  replace.setRed(test.getRed() - test.getGreen() + test.getBlue());
+						  }
+						  if(test.getGreen() < 30)
+						  {
+							  replace.setGreen(test.getGreen() / notZero(getR(test.getBlue()) - getR(test.getRed())));
+						  }
+						  if(test.getBlue() < getR(getR(256)))
+						  {
+							  replace.setBlue((int) ((double)(replace.getGreen() + replace.getRed() / 2) * 1.2)); 
+						  }
+						  
+						  swept[toastRow][toastCol].setColor(replace.getColor());
+					  }
+				  }				 
+//				  if(test.getBlue() > getR(100) && test.getBlue() < notZero(getR(7) * getR(7) * getR(7) * 2))
+//				  {
+//					  
+//				  }				  				  
+				  grid[row][col].setColor(swept[row][col].getColor());
+			  }
+			  
+			  if(row % 3 == 0)
+			  {
+				  this.repaint();
+			  }
+		  }
+	  }  
+  }
   
   public void onlyHighest()
   {
@@ -766,7 +847,10 @@ public class Picture extends SimplePicture
 			  
 			  splitGrid[row][col].setColor(replace.getColor());
 		  }
-		  this.repaint();
+		  if(row % 2 == 0)
+			  {
+				  this.repaint();
+			  }
 	  }
 	  
 	  for(int row = 0; row < maxRow; row ++)
@@ -812,7 +896,7 @@ public class Picture extends SimplePicture
 			  for(int col = startCol; col < endCol; col ++)
 			  {
 				  source = grid[row][col];
-				  squash = grid[row][col];
+				  squash = source;
 				  
 				  
 				  
@@ -875,12 +959,13 @@ public class Picture extends SimplePicture
 				  
 				  grid[row][col] = squash;
 			  }
-			  this.repaint();
+			  if(row % 2 == 0)
+			  {
+				  this.repaint();
+			  }
 		  }
-		  
 		  iterations ++;
-	  }
-	  
+	  }  
   }
 	  
   
