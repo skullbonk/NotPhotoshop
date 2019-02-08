@@ -145,6 +145,7 @@ public class PictureTester
 		glitches.add("take chunks");
 		glitches.add("only highest");
 		glitches.add("destruc");
+		glitches.add("sweep");
 	}
 	
 	public static void setupGlitch()
@@ -284,6 +285,12 @@ public class PictureTester
 		{
 			System.out.println("Running glitch " + method);
 			image.destruc();
+		}
+		
+		if(method.equals("sweep"))
+		{
+			System.out.println("Running glitch " + method);
+			image.sweep();
 		}
 		
 		System.out.println("complete");

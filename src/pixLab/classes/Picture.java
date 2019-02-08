@@ -729,13 +729,13 @@ public class Picture extends SimplePicture
 	  int maxCol = grid[0].length;
 	  
 	  
-	  for(int iterations = 0; iterations < 20; iterations ++)
+	  for(int iterations = 0; iterations < 50; iterations ++)
 	  {
-		  start = getR(getR(getR(getR(maxRow))));
+		  start = getR(getR(maxRow));
 		  end = notZero(start - getR(maxRow - start));
 		  for(int row = start; row > end; row --)
 		  {
-			  start = getR(getR(getR(getR(maxCol))));
+			  start = getR(getR(getR(maxCol)));
 			  end = notZero(start - getR(maxCol - start));
 			  for(int col = start; col > end; col --)
 			  {
@@ -744,7 +744,7 @@ public class Picture extends SimplePicture
 				  
 				  for(int toastRow = row; toastRow < maxRow && toastRow < (maxRow - getR(getR(maxRow / 2))); toastRow += notZero(getR(4)))
 				  {
-					  for(int toastCol = col; toastCol < maxCol && toastCol < maxCol / notZero(getR(getR(getR((row + col + toastRow + toastCol) / 4)))); toastCol ++)
+					  for(int toastCol = col; toastCol < maxCol && toastCol < maxCol / notZero(getR((row + col + toastRow + toastCol) / 3)); toastCol ++)
 					  {
 						  test = grid[toastRow][toastCol];
 						  replace = test;
