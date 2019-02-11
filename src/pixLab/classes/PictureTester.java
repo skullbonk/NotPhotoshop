@@ -187,11 +187,7 @@ public class PictureTester
 			}
 			glitch = glitchSelector();
 			
-			for(int dennysPngIndex = 0; dennysPngIndex < 169; dennysPngIndex ++)
-			{
-				
-			}
-			
+			runGlitch(glitch);
 		}
 		else
 		{
