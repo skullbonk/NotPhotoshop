@@ -10,7 +10,7 @@ import javax.swing.JFileChooser;
  */
 import javax.swing.JOptionPane;
 
-
+import java.awt.image.BufferedImage;
 
 //import java.lang.invoke.MethodHandles;
 //import java.lang.reflect.InvocationTargetException;
@@ -512,9 +512,39 @@ public class PictureTester
 	
 	public static void testDennys()
 	{
+		Picture image;
+		PictureFrame frame = new PictureFrame();
+		String indexString = "dennys-snap";
+		String savePath = FileChooser.pickPath(new JFileChooser());
+		ArrayList<BufferedImage> bufferedDennysPngs = new ArrayList<BufferedImage>();
+		
+		savePath += "/dennysglitch";
 		for(int index = 0; index < 169; index++)
 		{
-			
+			indexString = "dennys-snap";
+			if(index < 10)
+			{
+				indexString += "00" + index + ".png";
+			}
+			else
+			if(index < 100)
+			{
+				indexString += "0" + index + ".png";
+			}
+			else
+			{
+				indexString += index + ".png";
+			}
+			image = new Picture(indexString);
+			dennysPngs.add(image);
+		}
+		
+		for(int index = 0; index < dennysPngs.size(); index ++)
+		{
+			image = dennysPngs.get(index);
+			image.takeChunks();
+			Picture glitchedImage = new Picture(image.getBufferedImage());
+			glitchedImage.write(savePath + " - " + index);
 		}
 	}
 	
