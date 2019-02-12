@@ -1,4 +1,5 @@
 package pixLab.classes;
+import javax.swing.JFileChooser;
 /**
  * This class contains class (static) methods
  * that will help you test the Picture class 
@@ -27,6 +28,8 @@ public class PictureTester
 	
 	public static String glitch;
 	
+	public static boolean isDennys;
+	
 	public static Picture image; // Creates an image when run with imageSelector() as a parameter
 	
 	public static String imageSelector()
@@ -37,7 +40,7 @@ public class PictureTester
 			request = JOptionPane.showInputDialog(null, "which image would you like to screw up?"
 					+ " type collection to do the best ones."
 					+ " just be aware that this will take a"
-					+ " few minutes to load, because I'm "
+			 		+ " few minutes to load, because I'm "
 					+ "great at programming. type help for a list");
 			
 			if(request == "help")
@@ -60,9 +63,6 @@ public class PictureTester
 		return response;
 		
 	}
-	
-	
-	
 	
 	public static void createImageList()
 	{
@@ -164,6 +164,7 @@ public class PictureTester
 			if(imageSelector().equals("dennys"))
 			{
 				imageIsValid = true;
+				isDennys = true;
 			}
 			else if(images.contains(imageToGlitch))
 			{
@@ -176,7 +177,7 @@ public class PictureTester
 			}
 		}
 		
-		if(imageToGlitch.equals("dennys"))
+		if(isDennys == true)
 		{
 			String indexToString;
 			String indexFix = "0";
@@ -233,136 +234,163 @@ public class PictureTester
 	{
 		String method = glitch;
 		
-		if(method.contains("dennys"))
+		if(isDennys == true)
 		{
+			String savePath = FileChooser.pickPath(new JFileChooser());
 			if(method.contains(glitches.get(0)))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.zeroBlue();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains(glitches.get(1)))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.mirrorVertical();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains(glitches.get(2)))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.mirrorTemple();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains(glitches.get(3)))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.mirrorGull();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains(glitches.get(4)))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.glitchGang();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains(glitches.get(5)))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.fizzle();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains(glitches.get(6)))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.fizzleRemastered();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains(glitches.get(8)))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.revealPicture();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains("math class"))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.mathClass();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains("take chunks"))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.takeChunks();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains("only highest"))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.onlyHighest();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains("destruc"))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.destruc();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 			if(method.contains("sweep"))
 			{
+				savePath += "/dennysglitch/";
 				System.out.println("Running glitch " + method);
 				for(int index = 0; index < 169; index ++)
 				{
 					image = dennysPngs.get(index);
 					image.sweep();
-					image.explore();
+					image.write(savePath + " - " + index);
+					System.out.println("completed image " + index);
 				}
 			}
 		}
