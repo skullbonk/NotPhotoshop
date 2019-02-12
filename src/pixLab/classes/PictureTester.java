@@ -329,14 +329,16 @@ public class PictureTester
 	public static void testDennys()
 	{
 		Picture image;
+		Picture glitchedImage;
 		String indexString = "dennys-snap";
 		String savePath = FileChooser.getMediaDirectory();
-//		ArrayList<BufferedImage> bufferedDennysPngs = new ArrayList<BufferedImage>();
+		ArrayList<Picture> glitchedDennysPngs = new ArrayList<Picture>();
 		
-		savePath += "dennysglitch/testDennys";
+		savePath += "dennysglitch/testDennys/";
 		System.out.println(savePath);
 		for(int index = 0; index < 169; index++)
 		{
+			// this section corrects the source file name
 			indexString = "dennys-snap";
 			if(index < 10)
 			{
@@ -351,6 +353,8 @@ public class PictureTester
 			{
 				indexString += index + ".png";
 			}
+			// that section corrected the source file name
+			
 			image = new Picture(indexString);
 			dennysPngs.add(image);
 		}
@@ -359,8 +363,14 @@ public class PictureTester
 		{
 			image = dennysPngs.get(index);
 			image.takeChunks();
-			Picture glitchedImage = new Picture(image.getBufferedImage());
-			glitchedImage.write(savePath + "/" + indexString + "_" + index);
+			
+			glitchedImage = new Picture(image.getBufferedImage());
+			glitchedDennysPngs.add(glitchedImage);
+//			glitchedDennysPngs.get(index).write("glitch_" + indexString);
+			dennysPngs.get(index).write(savePath);
+	
+		
+			System.out.println("adadddadaaadddaaa");
 		}
 	}
 	

@@ -405,7 +405,7 @@ public class Picture extends SimplePicture
 	  int masterRow;
 	  int masterCol;
 
-	  for(int iterations = 0; iterations < 128; iterations++)
+	  for(int iterations = 0; iterations < 32; iterations++)
 	  {
 		  startRow = getR(maxRow);
 		  startCol = getR(maxCol);
@@ -711,7 +711,7 @@ public class Picture extends SimplePicture
 				  this.repaint();
 			  }
 		  }
-		  System.out.println("take chunks iterated " + iterations + " times");
+//		  System.out.println("take chunks iterated " + iterations + " times");
 	  }
   	}
   
