@@ -513,12 +513,15 @@ public class PictureTester
 	public static void testDennys()
 	{
 		Picture image;
+		
+//		FileChooser fileChooser = new FileChooser();
 		PictureFrame frame = new PictureFrame();
 		String indexString = "dennys-snap";
-		String savePath = FileChooser.pickPath(new JFileChooser());
+		String savePath = FileChooser.getMediaDirectory();
 		ArrayList<BufferedImage> bufferedDennysPngs = new ArrayList<BufferedImage>();
 		
-		savePath += "/dennysglitch";
+		savePath += "dennysglitch/testDennys";
+		System.out.println(savePath);
 		for(int index = 0; index < 169; index++)
 		{
 			indexString = "dennys-snap";
@@ -682,6 +685,7 @@ public class PictureTester
 	//testFizzleRemastered();
 	//testSortAttempt1();
 	//testCollection();
-	  setupGlitch();
+//	  setupGlitch();
+	  testDennys();
   }
 }
