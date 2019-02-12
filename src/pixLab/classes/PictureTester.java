@@ -179,29 +179,7 @@ public class PictureTester
 		
 		if(isDennys == true)
 		{
-			String indexToString;
-			String indexFix = "0";
-			for(int index = 0; index < 169; index ++)
-			{
-				if(index < 10)
-				{
-					indexFix = "00" + Integer.toString(index);
-				}
-				else if(index > 9 && index < 100)
-				{
-					indexFix = "0" + Integer.toString(index);
-				}
-				else
-				{
-					indexFix = Integer.toString(index);
-				}
-				indexToString = "dennys-snap" + indexFix + ".png";
-				image = new Picture(indexToString);
-				dennysPngs.add(image);
-			}
-			glitch = glitchSelector();
-			
-			runGlitch(glitch);
+			testDennys();
 		}
 		else
 		{
@@ -685,7 +663,7 @@ public class PictureTester
 	//testFizzleRemastered();
 	//testSortAttempt1();
 	//testCollection();
-//	  setupGlitch();
-	  testDennys();
+	  setupGlitch();
+//	  testDennys();
   }
 }
