@@ -1,4 +1,5 @@
 package pixLab.classes;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 /**
  * This class contains class (static) methods
@@ -11,6 +12,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 //import java.lang.invoke.MethodHandles;
 //import java.lang.reflect.InvocationTargetException;
@@ -329,12 +332,13 @@ public class PictureTester
 	public static void testDennys()
 	{
 		Picture image;
-		Picture glitchedImage;
+		BufferedImage glitchedBuffer;
 		String indexString = "dennys-snap";
 		String savePath = FileChooser.getMediaDirectory();
 		ArrayList<Picture> glitchedDennysPngs = new ArrayList<Picture>();
+		File output;
 		
-		savePath += "dennysglitch/testDennys/";
+		savePath += "dennysglitch";
 		System.out.println(savePath);
 		for(int index = 0; index < 169; index++)
 		{
@@ -362,16 +366,28 @@ public class PictureTester
 		for(int index = 0; index < dennysPngs.size(); index ++)
 		{
 			image = dennysPngs.get(index);
+			image.setShowProgress(false);
 			image.takeChunks();
 			
-			glitchedImage = new Picture(image.getBufferedImage());
-			glitchedDennysPngs.add(glitchedImage);
-//			glitchedDennysPngs.get(index).write("glitch_" + indexString);
-			dennysPngs.get(index).write(savePath);
-	
-		
-			System.out.println("adadddadaaadddaaa");
+			glitchedBuffer = image.getBufferedImage();
+			try
+			{
+				// CTEC MAC
+				ImageIO.write(glitchedBuffer, "png", new File("/Users/rfai3591/Desktop/dennysoutput/dennysout-" + index + ".png"));
+				System.out.println("Created dennysout-" + index + ".png at location '/Users/rfai3591/Desktop/dennysoutput/'");
+				//----------------
+				// CASEYJONES
+//				ImageIO.write(glitchedBuffer, "png", new File("H:\\dennysoutput\\dennysout-" + index + ".png"));
+//				System.out.println("Created dennysout-" + index + ".png at location 'H:\\dennysoutput\\'");
+			}
+			catch(IOException ioerror)
+			{
+				System.out.println("colossal error");
+				System.out.println(ioerror);
+			}
+//			glitchedImage.write("glitcheddennys-" + index + ".png");
 		}
+		JOptionPane.showMessageDialog(null, "Complete.");
 	}
 	
   /** Method to test zeroBlue */

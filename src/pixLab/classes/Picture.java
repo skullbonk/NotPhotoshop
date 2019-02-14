@@ -89,6 +89,8 @@ public class Picture extends SimplePicture
     
   }
   
+  public boolean showProgress = true;
+  
   /** Method to set the blue to 0 */
   public void zeroBlue()
   {
@@ -487,9 +489,12 @@ public class Picture extends SimplePicture
 				  
 			
 			  }
-			  if(row % 2 == 0)
-			  {
-				  this.repaint();
+			  if(showProgress)
+			  {				  
+				  if(row % 2 == 0)
+				  {
+					  this.repaint();
+				  }
 			  }
 		  }
 		  
@@ -530,9 +535,12 @@ public class Picture extends SimplePicture
 			  frickedGrid[row][col].setGreen(frickedGrid[maxRow - row][maxCol - col].getGreen() + iterations);
 			  frickedGrid[row][col].setBlue(frickedGrid[row][col].getBlue() - getR(256 - iterations));
 			  
-			  if(row % 2 == 0)
-			  {
-				  this.repaint();
+			  if(showProgress)
+			  {				  
+				  if(row % 2 == 0)
+				  {
+					  this.repaint();
+				  }
 			  }
 		  }
 		  
@@ -562,9 +570,13 @@ public class Picture extends SimplePicture
 					  frickedGrid[gRow][gCol].setColor(shiny.getColor());
 				  }
 			  }
-			  if(gRow % 2 == 0)
-			  {
-				  this.repaint();
+			  
+			  if(showProgress)
+			  {				  
+				  if(gRow % 2 == 0)
+				  {
+					  this.repaint();
+				  }
 			  }
 		  }
 
@@ -578,10 +590,6 @@ public class Picture extends SimplePicture
 			  {
 				  grid[row][col].setColor(frickedGrid[row][col].getColor());  
 			  }
-//			  if(row % 2 == 0)
-//			  {
-//				  this.repaint();
-//			  }
 		  }
 		  System.out.println(iterations);
 	  }
@@ -611,7 +619,10 @@ public class Picture extends SimplePicture
 	  int clumpRow;
 	  int clumpCol;
 	  
-	  this.show();
+	  if(showProgress)
+	  {		  
+		  this.show();
+	  }
 	  
 	  for(int iterations = 0; iterations < 2; iterations ++)
 	  {
@@ -706,9 +717,12 @@ public class Picture extends SimplePicture
 			  {  
 				  grid[row][col].setColor(freshGrid[row][col].getColor());
 			  }
-			  if(row % 2 == 0)
-			  {
-				  this.repaint();
+			  if(showProgress)
+			  {				  
+				  if(row % 2 == 0)
+				  {
+					  this.repaint();
+				  }
 			  }
 		  }
 //		  System.out.println("take chunks iterated " + iterations + " times");
@@ -729,7 +743,7 @@ public class Picture extends SimplePicture
 	  int maxCol = grid[0].length;
 	  
 	  
-	  for(int iterations = 0; iterations < 256; iterations ++)
+	  for(int iterations = 0; iterations < 128; iterations ++)
 	  {
 //		  CYCLES THROUGH RIGHT TO LEFT
 		  start = getR(getR(maxRow));
@@ -774,9 +788,12 @@ public class Picture extends SimplePicture
 				  grid[row][col].setColor(swept[row][col].getColor());
 			  }
 			  
-			  if(row % 3 == 0)
-			  {
-				  this.repaint();
+			  if(showProgress)
+			  {				  
+				  if(row % 3 == 0)
+				  {
+					  this.repaint();
+				  }
 			  }
 		  }
 		  
@@ -805,9 +822,13 @@ public class Picture extends SimplePicture
 				  
 				  swept[row][col].setColor(replace.getColor());
 			  }
-			  if(row % 3 == 0)
-			  {
-				  this.repaint();
+			  
+			  if(showProgress)
+			  {				  
+				  if(row % 3 == 0)
+				  {
+					  this.repaint();
+				  }
 			  }
 		  }
 		  
@@ -831,7 +852,10 @@ public class Picture extends SimplePicture
 	  int green;
 	  int blue;
 	  
-	  this.show();
+	  if(showProgress)
+	  {		  
+		  this.show();
+	  }
 	  
 	  for(int row = 0; row < maxRow; row ++)
 	  {
@@ -881,10 +905,13 @@ public class Picture extends SimplePicture
 			  
 			  splitGrid[row][col].setColor(replace.getColor());
 		  }
-		  if(row % 2 == 0)
+		  if(showProgress)
+		  {			  
+			  if(row % 2 == 0)
 			  {
 				  this.repaint();
 			  }
+		  }
 	  }
 	  
 	  for(int row = 0; row < maxRow; row ++)
@@ -993,9 +1020,12 @@ public class Picture extends SimplePicture
 				  
 				  grid[row][col] = squash;
 			  }
-			  if(row % 2 == 0)
-			  {
-				  this.repaint();
+			  if(showProgress)
+			  {				  
+				  if(row % 2 == 0)
+				  {
+					  this.repaint();
+				  }
 			  }
 		  }
 		  iterations ++;
@@ -1188,6 +1218,11 @@ public class Picture extends SimplePicture
           leftPixel.setColor(Color.WHITE);
       }
     }
+  }
+  
+  public void setShowProgress(boolean tf)
+  {
+	  showProgress = tf;
   }
   
   public Pixel safeGrid(Pixel[][] grid, int row, int col)
