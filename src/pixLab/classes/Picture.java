@@ -769,7 +769,7 @@ public class Picture extends SimplePicture
 				  if(swept[row][col].getBlue() > getR(100) || test.getBlue() < notZero(getR(7) * getR(7) * getR(7) / 4))
 				  {
 					  swept[maxRow - row][maxCol - col].setGreen((int) (grid[row][col].getGreen() * getRDouble()));
-					  swept[maxRow - getR(row)][maxCol - getR(row)].setRed((int) (test.getRed() * (getRDouble() + getRDouble())));
+					  swept[maxRow - getR(row)][maxCol - getR(col)].setRed((int) (test.getRed() * (getRDouble() + getRDouble())));
 				  }				  				  
 				  grid[row][col].setColor(swept[row][col].getColor());
 			  }
