@@ -170,6 +170,11 @@ public class PictureTester
 				imageIsValid = true;
 				isDennys = true;
 			}
+			else if(imageToGlitch.equals("dennyssweep"))
+			{
+				imageIsValid = true;
+				testDennysSweep();
+			}
 			else if(images.contains(imageToGlitch))
 			{
 				imageIsValid = true;
@@ -386,6 +391,66 @@ public class PictureTester
 				System.out.println(ioerror);
 			}
 //			glitchedImage.write("glitcheddennys-" + index + ".png");
+		}
+		JOptionPane.showMessageDialog(null, "Complete.");
+	}
+	
+	public static void testDennysSweep()
+	{
+		Picture image;
+		BufferedImage glitchedBuffer;
+		String indexString = "dennys-snap";
+		String savePath = FileChooser.getMediaDirectory();
+		ArrayList<Picture> glitchedDennysPngs = new ArrayList<Picture>();
+		File output;
+		
+		savePath += "dennysglitch";
+		System.out.println(savePath);
+		for(int index = 0; index < 169; index++)
+		{
+			// this section corrects the source file name
+			indexString = "dennys-snap";
+			if(index < 10)
+			{
+				indexString += "00" + index + ".png";
+			}
+			else
+			if(index < 100)
+			{
+				indexString += "0" + index + ".png";
+			}
+			else
+			{
+				indexString += index + ".png";
+			}
+			// that section corrected the source file name
+			
+			image = new Picture(indexString);
+			dennysPngs.add(image);
+		}
+		
+		for(int index = 0; index < dennysPngs.size(); index ++)
+		{
+			image = dennysPngs.get(index);
+			image.setShowProgress(false);
+			image.sweep();
+			
+			glitchedBuffer = image.getBufferedImage();
+			try
+			{
+				// CTEC MAC
+				ImageIO.write(glitchedBuffer, "png", new File("/Users/rfai3591/Desktop/dennysoutput-SWEEP/dennyssweep-" + index + ".png"));
+				System.out.println("Created dennyssweep-" + index + ".png at location '/Users/rfai3591/Desktop/dennysoutput-SWEEP/'");
+//-----------------------------------------------
+				// CASEYJONES
+//				ImageIO.write(glitchedBuffer, "png", new File("H:\\dennysoutput-SWEEP\\dennyssweep-" + index + ".png"));
+//				System.out.println("Created dennyssweep-" + index + ".png at location 'H:\\dennysoutput-SWEEP\\'");
+			}
+			catch(IOException ioerror)
+			{
+				System.out.println("colossal error");
+				System.out.println(ioerror);
+			}
 		}
 		JOptionPane.showMessageDialog(null, "Complete.");
 	}
