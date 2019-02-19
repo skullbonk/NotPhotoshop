@@ -24,8 +24,8 @@ public class MathClass
 	{
 		pic = image;
 		System.out.println("math class initialized");
-		greenUnder30Glitch(image);
-		image.explore();
+		greenUnder30Glitch(pic);
+		pic.explore();
 	}
 	
 	
@@ -67,12 +67,14 @@ public class MathClass
 				}
 				image.repaint();
 			}
+			System.out.println("math class passed " + (repeats + 1) + " times");
 		}
 		
 		for(int row = 0, col = 0; row < maxRow && col < maxCol; row++, col++)
 		{
 			grid[row][col].setColor(newGrid[row][col].getColor());
 		}
+		System.out.println("mathClass complete");
 	}
 	
 	public int getHypotenuse(int a, int b)

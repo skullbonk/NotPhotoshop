@@ -1083,7 +1083,6 @@ public class Picture extends SimplePicture
   {
 	  MathClass mathClass = new MathClass(this);
 	  mathClass.greenUnder30Glitch(this);
-	  this.explore();
   }
   
 //  public void mc_gU30()
