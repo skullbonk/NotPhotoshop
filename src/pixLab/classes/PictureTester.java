@@ -290,7 +290,7 @@ public class PictureTester
 		if(method.equals("math class"))
 		{
 			System.out.println("Running glitch " + method);
-			image.mathClass();
+			image.tryMathClass();
 		}
 		
 		if(method.equals("take chunks"))
@@ -390,7 +390,7 @@ public class PictureTester
 				System.out.println("colossal error");
 				System.out.println(ioerror);
 			}
-//			glitchedImage.write("glitcheddennys-" + index + ".png");
+			dennysPngs.set(index, null);
 		}
 		JOptionPane.showMessageDialog(null, "Complete.");
 	}

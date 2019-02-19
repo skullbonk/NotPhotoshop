@@ -1078,12 +1078,50 @@ public class Picture extends SimplePicture
 	  }
   }
   
-  public void mathClass()
+//  math class
+  public void tryMathClass()
   {
-	  Pixel[][] grid = this.getPixels2D();
-	  
+	  MathClass mathClass = new MathClass(this);
+	  mathClass.greenUnder30Glitch(this);
+	  this.explore();
   }
   
+//  public void mc_gU30()
+//  {
+//	  Pixel[][] grid = this.getPixels2D();
+//	  Pixel[][] newGrid = this.getPixels2D();
+//	  Pixel sample;
+//	  Pixel replace;
+//	  
+//	  int maxRow = grid.length;
+//	  int maxCol = grid[0].length;
+//	  
+//	  int repeats = 0;
+//	  
+//	  while(repeats < 30)
+//	  {
+//		  for(int row = 0; row < maxRow; row++)
+//		  {
+//			  for(int col = 0; col < maxCol; col++)
+//			  {
+//				  sample = grid[row][col];
+//				  
+//				  if(sample.getGreen() < 30)
+//				  {
+//					  for(int gU30 = 0; gU30 < maxCol; gU30 = (int) ((Math.sqrt((double) row) / (col + row + getHypotenuse(row, col)))))
+//					  {
+//						  replace = sample;
+//						  replace.setRed(sample.getGreen());
+//						  replace.setBlue(gU30);
+//						  replace.setGreen((int) sample.getGreen() + (col / 255));
+//						  
+//						  newGrid[row][col] = replace;
+//					  }  
+//				  }
+//			  }
+//		  }
+//	  }
+//  }
   
   public void sortAttempt1()
   {

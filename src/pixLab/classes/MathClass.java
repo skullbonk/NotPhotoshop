@@ -13,28 +13,26 @@ import javax.swing.*;;
 
 public class MathClass
 {
-	public static Picture toMath;
+	Picture pic;
 	
 	public MathClass()
 	{
-		
-		
+		pic = new Picture();		
 	}
 	
 	public MathClass(Picture image)
 	{
+		pic = image;
 		System.out.println("math class initialized");
-		toMath = image;
-		greenUnder30Glitch(toMath);
+		greenUnder30Glitch(image);
 		image.explore();
 	}
 	
-
 	
 //////////////////////////////////// T H I N G S /////////////////////////////////////
 	
 
-	public Pixel[][] greenUnder30Glitch(Picture image)
+	public void greenUnder30Glitch(Picture image)
 	{
 		Pixel[][] grid = image.getPixels2D();
 		Pixel[][] newGrid = image.getPixels2D();
@@ -65,9 +63,9 @@ public class MathClass
 							
 							newGrid[row][col] = replace;
 						}
-						
 					}
 				}
+				image.repaint();
 			}
 		}
 		
@@ -75,7 +73,6 @@ public class MathClass
 		{
 			grid[row][col].setColor(newGrid[row][col].getColor());
 		}
-		return grid;
 	}
 	
 	public int getHypotenuse(int a, int b)
