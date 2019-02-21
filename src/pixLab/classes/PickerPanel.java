@@ -106,21 +106,10 @@ public class PickerPanel extends JPanel
 		greatLayout.putConstraint(SpringLayout.WEST, picPathLabel, 206, SpringLayout.WEST, this);
 		greatLayout.putConstraint(SpringLayout.EAST, picPathLabel, -206, SpringLayout.EAST, this);
 		
-		Component horizontalStrut = Box.createHorizontalStrut(20);
-		greatLayout.putConstraint(SpringLayout.WEST, horizontalStrut, 6, SpringLayout.EAST, picPathLabel);
-		greatLayout.putConstraint(SpringLayout.EAST, horizontalStrut, 0, SpringLayout.EAST, this);
-		add(horizontalStrut);
-		
 		Component verticalGlue = Box.createVerticalGlue();
 		greatLayout.putConstraint(SpringLayout.WEST, verticalGlue, 0, SpringLayout.WEST, this);
 		greatLayout.putConstraint(SpringLayout.EAST, verticalGlue, 0, SpringLayout.WEST, this);
 		add(verticalGlue);
-		
-		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
-		greatLayout.putConstraint(SpringLayout.NORTH, horizontalStrut, 0, SpringLayout.NORTH, horizontalStrut_1);
-		greatLayout.putConstraint(SpringLayout.WEST, horizontalStrut_1, 0, SpringLayout.WEST, this);
-		greatLayout.putConstraint(SpringLayout.EAST, horizontalStrut_1, -6, SpringLayout.WEST, picPathLabel);
-		add(horizontalStrut_1);
 		
 		JLabel lblAvailableGlitches = new JLabel("Available glitches:");
 		greatLayout.putConstraint(SpringLayout.NORTH, lblAvailableGlitches, 23, SpringLayout.SOUTH, loadButton);
@@ -136,7 +125,6 @@ public class PickerPanel extends JPanel
 		Box horizontalBox = Box.createHorizontalBox();
 		greatLayout.putConstraint(SpringLayout.NORTH, horizontalBox, 26, SpringLayout.SOUTH, lblAvailableGlitches);
 		greatLayout.putConstraint(SpringLayout.SOUTH, horizontalBox, -182, SpringLayout.SOUTH, this);
-		greatLayout.putConstraint(SpringLayout.SOUTH, horizontalStrut_1, -149, SpringLayout.NORTH, horizontalBox);
 		greatLayout.putConstraint(SpringLayout.WEST, horizontalBox, 100, SpringLayout.WEST, this);
 		greatLayout.putConstraint(SpringLayout.EAST, horizontalBox, -100, SpringLayout.EAST, this);
 		add(horizontalBox);
@@ -146,7 +134,6 @@ public class PickerPanel extends JPanel
 		zeroBlueButton.setBackground(Color.LIGHT_GRAY);
 		horizontalBox.add(zeroBlueButton);
 		greatLayout.putConstraint(SpringLayout.WEST, zeroBlueButton, 100, SpringLayout.WEST, this);
-		greatLayout.putConstraint(SpringLayout.NORTH, zeroBlueButton, 114, SpringLayout.SOUTH, horizontalStrut_1);
 		mirrorVerticalButton = new JButton("mirror vertical");
 		mirrorVerticalButton.setToolTipText("mirrors vertically");
 		horizontalBox.add(mirrorVerticalButton);
@@ -198,7 +185,6 @@ public class PickerPanel extends JPanel
 		greatLayout.putConstraint(SpringLayout.SOUTH, sweepButton, 0, SpringLayout.SOUTH, this);
 		
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
-		greatLayout.putConstraint(SpringLayout.NORTH, horizontalStrut_2, 169, SpringLayout.SOUTH, horizontalStrut_1);
 		greatLayout.putConstraint(SpringLayout.WEST, horizontalStrut_2, 0, SpringLayout.WEST, verticalGlue);
 		greatLayout.putConstraint(SpringLayout.SOUTH, horizontalStrut_2, -196, SpringLayout.SOUTH, this);
 		greatLayout.putConstraint(SpringLayout.EAST, horizontalStrut_2, -6, SpringLayout.WEST, horizontalBox);
@@ -210,6 +196,34 @@ public class PickerPanel extends JPanel
 		greatLayout.putConstraint(SpringLayout.SOUTH, horizontalStrut_3, -210, SpringLayout.SOUTH, this);
 		greatLayout.putConstraint(SpringLayout.EAST, horizontalStrut_3, 0, SpringLayout.EAST, this);
 		add(horizontalStrut_3);
+		
+		Component horizontalStrut_4 = Box.createHorizontalStrut(20);
+		greatLayout.putConstraint(SpringLayout.WEST, horizontalStrut_4, 0, SpringLayout.WEST, this);
+		greatLayout.putConstraint(SpringLayout.EAST, horizontalStrut_4, -6, SpringLayout.WEST, lblAvailableGlitches);
+		greatLayout.putConstraint(SpringLayout.NORTH, horizontalStrut_2, 46, SpringLayout.SOUTH, horizontalStrut_4);
+		greatLayout.putConstraint(SpringLayout.NORTH, horizontalStrut_4, -28, SpringLayout.SOUTH, lblAvailableGlitches);
+		greatLayout.putConstraint(SpringLayout.SOUTH, horizontalStrut_4, 0, SpringLayout.SOUTH, lblAvailableGlitches);
+		add(horizontalStrut_4);
+		
+		Component horizontalStrut_5 = Box.createHorizontalStrut(20);
+		greatLayout.putConstraint(SpringLayout.NORTH, horizontalStrut_5, 328, SpringLayout.NORTH, this);
+		greatLayout.putConstraint(SpringLayout.WEST, horizontalStrut_5, 6, SpringLayout.EAST, lblAvailableGlitches);
+		greatLayout.putConstraint(SpringLayout.EAST, horizontalStrut_5, 0, SpringLayout.EAST, this);
+		add(horizontalStrut_5);
+		
+		Component glue = Box.createGlue();
+		greatLayout.putConstraint(SpringLayout.NORTH, glue, 0, SpringLayout.NORTH, loadButton);
+		greatLayout.putConstraint(SpringLayout.WEST, glue, 32, SpringLayout.EAST, loadButton);
+		greatLayout.putConstraint(SpringLayout.SOUTH, glue, -6, SpringLayout.NORTH, lblAvailableGlitches);
+		greatLayout.putConstraint(SpringLayout.EAST, glue, -40, SpringLayout.WEST, saveButton);
+		add(glue);
+		
+		Component rigidArea_1 = Box.createRigidArea(new Dimension(20, 20));
+		greatLayout.putConstraint(SpringLayout.NORTH, rigidArea_1, 10, SpringLayout.NORTH, this);
+		greatLayout.putConstraint(SpringLayout.WEST, rigidArea_1, -200, SpringLayout.EAST, this);
+		greatLayout.putConstraint(SpringLayout.SOUTH, rigidArea_1, 0, SpringLayout.SOUTH, loadButton);
+		greatLayout.putConstraint(SpringLayout.EAST, rigidArea_1, 0, SpringLayout.EAST, this);
+		add(rigidArea_1);
 	}
 	
 	public void setupListeners()
