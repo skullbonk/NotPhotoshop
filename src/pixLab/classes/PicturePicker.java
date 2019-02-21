@@ -28,17 +28,19 @@ public class PicturePicker
 	private static String glitch;
 	public static Picture image;
 	public static String picPath;
+	public static PickerFrame frame;
+	public static PickerPanel panel;
 	
-	
-//	public PicturePicker()
-//	{
-//		glitches = new ArrayList<String>();
-//	}
+	public PicturePicker()
+	{
+		frame = new PickerFrame(this);
+	}
 
 	public static void pickImage()
 	{
 		picPath = FileChooser.pickPath(new JFileChooser());
 		image = new Picture(picPath);
+		image.explore();
 	}
 	
 	public static void pickGlitch()
@@ -55,6 +57,11 @@ public class PicturePicker
 	{
 		
 		return picPath;
+	}
+	
+	public Picture getImage()
+	{
+		return image;
 	}
 	
 	public static void main(String[] args)

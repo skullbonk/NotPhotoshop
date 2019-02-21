@@ -27,6 +27,8 @@ public class PictureTester
 	public static ArrayList<String> glitches = new ArrayList<String>();
 	public static ArrayList<Picture> dennysPngs = new ArrayList<Picture>();
 	
+	public static PicturePicker picker;
+	
 	public static MathClass mathClass = new MathClass();
 	
 	public static String glitch;
@@ -57,14 +59,14 @@ public class PictureTester
 	public static String glitchSelector()
 	{
 		String response;
-		
-		
 		response = JOptionPane.showInputDialog(null, "which glitch would you like to apply? type help if you need a list.");
-		
-		
-		
 		return response;
-		
+	}
+	
+	public static void runPicker()
+	{
+		picker = new PicturePicker();
+		picker.pickImage();
 	}
 	
 	public static void createImageList()
@@ -589,7 +591,9 @@ public class PictureTester
 	//testFizzleRemastered();
 	//testSortAttempt1();
 	//testCollection();
-	  setupGlitch();
+//	  setupGlitch();
 //	  testDennys();
+	  runPicker();
+	  
   }
 }
