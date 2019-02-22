@@ -34,10 +34,9 @@ public class PickerPanel extends JPanel
 	private JButton sweepButton;
 	
 	private JLabel picPathLabel;
+	private JLabel availableGlitchLabel; 
 	
 	private JButton saveButton;
-	
-	private SpringLayout pickerLayout;
 	
 	public PickerPanel(PicturePicker picker)
 	{
@@ -45,7 +44,8 @@ public class PickerPanel extends JPanel
 		
 		this.picker = picker;
 		
-		this.loadButton = new JButton("load");
+		this.loadButton = new JButton("load");		
+		this.saveButton = new JButton("save");
 		this.zeroBlueButton = new JButton("zero blue");
 		this.mirrorVerticalButton = new JButton("mirror vertical");
 		this.glitchGangButton = new JButton("glitch gang");
@@ -59,7 +59,11 @@ public class PickerPanel extends JPanel
 		this.destrucButton = new JButton("destruc");
 		this.sweepButton = new JButton("sweep");
 		
-		pickerLayout = new SpringLayout();
+		this.picPathLabel = new JLabel("image path: " + picker.getPath());
+		
+		this.availableGlitchLabel = new JLabel("available glitches: ");
+		
+		
 		setupPanel();
 		setupLayout();
 		setupListeners();		
@@ -84,14 +88,15 @@ public class PickerPanel extends JPanel
 
 	public void setupPanel()
 	{
-		this.setLayout(pickerLayout);
 		this.setPreferredSize(new Dimension(800, 600));
 		this.setBackground(Color.DARK_GRAY);
+		setLayout(null);
 		
 		this.add(loadButton);
+		this.add(saveButton);
 		
 		this.add(picPathLabel);
-		this.add(saveButton);
+		this.add(availableGlitchLabel);
 		
 		this.add(zeroBlueButton);
 		this.add(mirrorVerticalButton);
@@ -108,7 +113,37 @@ public class PickerPanel extends JPanel
 	
 	public void setupLayout()
 	{
+		// labels
+			// pickPathLabel
+		picPathLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		picPathLabel.setFont(new Font("Courier", Font.PLAIN, 30));
+		picPathLabel.setForeground(Color.WHITE);
+		picPathLabel.setBounds(6, 237, 788, 52);
 		
+			// availableGlitchesLabel
+		availableGlitchLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		availableGlitchLabel.setFont(new Font("Courier", Font.ITALIC, 20));
+		availableGlitchLabel.setForeground(Color.WHITE);
+		availableGlitchLabel.setSize(788, 20);
+		availableGlitchLabel.setLocation(6, 341);
+		
+		// buttons
+			// save/load
+		saveButton.setBounds(386, 301, 75, 29);
+		loadButton.setBounds(301, 301, 75, 29);
+			
+			// glitch buttons
+		zeroBlueButton.setBounds(107, 380, 102, 29);
+		mirrorVerticalButton.setBounds(221, 380, 133, 29);
+		glitchGangButton.setBounds(360, 380, 115, 29);
+		fizzleButton.setBounds(478, 380, 78, 29);
+		fizzleRemasteredButton.setBounds(202, 462, 152, 29);
+		hidePictureButton.setBounds(317, 421, 119, 29);
+		revealPictureButton.setBounds(448, 421, 129, 29);
+		takeChunksButton.setBounds(361, 462, 121, 29);
+		onlyHighestButton.setBounds(183, 421, 122, 29);
+		destrucButton.setBounds(568, 380, 91, 29);
+		sweepButton.setBounds(478, 462, 83, 29);
 	}
 	
 	public void setupListeners()
@@ -118,6 +153,112 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.pickImage();
+			}
+		});
+	
+		saveButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.saveImage();
+			}
+		});
+		
+		zeroBlueButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.zeroBlue();
+			}
+		});
+		
+		mirrorVerticalButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.mirrorVertical();
+			}
+		});
+		
+		glitchGangButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.glitchGang();
+			}
+		});
+		
+		fizzleButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.fizzle();
+			}
+		});
+		
+		fizzleRemasteredButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.fizzleRemastered();
+			}
+		});
+		
+		hidePictureButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				String imageToHidePath = FileChooser.pickPath(new JFileChooser());
+				Picture imageToHide = new Picture(imageToHidePath);
+				picker.image.hidePicture(imageToHide);
+			}
+		});
+		
+		revealPictureButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.revealPicture();
+			}
+		});
+		
+//		mathClassButton.addActionListener(new ActionListener()
+//		{
+//			public void actionPerformed(ActionEvent mouseClick)
+//			{
+//				picker.image.mathClass();
+//			}
+//		});
+		
+		takeChunksButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.takeChunks();
+			}
+		});
+		
+		onlyHighestButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.onlyHighest();
+			}
+		});
+		
+		destrucButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.destruc();
+			}
+		});
+		
+		sweepButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.sweep();
 			}
 		});
 	}

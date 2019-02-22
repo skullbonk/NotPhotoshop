@@ -27,6 +27,7 @@ public class PicturePicker
 	private static ArrayList<String> glitches = new ArrayList<String>();
 	private static String glitch;
 	public static Picture image;
+	public static BufferedImage buffer;
 	public static String picPath;
 	public static PickerFrame frame;
 	public static PickerPanel panel;
@@ -43,16 +44,6 @@ public class PicturePicker
 		image.explore();
 	}
 	
-	public static void pickGlitch()
-	{
-		String selectedGlitch = JOptionPane.showInputDialog(null, "Which glitch you wanna do?");
-	}
-	
-	private static void buildGlitchList()
-	{
-		
-	}
-	
 	public String getPath()
 	{
 		
@@ -62,6 +53,20 @@ public class PicturePicker
 	public Picture getImage()
 	{
 		return image;
+	}
+	
+	public void saveImage()
+	{
+		buffer = image.getBufferedImage();
+		try
+		{
+			ImageIO.write(buffer, "png", new File("/Users/rfai3591/Desktop/NotPhotoshop_output" + image.getTitle() + ".png"));
+		}
+		catch(IOException ioerror)
+		{
+			System.out.println("Colossal error: ");
+			System.out.println(ioerror);
+		}
 	}
 	
 	public static void main(String[] args)
