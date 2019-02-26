@@ -350,6 +350,6 @@ public class PickerPanel extends JPanel
 	public void updatePath(String path)
 	{
 		picPath = path;
-		picPathLabel.setText("image path: " + picPath);
+		picPathLabel.setText("image path: " + path);
 	}
 }

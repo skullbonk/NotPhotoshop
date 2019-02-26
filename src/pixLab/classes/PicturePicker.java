@@ -41,8 +41,8 @@ public class PicturePicker
 	public static void pickImage()
 	{
 		setPath(FileChooser.pickPath(new JFileChooser()));
-		image = new Picture(getPath());
-		panel.updatePath(image.getFileName());
+		image = new Picture(picPath);
+		panel.updatePath(picPath);
 		image.setGlitched(false);
 		image.explore();
 	}
