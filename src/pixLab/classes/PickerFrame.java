@@ -17,7 +17,7 @@ public class PickerFrame extends JFrame
 		this.pickPanel = new PickerPanel(picker);
 		SpringLayout pickerLayout = new SpringLayout();
 		
-		pickPanel.setLayout(pickerLayout);
+		pickPanel.setLayout(null);
 		
 		setupFrame();
 	}
@@ -25,7 +25,7 @@ public class PickerFrame extends JFrame
 	private void setupFrame()
 	{
 		this.setContentPane(pickPanel);
-		this.setSize(800, 800);
+		this.setSize(800, 500);
 		this.setTitle("Not Photoshop");
 		this.setResizable(true);
 		this.setVisible(true);

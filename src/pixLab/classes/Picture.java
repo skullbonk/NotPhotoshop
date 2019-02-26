@@ -89,7 +89,8 @@ public class Picture extends SimplePicture
     
   }
   
-  public boolean showProgress = true;
+  public boolean glitched;
+  public boolean showProgress = false;
   
   /** Method to set the blue to 0 */
   public void zeroBlue()
@@ -403,21 +404,16 @@ public class Picture extends SimplePicture
 	  
 	  
 	  int rotations;
-	  
-	  int masterRow;
-	  int masterCol;
 
-	  for(int iterations = 0; iterations < 32; iterations++)
+	  for(int iterations = 0; iterations < 16; iterations++)
 	  {
 		  startRow = getR(maxRow);
 		  startCol = getR(maxCol);
 		 
 		  for(int row = 0; row < maxRow; row ++)
 		  {
-			  masterRow = row;
 			  for(int col = 0; col < maxCol; col ++)
 			  {
-				  masterCol = col;
 				  test = grid[row][col];
 				  flip = test;
 				  
@@ -462,7 +458,7 @@ public class Picture extends SimplePicture
 				  
 				  if(flip.getGreen() < 30)
 				  {
-					  flip.setGreen(flip.getGreen() + flip.getBlue() / 2);
+					  flip.setGreen((flip.getGreen() + flip.getBlue()) / 3);
 				  }
 				  
 				  frickedGrid[row][col].setColor(flip.getColor());
@@ -479,7 +475,7 @@ public class Picture extends SimplePicture
 					  
 					  if(original.getRed() < update.getRed() && original.getBlue() < (256 - getR(255)))
 					  {
-						  update.setGreen(update.getGreen() * (int) ((double) rotations * 1.62));
+						  update.setGreen(update.getGreen() - (int) ((double) rotations * 1.22));
 					  }
 					  frickedGrid[row][col].setColor(update.getColor());
 
@@ -498,34 +494,36 @@ public class Picture extends SimplePicture
 			  }
 		  }
 		  
-//		  for(int row = startRow; row < startRow + getR((maxRow - startRow)); row ++)
-//		  {
-//				  for(int col = startCol; col < startCol + getR((maxCol - startCol)); col ++)
-//				  {
-//					  pixelsFricked = 0;
-//					  while(pixelsFricked < 32)
-//					  {
-//						  old = grid[row][col];
-//						  
-//						  shiny = old;		
-//						  
-//						  int[] mods = {old.getRed(), old.getGreen(), old.getBlue(), old.getRow(), old.getCol(), (int) old.getAverage(), shiny.getRed(), shiny.getGreen(), shiny.getBlue(), shiny.getRow(), shiny.getCol()};
-//
-//						  if(old.getAverage() > grid[startRow][startCol].getAverage())
-//						  {
-//							  average = (int) old.getAverage();
-//							 
-//							  shiny.setRed(rMod(mods));
-//							  shiny.setGreen(old.getGreen() * notZero(getR(rMod(mods))));
-//							  shiny.setBlue(old.getBlue() * 2);
-//							  frickedGrid[row][col].setColor(shiny.getColor());
-//							  pixelsFricked ++;
-//						  }
-//						  else pixelsFricked ++;
-//						  frickedGrid[row][col].setColor(shiny.getColor());
-//					  }
-//				  }
-//		  }
+		  
+		  // little chips
+		  for(int row = startRow; row < startRow + getR((maxRow - startRow) / 4); row ++)
+		  {
+				  for(int col = startCol; col < startCol + getR((maxCol - startCol) / 4); col ++)
+				  {
+					  pixelsFricked = 0;
+					  while(pixelsFricked < 32)
+					  {
+						  old = grid[row][col];
+						  
+						  shiny = old;		
+						  
+						  int[] mods = {old.getRed(), old.getGreen(), old.getBlue(), old.getRow(), old.getCol(), (int) old.getAverage(), shiny.getRed(), shiny.getGreen(), shiny.getBlue(), shiny.getRow(), shiny.getCol()};
+
+						  if(old.getAverage() > grid[startRow][startCol].getAverage())
+						  {
+							  average = (int) old.getAverage();
+							 
+							  shiny.setRed(rMod(mods));
+							  shiny.setGreen(old.getGreen() / notZero(getR(rMod(mods))));
+							  shiny.setBlue(old.getBlue() * 2);
+							  frickedGrid[row][col].setColor(shiny.getColor());
+							  pixelsFricked ++;
+						  }
+						  else pixelsFricked ++;
+						  frickedGrid[row][col].setColor(shiny.getColor());
+					  }
+				  }
+		  }
 		  
 		
 		  
@@ -1262,6 +1260,16 @@ public class Picture extends SimplePicture
 	  showProgress = tf;
   }
   
+  public void setGlitched(boolean tf)
+  {
+	  glitched = tf;
+  }
+  
+  public boolean getGlitched()
+  {
+	  return glitched;
+  }
+  
   public Pixel safeGrid(Pixel[][] grid, int row, int col)
   {
 	  Pixel[][] safeGrid = grid;
@@ -1300,6 +1308,16 @@ public class Picture extends SimplePicture
 		  rInt ++;
 	  }
 	  return rInt;
+  }
+  
+  public boolean getShowProgress()
+  {
+	  return showProgress;
+  }
+  
+  public String getShowProgressString()
+  {
+	  return String.valueOf(showProgress);
   }
   
   public double getRDouble()

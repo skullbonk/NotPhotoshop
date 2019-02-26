@@ -35,27 +35,34 @@ public class PicturePicker
 	public PicturePicker()
 	{
 		frame = new PickerFrame(this);
+		panel = new PickerPanel(this);
 	}
 
 	public static void pickImage()
 	{
-		picPath = FileChooser.pickPath(new JFileChooser());
-		image = new Picture(picPath);
+		setPath(FileChooser.pickPath(new JFileChooser()));
+		image = new Picture(getPath());
+		panel.updatePath(image.getFileName());
+		image.setGlitched(false);
 		image.explore();
 	}
 	
-	public String getPath()
+	public static void setPath(String path)
 	{
-		
+		picPath = path;
+	}
+	
+	public static String getPath()
+	{
 		return picPath;
 	}
 	
-	public Picture getImage()
+	public static Picture getImage()
 	{
 		return image;
 	}
 	
-	public void saveImage()
+	public static void saveImage()
 	{
 		buffer = image.getBufferedImage();
 		try

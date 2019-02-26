@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.Raster;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Component;
@@ -18,7 +20,7 @@ public class PickerPanel extends JPanel
 	
 	private JButton loadButton;
 	
-	private String picPath;
+	public String picPath;
 	
 	private JButton zeroBlueButton;
 	private JButton mirrorVerticalButton;
@@ -33,10 +35,18 @@ public class PickerPanel extends JPanel
 	private JButton destrucButton;
 	private JButton sweepButton;
 	
-	private JLabel picPathLabel;
+	private JToggleButton showProgressToggle;
+	private JLabel progressDisplay;
+	
+	
+	
+	public JLabel picPathLabel;
 	private JLabel availableGlitchLabel; 
 	
 	private JButton saveButton;
+	
+	public Picture preGlitchedImage;
+	public BufferedImage preGlitchedBuffer;
 	
 	public PickerPanel(PicturePicker picker)
 	{
@@ -59,7 +69,10 @@ public class PickerPanel extends JPanel
 		this.destrucButton = new JButton("destruc");
 		this.sweepButton = new JButton("sweep");
 		
-		this.picPathLabel = new JLabel("image path: " + picker.getPath());
+		this.showProgressToggle = new JToggleButton("Watch glitch in real-time?");
+		this.progressDisplay = new JLabel("false");
+		
+		this.picPathLabel = new JLabel("image path: " + picPath);
 		
 		this.availableGlitchLabel = new JLabel("available glitches: ");
 		
@@ -88,7 +101,7 @@ public class PickerPanel extends JPanel
 
 	public void setupPanel()
 	{
-		this.setPreferredSize(new Dimension(800, 600));
+		this.setPreferredSize(new Dimension(750, 400));
 		this.setBackground(Color.DARK_GRAY);
 		setLayout(null);
 		
@@ -109,6 +122,13 @@ public class PickerPanel extends JPanel
 		this.add(onlyHighestButton);
 		this.add(destrucButton);
 		this.add(sweepButton);
+		
+		this.add(showProgressToggle);
+		this.add(progressDisplay);
+		
+
+		
+
 	}
 	
 	public void setupLayout()
@@ -118,32 +138,40 @@ public class PickerPanel extends JPanel
 		picPathLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		picPathLabel.setFont(new Font("Courier", Font.PLAIN, 30));
 		picPathLabel.setForeground(Color.WHITE);
-		picPathLabel.setBounds(6, 237, 788, 52);
+		picPathLabel.setBounds(0, 0, 750, 100);
 		
 			// availableGlitchesLabel
 		availableGlitchLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		availableGlitchLabel.setFont(new Font("Courier", Font.ITALIC, 20));
 		availableGlitchLabel.setForeground(Color.WHITE);
-		availableGlitchLabel.setSize(788, 20);
-		availableGlitchLabel.setLocation(6, 341);
+		availableGlitchLabel.setSize(750, 20);
+		availableGlitchLabel.setLocation(0, 150);
 		
 		// buttons
 			// save/load
-		saveButton.setBounds(386, 301, 75, 29);
-		loadButton.setBounds(301, 301, 75, 29);
+		saveButton.setBounds(375, 100, 75, 30);
+		loadButton.setBounds(300, 100, 75, 30);
 			
 			// glitch buttons
-		zeroBlueButton.setBounds(107, 380, 102, 29);
-		mirrorVerticalButton.setBounds(221, 380, 133, 29);
-		glitchGangButton.setBounds(360, 380, 115, 29);
-		fizzleButton.setBounds(478, 380, 78, 29);
-		fizzleRemasteredButton.setBounds(202, 462, 152, 29);
-		hidePictureButton.setBounds(317, 421, 119, 29);
-		revealPictureButton.setBounds(448, 421, 129, 29);
-		takeChunksButton.setBounds(361, 462, 121, 29);
-		onlyHighestButton.setBounds(183, 421, 122, 29);
-		destrucButton.setBounds(568, 380, 91, 29);
-		sweepButton.setBounds(478, 462, 83, 29);
+		zeroBlueButton.setBounds(0, 250, 150, 30);
+		mirrorVerticalButton.setBounds(150, 250, 150, 30);
+		glitchGangButton.setBounds(300, 250, 150, 30);
+		fizzleButton.setBounds(600, 250, 150, 30);
+		fizzleRemasteredButton.setBounds(75, 300, 150, 30);
+		hidePictureButton.setBounds(375, 200, 150, 29);
+		revealPictureButton.setBounds(225, 200, 150, 30);
+		takeChunksButton.setBounds(225, 300, 150, 30);
+		onlyHighestButton.setBounds(450, 250, 150, 30);
+		destrucButton.setBounds(525, 300, 150, 30);
+		sweepButton.setBounds(375, 300, 150, 30);
+		
+			// progress toggle
+		showProgressToggle.setBounds(0, 100, 225, 30);
+		
+			// progress label
+		progressDisplay.setFont(new Font("Courier", Font.PLAIN, 20));
+		progressDisplay.setForeground(Color.WHITE);
+		progressDisplay.setBounds(5, 150, 225, 20);
 	}
 	
 	public void setupListeners()
@@ -153,6 +181,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.pickImage();
+//				picPathLabel.setText("image path: " + picker.image.getMediaPath(picker.image.getFileName()));
 			}
 		});
 	
@@ -164,11 +193,45 @@ public class PickerPanel extends JPanel
 			}
 		});
 		
+		showProgressToggle.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				if(showProgressToggle.isSelected())
+				{
+					picker.image.setShowProgress(true);
+					progressDisplay.setText(picker.image.getShowProgressString());
+				}
+				else
+				{
+					picker.image.setShowProgress(false);
+					progressDisplay.setText(picker.image.getShowProgressString());
+				}
+			}
+		});
+		
+		
+		
+//		if(picker.image.getGlitched())
+//		{
+//			preGlitchedBuffer = picker.image.getBufferedImage();
+//			preGlitchedRaster = preGlitchedBuffer.getRaster();
+//			
+//		}
+//		else
+//		{
+//			
+//		}
+		
+		
+		
 		zeroBlueButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.zeroBlue();
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
 		
@@ -177,6 +240,8 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.mirrorVertical();
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
 		
@@ -185,6 +250,8 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.glitchGang();
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
 		
@@ -193,6 +260,8 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.fizzle();
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
 		
@@ -201,6 +270,8 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.fizzleRemastered();
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
 		
@@ -211,6 +282,8 @@ public class PickerPanel extends JPanel
 				String imageToHidePath = FileChooser.pickPath(new JFileChooser());
 				Picture imageToHide = new Picture(imageToHidePath);
 				picker.image.hidePicture(imageToHide);
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
 		
@@ -219,6 +292,8 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.revealPicture();
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
 		
@@ -235,6 +310,8 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.takeChunks();
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
 		
@@ -243,6 +320,8 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.onlyHighest();
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
 		
@@ -251,6 +330,8 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.destruc();
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
 		
@@ -259,7 +340,16 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.sweep();
+				picker.image.setGlitched(true);
+				picker.image.explore();
 			}
 		});
+	}
+	
+	
+	public void updatePath(String path)
+	{
+		picPath = path;
+		picPathLabel.setText("image path: " + picPath);
 	}
 }
