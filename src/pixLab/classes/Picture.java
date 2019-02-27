@@ -92,6 +92,116 @@ public class Picture extends SimplePicture
   public boolean glitched;
   public boolean showProgress = false;
   
+  
+  
+  
+  public void clumberize()
+  {
+	  Pixel[][] grid = this.getPixels2D();
+	  Pixel[][] modGrid = grid;
+	  Pixel source;
+	  Pixel result;
+	  
+	  int maxRow = grid.length;
+	  int maxCol = grid[0].length;
+	  
+	  int midRow = maxRow / 2;
+	  int midCol = maxCol / 2;
+	  
+	  int inc;
+	  int decR, decG, decB;
+	  int avgDiff;
+	  
+	  
+	  // begin tests
+	  source = grid[midRow][midCol];
+	  result = modGrid[midRow][midCol];
+	  if(red(source) <= green(source) && red(source) <= blue(source)) // red is smallest
+	  {
+		  result.setRed((int) (red(source) * 1.65)); result.setGreen((int) (green(source) * 0.65)); result.setBlue((int) (blue(source) * 0.65));
+		  
+		  inc = red(result) - red(source);
+		  decR = 0;
+		  decG = green(source) - green(result);
+		  decB = blue(source) - blue(result);
+		  avgDiff = (((decR + decG + decB) / 2) + inc) / 2;
+	  }
+	  else if(green(source) <= blue(source) && green(source) <= red(source)) // green is smallest
+	  {
+		  result.setRed((int) (red(source) * 0.65)); result.setGreen((int) (green(source) * 1.65)); result.setBlue((int) (blue(source) * 0.65)); 	
+		  
+		  inc = green(result) - green(source);
+		  decR = red(source) - red(result);
+		  decG = 0;
+		  decB = blue(source) - blue(result);
+		  avgDiff = (((decR + decG + decB) / 2) + inc) / 2;
+	  }
+	  else /*if(blue(source) <= red(source) && blue(source) <= green(source))*/ // blue is smallest
+	  {
+		  result.setBlue((int) (red(source) * 0.65)); result.setGreen((int) (green(source) * 0.65)); result.setBlue((int) (blue(source) * 1.65));
+		  
+		  inc = blue(result) - blue(source);
+		  decR = red(source) - red(result);
+		  decG = green(source) - green(result);
+		  decB = 0;
+		  avgDiff = (((decR + decG + decB) / 2) + inc) / 2;
+	  }
+	  
+	  modGrid[midRow][midCol] = result;
+	  
+	  for(int iterations = 0; iterations < 10; iterations ++)
+	  {
+		  for(int row = maxRow - getR(midRow) - getR(midRow); row < maxRow - avgDiff; row++)
+		  {
+			  for(int col = maxCol - getR(midCol) - getR(midCol); col < maxCol - avgDiff; col++)
+			  {
+				  source = result;
+//				  if(red(source) <= green(source) && red(source) <= blue(source))
+//				  {
+					  result.setRed((int) (red(source) * avgDiff));
+					  result.setGreen((int) (green(source) * avgDiff));
+					  result.setBlue((int) (blue(source) * avgDiff));
+//				  }
+//				  else if(green(source) <= blue(source) && green(source) <= red(source))
+//				  {
+//					  
+//				  }
+//				  else
+//				  {
+//					  result.setRed();
+//				  }
+				  modGrid[row][col] = result;
+			  }
+		  }
+		  
+	  }
+	  
+	  for(int row = 0; row < maxRow; row ++)
+	  {
+		  for(int col = 0; row < maxCol; col ++)
+		  {
+			  grid[row][col] = modGrid[row][col];
+		  }
+	  }  
+  }
+  
+  
+  // return color value for specified pixel
+  public int red(Pixel source)
+  {
+	  return source.getRed();
+  }
+  public int green(Pixel source)
+  {
+	  return source.getGreen();
+  }
+  public int blue(Pixel source)
+  {
+	  return source.getBlue();
+  }
+  
+  
+  
   /** Method to set the blue to 0 */
   public void zeroBlue()
   {
