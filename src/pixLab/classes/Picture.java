@@ -111,43 +111,20 @@ public class Picture extends SimplePicture
 	  int initialRow;
 	  int initialCol;
 	  
-	  int inc;
-	  int decR, decG, decB;
-	  int avgDiff;
-	  
-	  
 	  // begin tests
 	  source = grid[midRow][midCol];
 	  result = modGrid[midRow][midCol];
 	  if(red(source) <= green(source) && red(source) <= blue(source)) // red is smallest
 	  {
-		  result.setRed((int) (red(source) * 1.65)); result.setGreen((int) (green(source) * 0.65)); result.setBlue((int) (blue(source) * 0.65));
-		  
-		  inc = red(result) - red(source);
-		  decR = 0;
-		  decG = green(source) - green(result);
-		  decB = blue(source) - blue(result);
-		  avgDiff = (((decR + decG + decB) / 2) + inc) / 2;
+		  result.setRed((int) (red(source) * 1.12)); result.setGreen((int) (green(source) * 1.12)); result.setBlue((int) (blue(source) * 1.12));
 	  }
 	  else if(green(source) <= blue(source) && green(source) <= red(source)) // green is smallest
 	  {
-		  result.setRed((int) (red(source) * 0.65)); result.setGreen((int) (green(source) * 1.65)); result.setBlue((int) (blue(source) * 0.65)); 	
-		  
-		  inc = green(result) - green(source);
-		  decR = red(source) - red(result);
-		  decG = 0;
-		  decB = blue(source) - blue(result);
-		  avgDiff = (((decR + decG + decB) / 2) + inc) / 2;
+		  result.setRed((int) (red(source) * 1.12)); result.setGreen((int) (green(source) * 1.12)); result.setBlue((int) (blue(source) * 1.12)); 	
 	  }
-	  else /*if(blue(source) <= red(source) && blue(source) <= green(source))*/ // blue is smallest
+	  else if(blue(source) <= red(source) && blue(source) <= green(source)) // blue is smallest
 	  {
-		  result.setBlue((int) (red(source) * 0.65)); result.setGreen((int) (green(source) * 0.65)); result.setBlue((int) (blue(source) * 1.65));
-		  
-		  inc = blue(result) - blue(source);
-		  decR = red(source) - red(result);
-		  decG = green(source) - green(result);
-		  decB = 0;
-		  avgDiff = (((decR + decG + decB) / 2) + inc) / 2;
+		  result.setBlue((int) (red(source) * 1.12)); result.setGreen((int) (green(source) * 1.12)); result.setBlue((int) (blue(source) * 1.12));
 	  }
 	  
 	  
@@ -162,21 +139,10 @@ public class Picture extends SimplePicture
 			  initialCol = maxCol - getR(midCol) - getR(midCol);
 			  for(int col = initialCol; col < maxCol - (initialCol / 4); col++)
 			  {
-				  source = result;
-//				  if(red(source) <= green(source) && red(source) <= blue(source))
-//				  {
-					  result.setRed((int) (red(source) * random.nextDouble()));
-					  result.setGreen((int) (green(source) * random.nextDouble()));
-					  result.setBlue((int) (blue(source) * random.nextDouble()));
-//				  }
-//				  else if(green(source) <= blue(source) && green(source) <= red(source))
-//				  {
-//					  
-//				  }
-//				  else
-//				  {
-//					  result.setRed();
-//				  }
+				  source = modGrid[row][col];
+				  result.setRed((int) (red(source) * (1 + random.nextDouble())));
+				  result.setGreen((int) (green(source) * (1 + random.nextDouble())));
+				  result.setBlue((int) (blue(source) * (1 + random.nextDouble())));
 				  modGrid[row][col] = result;
 			  }
 		  }
