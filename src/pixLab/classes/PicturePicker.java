@@ -43,7 +43,6 @@ public class PicturePicker
 		setPath(FileChooser.pickPath(new JFileChooser()));
 		image = new Picture(picPath);
 		panel.updatePath(picPath);
-		image.setGlitched(false);
 		image.explore();
 	}
 	

@@ -38,7 +38,7 @@ public class SimplePicture implements DigitalPicture
   /**
    * frame used to display the simple picture
    */
-  private PictureFrame pictureFrame;
+  public PictureFrame pictureFrame;
   
   /** 
    * extension for this file (jpg or bmp)
@@ -412,7 +412,8 @@ public class SimplePicture implements DigitalPicture
    else 
      this.hide();
  }
-
+ 
+ public PictureExplorer explorerWindow;
  /**
   * Method to open a picture explorer on a copy (in memory) of this 
   * simple picture
@@ -420,7 +421,7 @@ public class SimplePicture implements DigitalPicture
  public void explore()
  {
    // create a copy of the current picture and explore it
-   new PictureExplorer(new SimplePicture(this));
+   explorerWindow = new PictureExplorer(new SimplePicture(this));
  }
  
  /**

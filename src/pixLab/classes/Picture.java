@@ -89,8 +89,8 @@ public class Picture extends SimplePicture
     
   }
   
-  public boolean glitched;
   public boolean showProgress = false;
+  public Random random = new Random();
   
   
   
@@ -98,7 +98,7 @@ public class Picture extends SimplePicture
   public void clumberize()
   {
 	  Pixel[][] grid = this.getPixels2D();
-	  Pixel[][] modGrid = grid;
+	  Pixel[][] modGrid = this.getPixels2D();
 	  Pixel source;
 	  Pixel result;
 	  
@@ -107,6 +107,9 @@ public class Picture extends SimplePicture
 	  
 	  int midRow = maxRow / 2;
 	  int midCol = maxCol / 2;
+	  
+	  int initialRow;
+	  int initialCol;
 	  
 	  int inc;
 	  int decR, decG, decB;
@@ -147,20 +150,24 @@ public class Picture extends SimplePicture
 		  avgDiff = (((decR + decG + decB) / 2) + inc) / 2;
 	  }
 	  
+	  
+	  
 	  modGrid[midRow][midCol] = result;
 	  
 	  for(int iterations = 0; iterations < 10; iterations ++)
 	  {
-		  for(int row = maxRow - getR(midRow) - getR(midRow); row < maxRow - avgDiff; row++)
+		  initialRow = maxRow - getR(midRow) - getR(midRow);
+		  for(int row = initialRow; row < maxRow - (initialRow / 4); row++)
 		  {
-			  for(int col = maxCol - getR(midCol) - getR(midCol); col < maxCol - avgDiff; col++)
+			  initialCol = maxCol - getR(midCol) - getR(midCol);
+			  for(int col = initialCol; col < maxCol - (initialCol / 4); col++)
 			  {
 				  source = result;
 //				  if(red(source) <= green(source) && red(source) <= blue(source))
 //				  {
-					  result.setRed((int) (red(source) * avgDiff));
-					  result.setGreen((int) (green(source) * avgDiff));
-					  result.setBlue((int) (blue(source) * avgDiff));
+					  result.setRed((int) (red(source) * random.nextDouble()));
+					  result.setGreen((int) (green(source) * random.nextDouble()));
+					  result.setBlue((int) (blue(source) * random.nextDouble()));
 //				  }
 //				  else if(green(source) <= blue(source) && green(source) <= red(source))
 //				  {
@@ -173,16 +180,22 @@ public class Picture extends SimplePicture
 				  modGrid[row][col] = result;
 			  }
 		  }
-		  
+		  for(int commitRow = 0; commitRow < maxRow; commitRow ++)
+		  {
+			  if(getShowProgress())
+			  {
+				  if(commitRow % 2 == 0)
+				  {
+					  this.explorerWindow.repaint();
+				  }
+			  }
+			  for(int commitCol = 0; commitCol < maxCol; commitCol ++)
+			  {
+				  grid[commitRow][commitCol].setColor(modGrid[commitRow][commitCol].getColor());
+			  }
+		  }  
 	  }
 	  
-	  for(int row = 0; row < maxRow; row ++)
-	  {
-		  for(int col = 0; row < maxCol; col ++)
-		  {
-			  grid[row][col] = modGrid[row][col];
-		  }
-	  }  
   }
   
   
@@ -599,7 +612,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 2 == 0)
 				  {
-					  this.repaint();
+					  this.explorerWindow.repaint();
 				  }
 			  }
 		  }
@@ -647,7 +660,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 2 == 0)
 				  {
-					  this.repaint();
+					  this.explorerWindow.repaint();
 				  }
 			  }
 		  }
@@ -683,7 +696,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(gRow % 2 == 0)
 				  {
-					  this.repaint();
+					  this.explorerWindow.repaint();
 				  }
 			  }
 		  }
@@ -829,7 +842,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 2 == 0)
 				  {
-					  this.repaint();
+					  this.explorerWindow.repaint();
 				  }
 			  }
 		  }
@@ -900,7 +913,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 3 == 0)
 				  {
-					  this.repaint();
+					  this.explorerWindow.repaint();
 				  }
 			  }
 		  }
@@ -935,7 +948,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 3 == 0)
 				  {
-					  this.repaint();
+					  this.explorerWindow.repaint();
 				  }
 			  }
 		  }
@@ -1017,7 +1030,7 @@ public class Picture extends SimplePicture
 		  {			  
 			  if(row % 2 == 0)
 			  {
-				  this.repaint();
+				  this.explorerWindow.repaint();
 			  }
 		  }
 	  }
@@ -1132,7 +1145,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 2 == 0)
 				  {
-					  this.repaint();
+					  this.explorerWindow.repaint();
 				  }
 			  }
 		  }
@@ -1370,15 +1383,6 @@ public class Picture extends SimplePicture
 	  showProgress = tf;
   }
   
-  public void setGlitched(boolean tf)
-  {
-	  glitched = tf;
-  }
-  
-  public boolean getGlitched()
-  {
-	  return glitched;
-  }
   
   public Pixel safeGrid(Pixel[][] grid, int row, int col)
   {
