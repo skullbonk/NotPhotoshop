@@ -752,7 +752,10 @@ public class PictureExplorer implements MouseMotionListener, ActionListener, Mou
     }
   }
   
-  
+  public void setVisible(boolean flag)
+  {
+	  pictureFrame.setVisible(flag);
+  }
   
   /**
    * Class for establishing the focus for the textfields

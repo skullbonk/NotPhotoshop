@@ -91,6 +91,8 @@ public class Picture extends SimplePicture
   
   public boolean showProgress = false;
   public Random random = new Random();
+  public PictureExplorer explorer;
+  public boolean showAfterCompletion = false;
   
   
   
@@ -124,13 +126,13 @@ public class Picture extends SimplePicture
 		  if(finalRow <= initialRow) {finalRow += initialRow;} // prevents glitch from doing nothing
 		  while(finalRow > maxRow) {finalRow --;} // prevents indexOutOfBounds exception
 		  
-		  finalCol = (maxCol - getR(maxCol));
 //		  if(finalCol <= initialCol) {finalCol += initialCol;} // 
 //		  while(finalCol > maxCol) {finalCol --;}
 		  
 		  
 		  for(int row = initialRow; row < finalRow; row ++)
 		  {
+			  finalCol = (maxCol - getR(maxCol));
 			  for(int col = initialCol; col < finalCol; col ++)
 			  { 
 				  source = grid[row][col];
@@ -1406,6 +1408,22 @@ public class Picture extends SimplePicture
   {
 	  return String.valueOf(showProgress);
   }
+  
+  public void setShowAfterCompletion(boolean flag)
+  {
+	  showAfterCompletion = flag;
+  }
+  
+  public boolean getShowAfterCompletion()
+  {
+	  return showAfterCompletion;
+  }
+  
+  public String getShowAfterCompletionString()
+  {
+	  return String.valueOf(showAfterCompletion);
+  }
+  
   
   public double getRDouble()
   {

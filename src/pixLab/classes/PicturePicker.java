@@ -45,7 +45,7 @@ public class PicturePicker
 		image = new Picture(picPath);
 		panel.updatePath(picPath);
 //		explorerInstance = new PictureExplorer(image);
-		image.show();
+		image.explorer = new PictureExplorer(image);
 	}
 	
 	public static void setPath(String path)

@@ -43,7 +43,6 @@ public class PickerPanel extends JPanel
 	
 	private JToggleButton hideAfterCompletionToggle;
 	private JLabel hideDisplay;
-	private boolean showAfterCompletion = false;
 	
 	
 	public JLabel picPathLabel;
@@ -243,14 +242,14 @@ public class PickerPanel extends JPanel
 			{
 				if(showProgressToggle.isSelected())
 				{
-					showAfterCompletion = true;
-					showDisplayStatus = Boolean.toString(showAfterCompletion);
+					picker.image.setShowAfterCompletion(true);
+					showDisplayStatus = picker.image.getShowAfterCompletionString();
 					hideDisplay.setText(showDisplayStatus);					
 				}
 				else
 				{
-					showAfterCompletion = false;
-					showDisplayStatus = Boolean.toString(showAfterCompletion);
+					picker.image.setShowAfterCompletion(false);
+					showDisplayStatus = picker.image.getShowAfterCompletionString();
 					hideDisplay.setText(showDisplayStatus);
 				}
 			}
@@ -263,7 +262,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.zeroBlue();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -275,7 +274,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.mirrorVertical();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -287,7 +286,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.glitchGang();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -299,7 +298,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.fizzle();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -311,7 +310,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.fizzleRemastered();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -325,7 +324,7 @@ public class PickerPanel extends JPanel
 				Picture imageToHide = new Picture(imageToHidePath);
 				picker.image.hidePicture(imageToHide);
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -337,7 +336,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.revealPicture();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -358,7 +357,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.takeChunks();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -370,7 +369,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.onlyHighest();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -382,7 +381,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.destruc();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -394,7 +393,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.sweep();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
@@ -406,7 +405,7 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.clumberize();
 //				picker.explorerInstance.repaint();
-				picker.image.setVisible(showAfterCompletion);
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
