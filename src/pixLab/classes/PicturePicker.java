@@ -31,6 +31,7 @@ public class PicturePicker
 	public static String picPath;
 	public static PickerFrame frame;
 	public static PickerPanel panel;
+//	public static PictureExplorer explorerInstance;
 	
 	public PicturePicker()
 	{
@@ -43,7 +44,8 @@ public class PicturePicker
 		setPath(FileChooser.pickPath(new JFileChooser()));
 		image = new Picture(picPath);
 		panel.updatePath(picPath);
-		image.explore();
+//		explorerInstance = new PictureExplorer(image);
+		image.show();
 	}
 	
 	public static void setPath(String path)

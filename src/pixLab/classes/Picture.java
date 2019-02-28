@@ -109,50 +109,57 @@ public class Picture extends SimplePicture
 	  int midCol = maxCol / 2;
 	  
 	  int initialRow;
+	  int finalRow;
 	  int initialCol;
+	  int finalCol;
 	  
 	  // begin tests
-	  source = grid[midRow][midCol];
-	  result = modGrid[midRow][midCol];
-	  if(red(source) <= green(source) && red(source) <= blue(source)) // red is smallest
-	  {
-		  result.setRed((int) (red(source) * 1.12)); result.setGreen((int) (green(source) * 1.12)); result.setBlue((int) (blue(source) * 1.12));
-	  }
-	  else if(green(source) <= blue(source) && green(source) <= red(source)) // green is smallest
-	  {
-		  result.setRed((int) (red(source) * 1.12)); result.setGreen((int) (green(source) * 1.12)); result.setBlue((int) (blue(source) * 1.12)); 	
-	  }
-	  else if(blue(source) <= red(source) && blue(source) <= green(source)) // blue is smallest
-	  {
-		  result.setBlue((int) (red(source) * 1.12)); result.setGreen((int) (green(source) * 1.12)); result.setBlue((int) (blue(source) * 1.12));
-	  }
 	  
-	  
-	  
-	  modGrid[midRow][midCol] = result;
-	  
-	  for(int iterations = 0; iterations < 10; iterations ++)
+	  for(int iterations = 0; iterations < 100; iterations ++)
 	  {
-		  initialRow = maxRow - getR(midRow) - getR(midRow);
-		  for(int row = initialRow; row < maxRow - (initialRow / 4); row++)
+		  initialRow = getR(maxRow);
+		  initialCol = getR(maxCol);
+		  
+		  finalRow = (maxRow - getR(maxRow));
+		  if(finalRow <= initialRow) {finalRow += initialRow;} // prevents glitch from doing nothing
+		  while(finalRow > maxRow) {finalRow --;} // prevents indexOutOfBounds exception
+		  
+		  finalCol = (maxCol - getR(maxCol));
+//		  if(finalCol <= initialCol) {finalCol += initialCol;} // 
+//		  while(finalCol > maxCol) {finalCol --;}
+		  
+		  
+		  for(int row = initialRow; row < finalRow; row ++)
 		  {
-			  initialCol = maxCol - getR(midCol) - getR(midCol);
-			  for(int col = initialCol; col < maxCol - (initialCol / 4); col++)
-			  {
-				  source = modGrid[row][col];
-				  result.setRed((int) (red(source) * (1 + random.nextDouble())));
-				  result.setGreen((int) (green(source) * (1 + random.nextDouble())));
-				  result.setBlue((int) (blue(source) * (1 + random.nextDouble())));
+			  for(int col = initialCol; col < finalCol; col ++)
+			  { 
+				  source = grid[row][col];
+				  result = modGrid[row][col];
+				  if(red(source) <= green(source) && red(source) <= blue(source)) // red is smallest
+				  {
+					  result.setRed((int) (red(source) * 1.19)); result.setGreen((int) (green(source) * 0.98)); result.setBlue((int) (blue(source) * 0.98));
+				  }
+				  else if(green(source) <= blue(source) && green(source) <= red(source)) // green is smallest
+				  {
+					  result.setRed((int) (red(source) * 0.98)); result.setGreen((int) (green(source) * 1.19)); result.setBlue((int) (blue(source) * 0.98)); 	
+				  }
+				  else if(blue(source) <= red(source) && blue(source) <= green(source)) // blue is smallest
+				  {
+					  result.setBlue((int) (red(source) * 0.98)); result.setGreen((int) (green(source) * 0.98)); result.setBlue((int) (blue(source) * 1.19));
+				  }
 				  modGrid[row][col] = result;
 			  }
 		  }
+		  
+		  
+		  
 		  for(int commitRow = 0; commitRow < maxRow; commitRow ++)
 		  {
 			  if(getShowProgress())
 			  {
 				  if(commitRow % 2 == 0)
 				  {
-					  this.explorerWindow.repaint();
+					  this.repaintExplorer();
 				  }
 			  }
 			  for(int commitCol = 0; commitCol < maxCol; commitCol ++)
@@ -160,9 +167,9 @@ public class Picture extends SimplePicture
 				  grid[commitRow][commitCol].setColor(modGrid[commitRow][commitCol].getColor());
 			  }
 		  }  
-	  }
-	  
+	  }  
   }
+  
   
   
   // return color value for specified pixel
@@ -578,7 +585,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 2 == 0)
 				  {
-					  this.explorerWindow.repaint();
+					  this.repaintExplorer();
 				  }
 			  }
 		  }
@@ -626,7 +633,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 2 == 0)
 				  {
-					  this.explorerWindow.repaint();
+					  this.repaintExplorer();
 				  }
 			  }
 		  }
@@ -662,7 +669,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(gRow % 2 == 0)
 				  {
-					  this.explorerWindow.repaint();
+					  this.repaintExplorer();
 				  }
 			  }
 		  }
@@ -808,7 +815,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 2 == 0)
 				  {
-					  this.explorerWindow.repaint();
+					  this.repaintExplorer();
 				  }
 			  }
 		  }
@@ -879,7 +886,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 3 == 0)
 				  {
-					  this.explorerWindow.repaint();
+					  this.repaintExplorer();
 				  }
 			  }
 		  }
@@ -914,7 +921,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 3 == 0)
 				  {
-					  this.explorerWindow.repaint();
+					  this.repaintExplorer();
 				  }
 			  }
 		  }
@@ -996,7 +1003,7 @@ public class Picture extends SimplePicture
 		  {			  
 			  if(row % 2 == 0)
 			  {
-				  this.explorerWindow.repaint();
+				  this.repaintExplorer();
 			  }
 		  }
 	  }
@@ -1111,7 +1118,7 @@ public class Picture extends SimplePicture
 			  {				  
 				  if(row % 2 == 0)
 				  {
-					  this.explorerWindow.repaint();
+					  this.repaintExplorer();
 				  }
 			  }
 		  }

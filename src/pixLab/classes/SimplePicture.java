@@ -413,7 +413,8 @@ public class SimplePicture implements DigitalPicture
      this.hide();
  }
  
- public PictureExplorer explorerWindow;
+ public PictureExplorer explorerInstance;
+ 
  /**
   * Method to open a picture explorer on a copy (in memory) of this 
   * simple picture
@@ -421,7 +422,7 @@ public class SimplePicture implements DigitalPicture
  public void explore()
  {
    // create a copy of the current picture and explore it
-   explorerWindow = new PictureExplorer(new SimplePicture(this));
+	 explorerInstance = new PictureExplorer(new SimplePicture(this));
  }
  
  /**
@@ -438,6 +439,17 @@ public class SimplePicture implements DigitalPicture
    // else create a new picture frame
    else
      pictureFrame = new PictureFrame(this);
+ }
+ 
+ public void repaintExplorer()
+ {
+	 // if there is a picture explorer tell it to repaint
+	 if (explorerInstance != null)
+		 explorerInstance.repaint();
+	 
+	 // else create a new picture explorer
+	 else
+		 explorerInstance = new PictureExplorer(this);
  }
  
  /**

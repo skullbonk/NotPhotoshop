@@ -20,7 +20,9 @@ public class PickerPanel extends JPanel
 	
 	private JButton loadButton;
 	
+	
 	public String picPath;
+	private String showDisplayStatus;
 	
 	private JButton zeroBlueButton;
 	private JButton mirrorVerticalButton;
@@ -39,6 +41,9 @@ public class PickerPanel extends JPanel
 	private JToggleButton showProgressToggle;
 	private JLabel progressDisplay;
 	
+	private JToggleButton hideAfterCompletionToggle;
+	private JLabel hideDisplay;
+	private boolean showAfterCompletion = false;
 	
 	
 	public JLabel picPathLabel;
@@ -75,6 +80,17 @@ public class PickerPanel extends JPanel
 		
 		this.showProgressToggle = new JToggleButton("Watch glitch in real-time?");
 		this.progressDisplay = new JLabel("false");
+		progressDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		this.hideAfterCompletionToggle = new JToggleButton("Show original after completion?");
+		hideAfterCompletionToggle.setLocation(525, 100);
+		hideAfterCompletionToggle.setSize(225, 30);
+		this.hideDisplay = new JLabel("false");
+		hideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+		hideDisplay.setLocation(525, 150);
+		hideDisplay.setFont(new Font("Courier", Font.PLAIN, 20));
+		hideDisplay.setForeground(Color.WHITE);
+		hideDisplay.setSize(225, 20);
 		
 		this.picPathLabel = new JLabel("image path: " + picPath);
 		
@@ -130,6 +146,9 @@ public class PickerPanel extends JPanel
 		
 		this.add(showProgressToggle);
 		this.add(progressDisplay);
+		
+		this.add(hideAfterCompletionToggle);
+		this.add(hideDisplay);
 		
 
 		
@@ -218,12 +237,34 @@ public class PickerPanel extends JPanel
 		});
 		
 		
+		hideAfterCompletionToggle.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				if(showProgressToggle.isSelected())
+				{
+					showAfterCompletion = true;
+					showDisplayStatus = Boolean.toString(showAfterCompletion);
+					hideDisplay.setText(showDisplayStatus);					
+				}
+				else
+				{
+					showAfterCompletion = false;
+					showDisplayStatus = Boolean.toString(showAfterCompletion);
+					hideDisplay.setText(showDisplayStatus);
+				}
+			}
+		});
+		
+		
 		zeroBlueButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.zeroBlue();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -233,7 +274,9 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.mirrorVertical();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -243,7 +286,9 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.glitchGang();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -253,7 +298,9 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.fizzle();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -263,7 +310,9 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.fizzleRemastered();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -275,7 +324,9 @@ public class PickerPanel extends JPanel
 				String imageToHidePath = FileChooser.pickPath(new JFileChooser());
 				Picture imageToHide = new Picture(imageToHidePath);
 				picker.image.hidePicture(imageToHide);
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -285,7 +336,9 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.revealPicture();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -304,7 +357,9 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.takeChunks();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -314,7 +369,9 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.onlyHighest();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -324,7 +381,9 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.destruc();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -334,7 +393,9 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.sweep();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 		
@@ -344,7 +405,9 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.clumberize();
-				picker.image.explore();
+//				picker.explorerInstance.repaint();
+				picker.image.setVisible(showAfterCompletion);
+				picker.image.repaintExplorer();
 			}
 		});
 	}
