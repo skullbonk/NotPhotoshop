@@ -95,7 +95,64 @@ public class Picture extends SimplePicture
   public boolean showAfterCompletion = false;
   
   
+  public void brickFlipper()
+  {
+	  Pixel[][] grid = this.getPixels2D(); // image as a grid of pixels
+	  Pixel[][] subGrid = grid.clone();
+//	  Pixel[][] 
+	  for(int row = 0; row < subGrid.length; row ++) {for(int col = 0; col < subGrid[0].length; col ++) {subGrid[row][col] = null;}}
+	  
+	  Pixel source;
+	  Pixel trans;
+//	  int[] 
+	  
+	  int averageColor;
+	  
+	  int maxRow = grid.length, maxCol = grid[0].length; // maximum row/column
+	  int initialRow, initialCol;
+	  int endRow, endCol;
+	  int initialRowIndex, initialColIndex; // index of initial row/column
+	  int endRowIndex, endColIndex; // index of final row/column
+	  
+	  int operator;
+	  
+	  
+	  
+	  
+	  
+	  for(int iterations = 0; iterations < 16; iterations ++)
+	  {
+		  operator = getR((maxRow + maxCol / 2) / 5);
+		  while(operator > maxRow || operator > maxCol) {operator --;} while(operator < 0) {operator ++;}
+		  
+		  initialRow = getR(maxRow);
+		  endRow = initialRow + getR(operator);
+		  while(endRow > maxRow) {endRow -= 1;} while(endRow < 0) {endRow += 1;} // prevents indexOutOfBounds exeptions
+		  
+		  for(int row = initialRow; row < endRow; row ++)
+		  {
+			  initialCol = getR(maxCol);
+			  endCol = initialCol + getR(operator);
+			  while(endCol > maxCol) {endCol --;} while(endCol < 0) {endCol ++;} // prevents indexOutOfBounds exceptions
+			  
+			  initialRowIndex = initialRow; endRowIndex = endRow;
+			  initialColIndex = initialCol; endColIndex = endCol;
+			  
+			  for(int col = initialCol; col < endCol; col ++)
+			  {
+				  source = grid[row][col];
+				  subGrid[row][col] = source;
+			  }
+			  
+		  }
+	  }
+  }
   
+  public int getAverage(Pixel source)
+  {
+	  int average = (red(source) + green(source) + blue(source)) / 3;
+	  return average;
+  }
   
   public void clumberize()
   {
@@ -125,10 +182,6 @@ public class Picture extends SimplePicture
 		  finalRow = (maxRow - getR(maxRow));
 		  if(finalRow <= initialRow) {finalRow += initialRow;} // prevents glitch from doing nothing
 		  while(finalRow > maxRow) {finalRow --;} // prevents indexOutOfBounds exception
-		  
-//		  if(finalCol <= initialCol) {finalCol += initialCol;} // 
-//		  while(finalCol > maxCol) {finalCol --;}
-		  
 		  
 		  for(int row = initialRow; row < finalRow; row ++)
 		  {

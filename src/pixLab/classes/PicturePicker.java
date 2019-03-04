@@ -12,6 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -43,7 +44,7 @@ public class PicturePicker
 	{
 		setPath(FileChooser.pickPath(new JFileChooser()));
 		image = new Picture(picPath);
-		panel.updatePath(picPath);
+		panel.updatePath();
 //		explorerInstance = new PictureExplorer(image);
 		image.explorer = new PictureExplorer(image);
 	}
@@ -51,6 +52,7 @@ public class PicturePicker
 	public static void setPath(String path)
 	{
 		picPath = path;
+		
 	}
 	
 	public static String getPath()
@@ -63,18 +65,42 @@ public class PicturePicker
 		return image;
 	}
 	
+	
 	public static void saveImage()
 	{
 		buffer = image.getBufferedImage();
+		String saveFolder = "/Users/rfai3591/Desktop/NotPhotoshop_output/";
+		String saveTitle = image.getTitle();
+		saveTitle = saveTitle.substring(saveTitle.lastIndexOf("/"));
 		try
 		{
-			ImageIO.write(buffer, "png", new File("/Users/rfai3591/Desktop/NotPhotoshop_output" + image.getTitle() + ".png"));
+			ImageIO.write(buffer, "png", new File(saveFolder + saveTitle + ".png"));
 		}
 		catch(IOException ioerror)
 		{
 			System.out.println("Colossal error: ");
 			System.out.println(ioerror);
 		}
+		JOptionPane.showMessageDialog(null, "Image successfully saved to " + saveFolder + saveTitle + ".png");
+	}
+	
+	public static void saveCustomName()
+	{
+		buffer = image.getBufferedImage();
+		String saveFolder = "/Users/rfai3591/Desktop/NotPhotoshop_output/";
+		String originalTitle = image.getTitle();
+		originalTitle = originalTitle.substring(originalTitle.lastIndexOf("/"));
+		String saveTitle = JOptionPane.showInputDialog(null, "File name: ", "Original image: " + originalTitle);
+		try
+		{
+			ImageIO.write(buffer, "png", new File(saveFolder + saveTitle + ".png"));
+		}
+		catch(IOException ioerror)
+		{
+			System.out.println("Colossal error: ");
+			System.out.println(ioerror);
+		}
+		JOptionPane.showMessageDialog(null, "Image successfully saved to " + saveFolder + saveTitle + ".png");	
 	}
 	
 	public static void main(String[] args)
