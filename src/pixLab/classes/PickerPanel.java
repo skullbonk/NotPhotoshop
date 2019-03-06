@@ -38,7 +38,7 @@ public class PickerPanel extends JPanel
 	private JButton destrucButton;
 	private JButton sweepButton;
 	private JButton clumberizeButton;
-	private JButton brickFlipperButton;
+	private JButton boringSortButton;
 	
 	private JToggleButton showProgressToggle;
 	private JLabel progressDisplay;
@@ -79,9 +79,9 @@ public class PickerPanel extends JPanel
 		this.destrucButton = new JButton("destruc");
 		this.sweepButton = new JButton("sweep");
 		this.clumberizeButton = new JButton("clumberize");
-		this.brickFlipperButton = new JButton("brick flipper");
-		brickFlipperButton.setSize(150, 30);
-		brickFlipperButton.setLocation(300, 320);
+		this.boringSortButton = new JButton("brick flipper");
+		boringSortButton.setSize(150, 30);
+		boringSortButton.setLocation(300, 320);
 		
 		this.showProgressToggle = new JToggleButton("Watch glitch in real-time?");
 		this.progressDisplay = new JLabel("false");
@@ -149,7 +149,7 @@ public class PickerPanel extends JPanel
 		this.add(destrucButton);
 		this.add(sweepButton);
 		this.add(clumberizeButton);
-		this.add(brickFlipperButton);
+		this.add(boringSortButton);
 		
 		this.add(showProgressToggle);
 		this.add(progressDisplay);
@@ -421,11 +421,11 @@ public class PickerPanel extends JPanel
 		});
 		
 		
-		brickFlipperButton.addActionListener(new ActionListener()
+		boringSortButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent mouseClick)
 			{
-				picker.image.brickFlipper();
+				picker.image.boringSort();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
