@@ -104,6 +104,7 @@ public class Picture extends SimplePicture
 	  int maxRed = 0; int maxGreen = 0; int maxBlue = 0;
 	  
 	  int currentIndex; int previousIndex;
+	  int total;
 	  Pixel[] sort = new Pixel[maxCol];
 	  Pixel source;
 	  
@@ -113,13 +114,18 @@ public class Picture extends SimplePicture
 		  for(int col = 0; col < maxCol; col ++)
 		  {
 			  source = grid[row][col];
-			  
+			  total = totalColor(source);
 			  
 			  currentIndex = col;
 
 		  }
 		  grid[row] =  sort;
 	  }
+  }
+  
+  public int totalColor(Pixel source)
+  {
+	  return red(source) + green(source) + blue(source);
   }
   
   public int getAverage(Pixel source)
