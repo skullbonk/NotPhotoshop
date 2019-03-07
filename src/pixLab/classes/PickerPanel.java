@@ -79,7 +79,7 @@ public class PickerPanel extends JPanel
 		this.destrucButton = new JButton("destruc");
 		this.sweepButton = new JButton("sweep");
 		this.clumberizeButton = new JButton("clumberize");
-		this.boringSortButton = new JButton("brick flipper");
+		this.boringSortButton = new JButton("sort");
 		boringSortButton.setSize(150, 30);
 		boringSortButton.setLocation(300, 320);
 		

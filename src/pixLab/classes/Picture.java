@@ -98,34 +98,73 @@ public class Picture extends SimplePicture
   public void boringSort()
   {
 	  Pixel[][] grid = this.getPixels2D();
-	  Pixel[][] sampleGrid = grid;
+	  Pixel[][] sampleGrid = new Pixel[grid.length][grid[0].length];
+	  
+	  Pixel current;
+	  Pixel previous;
+	  int testRowIndex = 0;
+	  int testColIndex = 0;
+	  Pixel test;
 	  
 	  int maxRow = grid.length; int maxCol = grid[0].length;
-	  int maxRed = 0; int maxGreen = 0; int maxBlue = 0;
 	  
-	  int currentIndex; int previousIndex;
-	  int total;
+	  int[][] totalAt = new int[maxRow][maxCol];
+	  
+	  int currentIndex, previousIndex;
+	  int currentTotal, previousTotal;
 	  Pixel[] sort = new Pixel[maxCol];
-	  Pixel source;
 	  
 	  for(int row = 0; row < maxRow; row ++)
 	  {
 		  
 		  for(int col = 0; col < maxCol; col ++)
 		  {
-			  source = grid[row][col];
-			  total = totalColor(source);
-			  
-			  currentIndex = col;
-
+			  current = grid[row][col];
+			  currentTotal = totalColor(current);
+			  totalAt[row][col] = currentTotal;
 		  }
-		  grid[row] =  sort;
+	  }
+	  
+	  for(int testTotal = 768; testTotal > 0; testTotal --)
+	  {
+		  for(int row = 0; row < maxRow; row ++)
+		  {
+			  for(int col = 0; col < maxCol; col ++)
+			  {
+				  test = grid[row][col];
+				  if(totalColor(test) == testTotal)
+				  {
+					  sampleGrid[testRowIndex][testColIndex] = test;
+					  testColIndex ++;
+					  if(testColIndex == maxCol)
+					  {
+						  testRowIndex ++;
+						  testColIndex = 0;
+					  }
+				  }
+			  }
+		  }
+	  }
+	  
+//	  for(int row = 0, col = 0; row < maxRow && col < maxCol; row ++, col ++)
+//	  {
+//		  grid[row][col].setColor(sampleGrid[row][col].getColor());
+//	  }
+	  
+	  
+	  
+	  for(int row = 0; row < maxRow; row ++)
+	  {
+		  for(int col = 0; col < maxCol; col ++)
+		  {
+			  grid[row][col].setColor(sampleGrid[row][col].getColor());
+		  }
 	  }
   }
   
   public int totalColor(Pixel source)
   {
-	  return red(source) + green(source) + blue(source);
+	  return (red(source) + green(source) + blue(source));
   }
   
   public int getAverage(Pixel source)
