@@ -98,7 +98,7 @@ public class Picture extends SimplePicture
   public void boringSort()
   {
 	  Pixel[][] grid = this.getPixels2D();
-	  Pixel[][] sampleGrid = new Pixel[grid.length][grid[0].length];
+	  Pixel[][] sampleGrid =  grid; /*new Pixel[grid.length][grid[0].length];*/
 	  
 	  Pixel current;
 	  Pixel previous;
@@ -125,7 +125,7 @@ public class Picture extends SimplePicture
 		  }
 	  }
 	  
-	  for(int testTotal = 768; testTotal > 0; testTotal --)
+	  for(int testTotal = (256 + 256 + 256); testTotal > -1; testTotal --)
 	  {
 		  for(int row = 0; row < maxRow; row ++)
 		  {
@@ -134,7 +134,7 @@ public class Picture extends SimplePicture
 				  test = grid[row][col];
 				  if(totalColor(test) == testTotal)
 				  {
-					  sampleGrid[testRowIndex][testColIndex] = test;
+					  sampleGrid[testRowIndex][testColIndex].setColor(test.getColor());
 					  testColIndex ++;
 					  if(testColIndex == maxCol)
 					  {
