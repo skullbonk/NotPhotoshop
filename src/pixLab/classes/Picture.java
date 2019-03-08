@@ -97,8 +97,97 @@ public class Picture extends SimplePicture
   
   public void elongate()
   {
+	  Pixel[][] grid = this.getPixels2D();
+	  Pixel prev; Pixel here; Pixel next;
+	  int maxRow = grid.length; int maxCol = grid[0].length;
+	  int diffRed; int diffGreen; int diffBlue;
 	  
+	  for(int row = 0; row < maxRow; row ++)
+	  {
+		  for(int col = 0; col < maxCol; col ++)
+		  {
+			  if(!(row == 0))
+			  {
+				  if(!(col == 0))
+				  {					  
+					  prev = grid[row][col - 1];
+				  }
+				  else
+				  {
+					  prev = grid[row - 1][maxCol];
+				  }
+			  }
+			  else
+			  {
+				  if(!(col == 0))
+				  {
+					  prev = grid[row][col - 1];
+				  }
+				  else
+				  {
+					  prev = grid[row][col];
+				  }
+			  }
+			  
+			  
+			  here = grid[row][col];
+			  
+			  
+			  if(!(row == maxRow))
+			  {
+				  if(!(col == maxCol))
+				  {
+					  next = grid[row][col + 1];
+				  }
+				  else
+				  {
+					  next = grid[row + 1][0];
+				  }
+			  }
+			  else
+			  {
+				  if(!(col == maxCol))
+				  {
+					  next = grid[row][col + 1];
+				  }
+				  else
+				  {
+					  next = grid[maxRow][maxCol];
+				  }
+			  }
+			  
+			  
+			  diffRed = difference(red(here), red(next));
+			  diffGreen = difference(green(here), green(next));
+			  diffBlue = difference(blue(here), blue(next));
+			  
+			  if(diffRed > 32 || diffGreen > 32 || diffBlue > 32)
+			  {
+				  for(int index = col; index < maxCol && index < (col + getR(col / 4)); index ++)
+				  {
+					  grid[row][index].setColor(here.getColor());
+				  }
+			  }
+		  }
+	  }
   }
+  
+  public int difference(int color1, int color2)
+  {
+	  if(color1 > color2)
+	  {
+		  return color1 - color2;
+	  }
+	  else if(color2 > color1)
+	  {
+		  return color2 - color1;
+	  }
+	  else
+	  {
+		  return 0;
+	  }
+  }
+  
   
   public void boringSort()
   {

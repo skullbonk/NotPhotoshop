@@ -82,8 +82,7 @@ public class PickerPanel extends JPanel
 		this.clumberizeButton = new JButton("clumberize");
 		this.boringSortButton = new JButton("sort");
 		this.elongateButton = new JButton("elongate");
-		elongateButton.setSize(150, 30);
-		elongateButton.setLocation(375, 320);
+
 
 		
 		this.showProgressToggle = new JToggleButton("Watch glitch in real-time?");
@@ -187,6 +186,8 @@ public class PickerPanel extends JPanel
 		clumberizeButton.setLocation(600, 280);
 		boringSortButton.setSize(150, 30);
 		boringSortButton.setLocation(225, 320);
+		elongateButton.setSize(150, 30);
+		elongateButton.setLocation(375, 320);
 		
 			// progress toggle
 		showProgressToggle.setBounds(0, 100, 225, 30);
