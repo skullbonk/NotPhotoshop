@@ -25,7 +25,7 @@ public class PickerPanel extends JPanel
 	public String picPath;
 	private String showDisplayStatus;
 	
-	private JButton zeroBlueButton;
+	private JButton zeroGreenButton;
 	private JButton mirrorVerticalButton;
 	private JButton glitchGangButton;
 	private JButton fizzleButton;
@@ -66,7 +66,7 @@ public class PickerPanel extends JPanel
 		this.saveCustomButton = new JButton("save (custom title)");
 		saveCustomButton.setSize(150, 30);
 		saveCustomButton.setLocation(300, 115);
-		this.zeroBlueButton = new JButton("zero blue");
+		this.zeroGreenButton = new JButton("zero green");
 		this.mirrorVerticalButton = new JButton("mirror vertical");
 		this.glitchGangButton = new JButton("glitch gang");
 		this.fizzleButton = new JButton("fizzle");
@@ -109,7 +109,7 @@ public class PickerPanel extends JPanel
 	
 //	public void setButtonTips()
 //	{
-////		zeroBlueButton.setToolTipText("deletes blue");
+////		zeroGreenButton.setToolTipText("deletes blue");
 ////		mirrorVerticalButton.setToolTipText("mirrors vertically");
 ////		glitchGangButton.setToolTipText("i forgot what this does but i bet it's boring and broken");
 ////		fizzleButton.setToolTipText("the original glitch - simultaneously boring and interesting");
@@ -137,7 +137,7 @@ public class PickerPanel extends JPanel
 		this.add(picPathLabel);
 		this.add(availableGlitchLabel);
 		
-		this.add(zeroBlueButton);
+		this.add(zeroGreenButton);
 		this.add(mirrorVerticalButton);
 		this.add(glitchGangButton);
 		this.add(fizzleButton);
@@ -184,7 +184,7 @@ public class PickerPanel extends JPanel
 		loadButton.setBounds(300, 85, 75, 30);
 			
 			// glitch buttons
-		zeroBlueButton.setBounds(0, 240, 150, 30);
+		zeroGreenButton.setBounds(0, 240, 150, 30);
 		mirrorVerticalButton.setBounds(150, 240, 150, 30);
 		glitchGangButton.setBounds(300, 240, 150, 30);
 		fizzleButton.setBounds(600, 240, 150, 30);
@@ -275,11 +275,11 @@ public class PickerPanel extends JPanel
 		});
 		
 		
-		zeroBlueButton.addActionListener(new ActionListener()
+		zeroGreenButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent mouseClick)
 			{
-				picker.image.zeroBlue();
+				picker.image.zeroGreen();
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
