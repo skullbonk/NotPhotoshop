@@ -69,11 +69,16 @@ public class PicturePicker
 	public static void saveImage()
 	{
 		buffer = image.getBufferedImage();
-//		String saveFolder = "/Users/rfai3591/Desktop/NotPhotoshop_output/"; // CTEC MAC
-		String saveFolder = "H:\\notphotoshop-output\\"; // CASEYJONES
 		String saveTitle = image.getTitle();
-//		saveTitle = saveTitle.substring(saveTitle.lastIndexOf("/"));
-		saveTitle = saveTitle.substring(saveTitle.lastIndexOf("\\"));
+		
+//		CTEC MAC:
+		String saveFolder = "/Users/rfai3591/Desktop/NotPhotoshop_output/";
+		saveTitle = saveTitle.substring(saveTitle.lastIndexOf("/"));
+		
+//		CASEYJONES:
+//		String saveFolder = "H:\\notphotoshop-output\\";
+//		saveTitle = saveTitle.substring(saveTitle.lastIndexOf("\\"));
+		
 		try
 		{
 			ImageIO.write(buffer, "png", new File(saveFolder + saveTitle + ".png"));

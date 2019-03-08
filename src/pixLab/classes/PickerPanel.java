@@ -39,6 +39,7 @@ public class PickerPanel extends JPanel
 	private JButton sweepButton;
 	private JButton clumberizeButton;
 	private JButton boringSortButton;
+	private JButton elongateButton;
 	
 	private JToggleButton showProgressToggle;
 	private JLabel progressDisplay;
@@ -80,8 +81,10 @@ public class PickerPanel extends JPanel
 		this.sweepButton = new JButton("sweep");
 		this.clumberizeButton = new JButton("clumberize");
 		this.boringSortButton = new JButton("sort");
-		boringSortButton.setSize(150, 30);
-		boringSortButton.setLocation(300, 320);
+		this.elongateButton = new JButton("elongate");
+		elongateButton.setSize(150, 30);
+		elongateButton.setLocation(375, 320);
+
 		
 		this.showProgressToggle = new JToggleButton("Watch glitch in real-time?");
 		this.progressDisplay = new JLabel("false");
@@ -107,22 +110,6 @@ public class PickerPanel extends JPanel
 		setupListeners();		
 	}
 	
-//	public void setButtonTips()
-//	{
-////		zeroGreenButton.setToolTipText("deletes blue");
-////		mirrorVerticalButton.setToolTipText("mirrors vertically");
-////		glitchGangButton.setToolTipText("i forgot what this does but i bet it's boring and broken");
-////		fizzleButton.setToolTipText("the original glitch - simultaneously boring and interesting");
-////		fizzleRemasteredButton.setToolTipText("fizzle's big brother that was actually born later somehow, but we'll ignore that");
-////		hidePictureButton.setToolTipText("hide a picture in another picture, probably doesn't work");
-////		revealPictureButton.setToolTipText("reveals a hidden picture, probably doesn't work");
-////		takeChunksButton.setToolTipText("turns everything into fuzzy squares and does some whacky purple red shiz");
-////		onlyHighestButton.setToolTipText("deletes every color but the highest one. boring but could be useful");
-////		destrucButton.setToolTipText("I forgot what this does but it's probably underwhelming");
-////		sweepButton.setToolTipText("crisps it up and also makes phantoms in the corner");
-//		
-////		saveButton.setToolTipText("Saves your freshly busted image");
-//	}
 
 	public void setupPanel()
 	{
@@ -150,6 +137,7 @@ public class PickerPanel extends JPanel
 		this.add(sweepButton);
 		this.add(clumberizeButton);
 		this.add(boringSortButton);
+		this.add(elongateButton);
 		
 		this.add(showProgressToggle);
 		this.add(progressDisplay);
@@ -189,7 +177,7 @@ public class PickerPanel extends JPanel
 		glitchGangButton.setBounds(300, 240, 150, 30);
 		fizzleButton.setBounds(600, 240, 150, 30);
 		fizzleRemasteredButton.setBounds(0, 280, 150, 30);
-		hidePictureButton.setBounds(375, 200, 150, 29);
+		hidePictureButton.setBounds(375, 200, 150, 30);
 		revealPictureButton.setBounds(225, 200, 150, 30);
 		takeChunksButton.setBounds(150, 280, 150, 30);
 		onlyHighestButton.setBounds(450, 240, 150, 30);
@@ -197,6 +185,8 @@ public class PickerPanel extends JPanel
 		sweepButton.setBounds(300, 280, 150, 30);
 		clumberizeButton.setSize(150, 30);
 		clumberizeButton.setLocation(600, 280);
+		boringSortButton.setSize(150, 30);
+		boringSortButton.setLocation(225, 320);
 		
 			// progress toggle
 		showProgressToggle.setBounds(0, 100, 225, 30);
@@ -428,6 +418,17 @@ public class PickerPanel extends JPanel
 				picker.image.boringSort();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
+			}
+		});
+		
+		
+		elongateButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.elongate();
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
+				picker.image.repaintExplorer();				
 			}
 		});
 	}

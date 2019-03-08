@@ -95,6 +95,11 @@ public class Picture extends SimplePicture
   public boolean showAfterCompletion = false;
   
   
+  public void elongate()
+  {
+	  
+  }
+  
   public void boringSort()
   {
 	  Pixel[][] grid = this.getPixels2D();
@@ -114,36 +119,47 @@ public class Picture extends SimplePicture
 	  int currentTotal, previousTotal;
 	  Pixel[] sort = new Pixel[maxCol];
 	  
-	  for(int row = 0; row < maxRow; row ++)
-	  {
-		  
-		  for(int col = 0; col < maxCol; col ++)
-		  {
-			  current = grid[row][col];
-			  currentTotal = totalColor(current);
-			  totalAt[row][col] = currentTotal;
-		  }
-	  }
+//	  for(int row = 0; row < maxRow; row ++)
+//	  {
+//		  
+//		  for(int col = 0; col < maxCol; col ++)
+//		  {
+//			  current = grid[row][col];
+//			  totalAt[row][col] = totalColor(current);
+//		  }
+//	  }
 	  
-	  for(int testTotal = (256 + 256 + 256); testTotal > -1; testTotal --)
+	  for(int testTotal = (256); testTotal > 0; testTotal --)
 	  {
 		  for(int row = 0; row < maxRow; row ++)
 		  {
 			  for(int col = 0; col < maxCol; col ++)
 			  {
 				  test = grid[row][col];
-				  if(totalColor(test) == testTotal)
+				  
+				  if(red(test) > testTotal)
 				  {
-					  sampleGrid[testRowIndex][testColIndex].setColor(test.getColor());
+					  sampleGrid[testRowIndex][testColIndex].setRed(test.getRed());
 					  testColIndex ++;
-					  if(testColIndex == maxCol)
-					  {
-						  testRowIndex ++;
-						  testColIndex = 0;
-					  }
+				  }
+				  if(green(test) > testTotal)
+				  {
+					  sampleGrid[testRowIndex][testColIndex].setGreen(test.getGreen());
+					  testColIndex ++;
+				  }
+				  if(blue(test) > testTotal)
+				  {
+					  sampleGrid[testRowIndex][testColIndex].setBlue(test.getBlue());
+				  }
+				   
+				  if(testColIndex == maxCol)
+				  {
+					  testRowIndex ++;
+					  testColIndex = 0;
 				  }
 			  }
 		  }
+		  System.out.println(testTotal);
 	  }
 	  
 //	  for(int row = 0, col = 0; row < maxRow && col < maxCol; row ++, col ++)
