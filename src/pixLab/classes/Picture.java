@@ -98,8 +98,9 @@ public class Picture extends SimplePicture
   public void elongate()
   {
 	  Pixel[][] grid = this.getPixels2D();
+	  Pixel[][] toast = grid;
 	  Pixel prev; Pixel here; Pixel next;
-	  int maxRow = grid.length; int maxCol = grid[0].length;
+	  int maxRow = grid.length - 1, maxCol = grid[0].length - 1;
 	  int diffRed; int diffGreen; int diffBlue;
 	  
 	  for(int row = 0; row < maxRow; row ++)
@@ -110,18 +111,18 @@ public class Picture extends SimplePicture
 			  {
 				  if(!(col == 0))
 				  {					  
-					  prev = grid[row][col - 1];
+					  prev = grid[row][(col - 1)];
 				  }
 				  else
 				  {
-					  prev = grid[row - 1][maxCol];
+					  prev = grid[(row - 1)][maxCol-1];
 				  }
 			  }
 			  else
 			  {
 				  if(!(col == 0))
 				  {
-					  prev = grid[row][col - 1];
+					  prev = grid[row][(col - 1)];
 				  }
 				  else
 				  {
@@ -133,26 +134,26 @@ public class Picture extends SimplePicture
 			  here = grid[row][col];
 			  
 			  
-			  if(!(row == maxRow))
+			  if(!(row == maxRow - 1))
 			  {
-				  if(!(col == maxCol))
+				  if(!(col == maxCol - 1))
 				  {
-					  next = grid[row][col + 1];
+					  next = grid[row][(col + 1)];
 				  }
 				  else
 				  {
-					  next = grid[row + 1][0];
+					  next = grid[(row + 1)][0];
 				  }
 			  }
 			  else
 			  {
-				  if(!(col == maxCol))
+				  if(!(col == maxCol - 1))
 				  {
-					  next = grid[row][col + 1];
+					  next = grid[row][(col + 1)];
 				  }
 				  else
 				  {
-					  next = grid[maxRow][maxCol];
+					  next = grid[maxRow - 1][maxCol - 1];
 				  }
 			  }
 			  
@@ -161,13 +162,21 @@ public class Picture extends SimplePicture
 			  diffGreen = difference(green(here), green(next));
 			  diffBlue = difference(blue(here), blue(next));
 			  
-			  if(diffRed > 32 || diffGreen > 32 || diffBlue > 32)
+			  if(diffRed > 16 || diffGreen > 16 || diffBlue > 16)
 			  {
-				  for(int index = col; index < maxCol && index < (col + getR(col / 4)); index ++)
+				  for(int index = col; index < (col + getR(col / 8)); index ++)
 				  {
-					  grid[row][index].setColor(here.getColor());
+					  toast[row][index].setColor(here.getColor());
 				  }
 			  }
+		  }
+	  }
+	  
+	  for(int row = 0; row < maxRow; row ++)
+	  {
+		  for(int col = 0; col < maxCol; col ++)
+		  {
+			  grid[row][col].setColor(toast[row][col].getColor());
 		  }
 	  }
   }
