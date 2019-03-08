@@ -587,7 +587,7 @@ public class Picture extends SimplePicture
 	  
 	  int rotations;
 
-	  for(int iterations = 0; iterations < 16; iterations++)
+	  for(int iterations = 0; iterations < 8; iterations++)
 	  {
 		  startRow = getR(maxRow);
 		  startCol = getR(maxCol);
