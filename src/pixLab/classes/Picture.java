@@ -165,9 +165,9 @@ public class Picture extends SimplePicture
 			  diffGreen = difference(green(here), green(next));
 			  diffBlue = difference(blue(here), blue(next));
 			  
-			  if(diffRed > getR(32) || diffGreen > getR(32) || diffBlue > getR(32))
+			  if(diffRed > 20 + getR(10) || diffGreen > 20 + getR(10) || diffBlue > 20 + getR(10))
 			  {
-				  extendUntil = col + getR(getR(20));
+				  extendUntil = col + getR(getR(getR(maxCol / 12)));
 				  while(extendUntil >= maxCol) {extendUntil --;}
 				  
 				  for(int index = col; index < (extendUntil) ; index ++)
@@ -221,9 +221,9 @@ public class Picture extends SimplePicture
 			  diffGreen = difference(green(here), green(next));
 			  diffBlue = difference(blue(here), blue(next));
 			  
-			  if(diffRed > getR(32) || diffGreen > getR(32) || diffBlue > getR(32))
+			  if(diffRed > 20 + getR(16) || diffGreen > 20 + getR(16) || diffBlue > 20 + getR(16))
 			  {
-				  extendUntil = row + getR(getR(getR(25)));
+				  extendUntil = row + getR(getR(getR(maxRow / 12)));
 				  while(extendUntil >= maxRow) {extendUntil --;}
 				  
 				  for(int index = row; index < (extendUntil) ; index ++)
@@ -283,7 +283,7 @@ public class Picture extends SimplePicture
 	  int testColIndex = 0;
 	  Pixel test;
 	  
-	  int maxRow = grid.length; int maxCol = grid[0].length;
+	  int maxRow = grid.length - 1; int maxCol = grid[0].length - 1;
 	  
 	  int[][] totalAt = new int[maxRow][maxCol];
 	  
@@ -311,27 +311,33 @@ public class Picture extends SimplePicture
 				  
 				  if(red(test) > testTotal)
 				  {
-					  sampleGrid[testRowIndex][testColIndex].setRed(test.getRed());
+					  sampleGrid[testRowIndex][testColIndex].setRed(red(test));
 					  testColIndex ++;
 				  }
 				  if(green(test) > testTotal)
 				  {
-					  sampleGrid[testRowIndex][testColIndex].setGreen(test.getGreen());
+					  sampleGrid[testRowIndex][testColIndex].setGreen(green(test));
 					  testColIndex ++;
 				  }
 				  if(blue(test) > testTotal)
 				  {
-					  sampleGrid[testRowIndex][testColIndex].setBlue(test.getBlue());
+					  sampleGrid[testRowIndex][testColIndex].setBlue(blue(test));
+					  testColIndex ++;
 				  }
 				   
-				  if(testColIndex == maxCol)
+				  if(testColIndex >= maxCol -2)
 				  {
 					  testRowIndex ++;
 					  testColIndex = 0;
+					  if(testRowIndex == maxRow - 1)
+					  {
+						  testRowIndex -= 1;
+					  }
 				  }
 			  }
 		  }
-		  System.out.println(testTotal);
+//		  System.out.println(testTotal);
+//		  System.out.println("R: " + testRowIndex + ". C: " + testColIndex + ".");
 	  }
 	  
 //	  for(int row = 0, col = 0; row < maxRow && col < maxCol; row ++, col ++)
@@ -341,14 +347,15 @@ public class Picture extends SimplePicture
 	  
 	  
 	  
-	  for(int row = 0; row < maxRow; row ++)
+	  for(int row = 0; row < maxRow - 1; row ++)
 	  {
-		  for(int col = 0; col < maxCol; col ++)
+		  for(int col = 0; col < maxCol - 1; col ++)
 		  {
 			  grid[row][col].setColor(sampleGrid[row][col].getColor());
 		  }
 	  }
   }
+  
   
   public int totalColor(Pixel source)
   {
@@ -360,6 +367,9 @@ public class Picture extends SimplePicture
 	  int average = (red(source) + green(source) + blue(source)) / 3;
 	  return average;
   }
+  
+  
+  
   
   public void clumberize()
   {
