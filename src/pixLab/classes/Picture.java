@@ -102,6 +102,9 @@ public class Picture extends SimplePicture
 	  Pixel prev; Pixel here; Pixel next;
 	  int maxRow = grid.length - 1, maxCol = grid[0].length - 1;
 	  int diffRed; int diffGreen; int diffBlue;
+	  int extendUntil;
+	  Pixel overlapped;
+	  int olDiffRed, olDiffGreen, olDiffBlue;
 	  
 	  for(int row = 0; row < maxRow; row ++)
 	  {
@@ -162,15 +165,86 @@ public class Picture extends SimplePicture
 			  diffGreen = difference(green(here), green(next));
 			  diffBlue = difference(blue(here), blue(next));
 			  
-			  if(diffRed > 16 || diffGreen > 16 || diffBlue > 16)
+			  if(diffRed > getR(32) || diffGreen > getR(32) || diffBlue > getR(32))
 			  {
-				  for(int index = col; index < (col + getR(col / 8)); index ++)
+				  extendUntil = col + getR(getR(20));
+				  while(extendUntil >= maxCol) {extendUntil --;}
+				  
+				  for(int index = col; index < (extendUntil) ; index ++)
 				  {
+					  overlapped = grid[row][index];
+					  olDiffRed = difference(red(next), red(overlapped));
+					  olDiffGreen = difference(green(next), green(overlapped));
+					  olDiffBlue = difference(blue(next), blue(overlapped));
+					  
+					  if(olDiffRed > diffRed || olDiffGreen > diffGreen || olDiffBlue > diffBlue)
+					  {
+						  index = extendUntil - 1;
+					  }
+
 					  toast[row][index].setColor(here.getColor());
 				  }
 			  }
 		  }
 	  }
+	  
+	  for(int col = 0; col < maxCol; col ++)
+	  {
+		  for(int row = 0; row < maxRow; row ++)
+		  {
+			  here = grid[row][col];
+			  
+			  if(!(col == maxCol - 1))
+			  {
+				  if(!(row == maxRow - 1))
+				  {
+					  next = grid[(row + 1)][col];
+				  }
+				  else
+				  {
+					  next = grid[0][(col + 1)];
+				  }
+			  }
+			  else
+			  {
+				  if(!(row == maxRow - 1))
+				  {
+					  next = grid[0][(col + 1)];
+				  }
+				  else
+				  {
+					  next = grid[maxRow - 1][maxCol - 1];
+				  }
+			  }
+			  
+			  diffRed = difference(red(here), red(next));
+			  diffGreen = difference(green(here), green(next));
+			  diffBlue = difference(blue(here), blue(next));
+			  
+			  if(diffRed > getR(32) || diffGreen > getR(32) || diffBlue > getR(32))
+			  {
+				  extendUntil = row + getR(getR(56));
+				  while(extendUntil >= maxRow) {extendUntil --;}
+				  
+				  for(int index = row; index < (extendUntil) ; index ++)
+				  {
+					  overlapped = grid[index][row];
+					  olDiffRed = difference(red(next), red(overlapped));
+					  olDiffGreen = difference(green(next), green(overlapped));
+					  olDiffBlue = difference(blue(next), blue(overlapped));
+					  
+					  if(olDiffRed > diffRed || olDiffGreen > diffGreen || olDiffBlue > diffBlue)
+					  {
+						  index = extendUntil - 1;
+					  }
+
+					  toast[index][col].setColor(here.getColor());
+				  }
+			  }
+		  }
+	  }
+	  
+	  // commit to grid
 	  
 	  for(int row = 0; row < maxRow; row ++)
 	  {
