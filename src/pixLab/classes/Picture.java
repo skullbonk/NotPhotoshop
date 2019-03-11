@@ -223,12 +223,12 @@ public class Picture extends SimplePicture
 			  
 			  if(diffRed > getR(32) || diffGreen > getR(32) || diffBlue > getR(32))
 			  {
-				  extendUntil = row + getR(getR(56));
+				  extendUntil = row + getR(getR(getR(25)));
 				  while(extendUntil >= maxRow) {extendUntil --;}
 				  
 				  for(int index = row; index < (extendUntil) ; index ++)
 				  {
-					  overlapped = grid[index][row];
+					  overlapped = toast[index][col];
 					  olDiffRed = difference(red(next), red(overlapped));
 					  olDiffGreen = difference(green(next), green(overlapped));
 					  olDiffBlue = difference(blue(next), blue(overlapped));
