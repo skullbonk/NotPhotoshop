@@ -309,17 +309,17 @@ public class Picture extends SimplePicture
 			  {
 				  test = grid[row][col];
 				  
-				  if(red(test) > testTotal)
+				  if(red(test) == testTotal)
 				  {
 					  sampleGrid[testRowIndex][testColIndex].setRed(red(test));
 					  testColIndex ++;
 				  }
-				  if(green(test) > testTotal)
+				  if(green(test) == testTotal)
 				  {
 					  sampleGrid[testRowIndex][testColIndex].setGreen(green(test));
 					  testColIndex ++;
 				  }
-				  if(blue(test) > testTotal)
+				  if(blue(test) == testTotal)
 				  {
 					  sampleGrid[testRowIndex][testColIndex].setBlue(blue(test));
 					  testColIndex ++;

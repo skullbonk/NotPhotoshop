@@ -72,12 +72,12 @@ public class PicturePicker
 		String saveTitle = image.getTitle();
 		
 //		CTEC MAC:
-		String saveFolder = "/Users/rfai3591/Desktop/NotPhotoshop_output/";
-		saveTitle = saveTitle.substring(saveTitle.lastIndexOf("/"));
+//		String saveFolder = "/Users/rfai3591/Desktop/NotPhotoshop_output/";
+//		saveTitle = saveTitle.substring(saveTitle.lastIndexOf("/"));
 		
 //		CASEYJONES:
-//		String saveFolder = "H:\\notphotoshop-output\\";
-//		saveTitle = saveTitle.substring(saveTitle.lastIndexOf("\\"));
+		String saveFolder = "H:\\notphotoshop-output\\";
+		saveTitle = saveTitle.substring(saveTitle.lastIndexOf("\\"));
 		
 		try
 		{
