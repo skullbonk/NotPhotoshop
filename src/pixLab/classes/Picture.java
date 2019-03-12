@@ -272,38 +272,86 @@ public class Picture extends SimplePicture
   }
   
   
-  public void boringSort()
+  
+  public void longoSort()
   {
 	  Pixel[][] grid = this.getPixels2D();
-	  Pixel[][] sampleGrid =  grid; /*new Pixel[grid.length][grid[0].length];*/
+	  Pixel[][] sampleGrid =  grid;
 	  int maxRow = grid.length - 1; int maxCol = grid[0].length - 1;
 	  boolean[][] sortedAtCoord = new boolean[maxRow + 1][maxCol + 1];
 	  
-	  Pixel current;
-	  Pixel previous;
 	  int testRowIndex = 0;
+	  int testColIndex = 0;
+	  Pixel test;
+	  Pixel next;
+	  int maxPossibleColor = 256 + 256 + 256;
+	  
+	  int colorDifference;
+	  
+	  for(int testTotal = maxPossibleColor; testTotal > 0; testTotal --)
+	  {
+		  for(int row = 0; row < maxRow; row ++)
+		  {
+			  for(int col = 0; col < maxCol; col ++)
+			  {
+				  test = grid[row][col];
+				  if(!(row == maxRow - 1))
+				  {
+					  if(!(col == maxCol - 1))
+					  {
+						  next = grid[row][col + 1];
+					  }
+					  else
+					  {
+						  next = grid[row + 1][0];
+					  }
+				  }
+				  else
+				  {
+					  next = grid[row][col];
+				  }
+				 
+				  colorDifference = avgColorDifference(test, next);
+				  
+				  
+				  if(totalColor(test) == testTotal)
+				  {
+					  testColIndex = 0;
+					  while(sortedAtCoord[row][testColIndex] && testColIndex < maxCol && colorDifference < 32)
+					  {
+						  testColIndex ++;
+					  }
+					  sampleGrid[row][testColIndex].setColor(test.getColor());
+					  sortedAtCoord[row][testColIndex] = true;  
+				  }
+			  }
+		  }
+	  }
+  }
+  
+  public int avgColorDifference(Pixel source, Pixel next)
+  {
+	  int avgSourceTotal = (red(source) + green(source) + blue(source)) / 3;
+	  int avgNextTotal = (red(next) + green(next) + blue(next)) / 3;
+	  return difference(avgSourceTotal, avgNextTotal);
+  }
+  
+  
+  
+  
+  
+  public void boringSort()
+  {
+	  Pixel[][] grid = this.getPixels2D();
+	  Pixel[][] sampleGrid =  grid;
+	  int maxRow = grid.length - 1; int maxCol = grid[0].length - 1;
+	  boolean[][] sortedAtCoord = new boolean[maxRow + 1][maxCol + 1];
+	  
 	  int testColIndex = 0;
 	  Pixel test;
 	  int maxPossibleColor = 256 + 256 + 256;
 	  
-	  boolean isAnAddition;
 	  
-	  
-	  int[][] totalAt = new int[maxRow][maxCol];
-	  
-	  int currentIndex, previousIndex;
-	  int currentTotal, previousTotal;
-	  Pixel[] sort = new Pixel[maxCol];
-	  
-//	  for(int row = 0; row < maxRow; row ++)
-//	  {
-//		  
-//		  for(int col = 0; col < maxCol; col ++)
-//		  {
-//			  current = grid[row][col];
-//			  totalAt[row][col] = totalColor(current);
-//		  }
-//	  }
 	  
 	  for(int testTotal = (maxPossibleColor); testTotal > 0; testTotal --)
 	  {

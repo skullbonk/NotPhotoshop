@@ -40,6 +40,7 @@ public class PickerPanel extends JPanel
 	private JButton clumberizeButton;
 	private JButton boringSortButton;
 	private JButton elongateButton;
+	private JButton longoSortButton;
 	
 	private JToggleButton showProgressToggle;
 	private JLabel progressDisplay;
@@ -82,6 +83,9 @@ public class PickerPanel extends JPanel
 		this.clumberizeButton = new JButton("clumberize");
 		this.boringSortButton = new JButton("sort");
 		this.elongateButton = new JButton("elongate");
+		this.longoSortButton = new JButton("longo sort");
+		longoSortButton.setSize(150, 30);
+		longoSortButton.setLocation(450, 320);
 
 
 		
@@ -137,6 +141,7 @@ public class PickerPanel extends JPanel
 		this.add(clumberizeButton);
 		this.add(boringSortButton);
 		this.add(elongateButton);
+		this.add(longoSortButton);
 		
 		this.add(showProgressToggle);
 		this.add(progressDisplay);
@@ -185,9 +190,9 @@ public class PickerPanel extends JPanel
 		clumberizeButton.setSize(150, 30);
 		clumberizeButton.setLocation(600, 280);
 		boringSortButton.setSize(150, 30);
-		boringSortButton.setLocation(225, 320);
+		boringSortButton.setLocation(150, 320);
 		elongateButton.setSize(150, 30);
-		elongateButton.setLocation(375, 320);
+		elongateButton.setLocation(300, 320);
 		
 			// progress toggle
 		showProgressToggle.setBounds(0, 100, 225, 30);
@@ -430,6 +435,17 @@ public class PickerPanel extends JPanel
 				picker.image.elongate();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();				
+			}
+		});
+		
+		
+		longoSortButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent mouseClick)
+			{
+				picker.image.longoSort();
+				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
+				picker.image.repaintExplorer();
 			}
 		});
 	}
