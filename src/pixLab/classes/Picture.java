@@ -284,6 +284,8 @@ public class Picture extends SimplePicture
 	  int testColIndex = 0;
 	  Pixel test;
 	  Pixel next;
+	  int edgeCol;
+	  int currentTotal, nextTotal;
 	  int maxPossibleColor = 256 + 256 + 256;
 	  
 	  int colorDifference;
@@ -295,6 +297,7 @@ public class Picture extends SimplePicture
 			  for(int col = 0; col < maxCol; col ++)
 			  {
 				  test = grid[row][col];
+				  
 				  if(!(row == maxRow - 1))
 				  {
 					  if(!(col == maxCol - 1))
@@ -303,27 +306,29 @@ public class Picture extends SimplePicture
 					  }
 					  else
 					  {
-						  next = grid[row + 1][0];
+						  next = grid[row][maxCol];
 					  }
 				  }
 				  else
 				  {
 					  next = grid[row][col];
 				  }
-				 
-				  colorDifference = avgColorDifference(test, next);
 				  
+				  currentTotal = totalColor(test);
+				  nextTotal = totalColor(next);
 				  
-				  if(totalColor(test) == testTotal)
+				  if(nextTotal < currentTotal && currentTotal == testTotal)
 				  {
-					  testColIndex = 0;
-					  while(sortedAtCoord[row][testColIndex] && testColIndex < maxCol && colorDifference < 32)
+					  edgeCol = next.getCol();
+					  testColIndex = edgeCol;
+					  while(sortedAtCoord[row][testColIndex] && testColIndex < maxCol)
 					  {
 						  testColIndex ++;
 					  }
 					  sampleGrid[row][testColIndex].setColor(test.getColor());
-					  sortedAtCoord[row][testColIndex] = true;  
+					  sortedAtCoord[row][testColIndex] = true;
 				  }
+				  
 			  }
 		  }
 	  }
