@@ -276,14 +276,18 @@ public class Picture extends SimplePicture
   {
 	  Pixel[][] grid = this.getPixels2D();
 	  Pixel[][] sampleGrid =  grid; /*new Pixel[grid.length][grid[0].length];*/
+	  int maxRow = grid.length - 1; int maxCol = grid[0].length - 1;
+	  boolean[][] sortedAtCoord = new boolean[maxRow + 1][maxCol + 1];
 	  
 	  Pixel current;
 	  Pixel previous;
 	  int testRowIndex = 0;
 	  int testColIndex = 0;
 	  Pixel test;
+	  int maxPossibleColor = 256 + 256 + 256;
 	  
-	  int maxRow = grid.length - 1; int maxCol = grid[0].length - 1;
+	  boolean isAnAddition;
+	  
 	  
 	  int[][] totalAt = new int[maxRow][maxCol];
 	  
@@ -301,7 +305,7 @@ public class Picture extends SimplePicture
 //		  }
 //	  }
 	  
-	  for(int testTotal = (256); testTotal > 0; testTotal --)
+	  for(int testTotal = (maxPossibleColor); testTotal > 0; testTotal --)
 	  {
 		  for(int row = 0; row < maxRow; row ++)
 		  {
@@ -309,41 +313,20 @@ public class Picture extends SimplePicture
 			  {
 				  test = grid[row][col];
 				  
-				  if(red(test) == testTotal)
+				  if(totalColor(test) == testTotal)
 				  {
-					  sampleGrid[testRowIndex][testColIndex].setRed(red(test));
-					  testColIndex ++;
-				  }
-				  if(green(test) == testTotal)
-				  {
-					  sampleGrid[testRowIndex][testColIndex].setGreen(green(test));
-					  testColIndex ++;
-				  }
-				  if(blue(test) == testTotal)
-				  {
-					  sampleGrid[testRowIndex][testColIndex].setBlue(blue(test));
-					  testColIndex ++;
-				  }
-				   
-				  if(testColIndex >= maxCol -2)
-				  {
-					  testRowIndex ++;
 					  testColIndex = 0;
-					  if(testRowIndex == maxRow - 1)
+					  while(sortedAtCoord[row][testColIndex] && testColIndex < maxCol)
 					  {
-						  testRowIndex -= 1;
+						  testColIndex ++;
 					  }
+					  sampleGrid[row][testColIndex].setColor(test.getColor());
+					  sortedAtCoord[row][testColIndex] = true;
 				  }
 			  }
 		  }
-//		  System.out.println(testTotal);
-//		  System.out.println("R: " + testRowIndex + ". C: " + testColIndex + ".");
 	  }
 	  
-//	  for(int row = 0, col = 0; row < maxRow && col < maxCol; row ++, col ++)
-//	  {
-//		  grid[row][col].setColor(sampleGrid[row][col].getColor());
-//	  }
 	  
 	  
 	  
