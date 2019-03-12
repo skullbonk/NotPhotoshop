@@ -317,7 +317,8 @@ public class Picture extends SimplePicture
 				  currentTotal = totalColor(test);
 				  nextTotal = totalColor(next);
 				  
-				  if(nextTotal < currentTotal && currentTotal == testTotal)
+				  colorDifference = currentTotal - nextTotal;
+				  if(colorDifference > 24 && currentTotal == testTotal)
 				  {
 					  edgeCol = next.getCol();
 					  testColIndex = edgeCol;
