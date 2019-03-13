@@ -1818,7 +1818,7 @@ public class Picture extends SimplePicture
 		  for(int col = 0; col < maxCol; col ++)
 		  {
 			  source = sourceGrid[row][col];
-			  if()
+//			  if()
 		  }
 	  }
 	  
