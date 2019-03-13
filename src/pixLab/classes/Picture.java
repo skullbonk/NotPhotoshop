@@ -1805,9 +1805,24 @@ public class Picture extends SimplePicture
   {
 	  int maxRow = sourceGrid.length - 1;
 	  int maxCol = sourceGrid[0].length - 1;
-	  boolean[][] facePixel;
+	  Pixel[][] face = new Pixel[sourceGrid.length][sourceGrid[0].length];
+	  Pixel source;
 	  
-	  String[] faceEdges;
+	  /**
+	   * faceEdges index: 0 - top of face, 1 - bottom of face, 2 - left side of face, 3 - right side of face
+	   */
+	  int[] faceEdges = new int[4]; // 0 = top peak, 1 = bottom peak, 2 = left peak, 3 = right peak
+	  
+	  for(int row = 0; row < maxRow; row ++)
+	  {
+		  for(int col = 0; col < maxCol; col ++)
+		  {
+			  source = sourceGrid[row][col];
+			  if()
+		  }
+	  }
+	  
+	  
 	  
 	  Pixel[][] dummyGrid = sourceGrid;
 	 
