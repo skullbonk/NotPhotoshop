@@ -91,7 +91,8 @@ public class PicturePicker
 		if(onWindows)
 		{
 			saveFolder = "H:\\notphotoshop-output";
-			saveTitle = saveTitle.substring(saveTitle.lastIndexOf("\\"));
+			saveTitle = saveTitle.substring(saveTitle.lastIndexOf("\\"), saveTitle.lastIndexOf("."));
+			saveTitle += "-" + panel.nameOfGlitch + ".png";
 		}
 		else
 		{

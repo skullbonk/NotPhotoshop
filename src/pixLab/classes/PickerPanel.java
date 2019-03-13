@@ -43,7 +43,7 @@ public class PickerPanel extends JPanel
 	private JButton elongateButton;
 	private JButton longoSortButton;
 	
-	private JToggleButton showProgressToggle;
+//	private JToggleButton showProgressToggle;
 	private JLabel progressDisplay;
 	
 	private JButton openOriginalButton;
@@ -67,8 +67,8 @@ public class PickerPanel extends JPanel
 		this.loadButton = new JButton("load");		
 		this.saveButton = new JButton("save");
 		this.saveCustomButton = new JButton("save (custom title)");
-		saveCustomButton.setSize(150, 30);
-		saveCustomButton.setLocation(300, 115);
+		saveCustomButton.setSize(200, 30);
+		saveCustomButton.setLocation(275, 115);
 		this.zeroGreenButton = new JButton("zero green");
 		this.mirrorVerticalButton = new JButton("mirror vertical");
 		this.glitchGangButton = new JButton("glitch gang");
@@ -90,22 +90,22 @@ public class PickerPanel extends JPanel
 
 
 		
-		this.showProgressToggle = new JToggleButton("Watch glitch in real-time?");
-		showProgressToggle.setEnabled(false);
-		this.progressDisplay = new JLabel("false");
-		progressDisplay.setEnabled(false);
-		progressDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+//		this.showProgressToggle = new JToggleButton("Watch glitch in real-time?");
+//		showProgressToggle.setEnabled(false);
+//		this.progressDisplay = new JLabel("false");
+//		progressDisplay.setEnabled(false);
+//		progressDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		this.openOriginalButton = new JButton("Open original");
-		openOriginalButton.setLocation(525, 100);
-		openOriginalButton.setSize(225, 30);
-		this.hideDisplay = new JLabel("false");
-		hideDisplay.setEnabled(false);
-		hideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-		hideDisplay.setLocation(525, 130);
-		hideDisplay.setFont(new Font("Courier", Font.PLAIN, 20));
-		hideDisplay.setForeground(Color.WHITE);
-		hideDisplay.setSize(225, 20);
+		this.openOriginalButton = new JButton("original");
+		openOriginalButton.setLocation(325, 85);
+		openOriginalButton.setSize(100, 30);
+//		this.hideDisplay = new JLabel("false");
+//		hideDisplay.setEnabled(false);
+//		hideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+//		hideDisplay.setLocation(525, 130);
+//		hideDisplay.setFont(new Font("Courier", Font.PLAIN, 20));
+//		hideDisplay.setForeground(Color.WHITE);
+//		hideDisplay.setSize(225, 20);
 		
 		this.notPhotoshopLabel = new JLabel("NotPhotoshop");
 		
@@ -147,11 +147,11 @@ public class PickerPanel extends JPanel
 		this.add(elongateButton);
 		this.add(longoSortButton);
 		
-		this.add(showProgressToggle);
-		this.add(progressDisplay);
+//		this.add(showProgressToggle);
+//		this.add(progressDisplay);
 		
 		this.add(openOriginalButton);
-		this.add(hideDisplay);
+//		this.add(hideDisplay);
 		
 
 		
@@ -176,8 +176,8 @@ public class PickerPanel extends JPanel
 		
 		// buttons
 			// save/load
-		saveButton.setBounds(375, 85, 75, 30);
-		loadButton.setBounds(300, 85, 75, 30);
+		saveButton.setBounds(425, 85, 75, 30);
+		loadButton.setBounds(250, 85, 75, 30);
 			
 			// glitch buttons
 		zeroGreenButton.setBounds(0, 240, 150, 30);
@@ -199,12 +199,12 @@ public class PickerPanel extends JPanel
 		elongateButton.setLocation(300, 320);
 		
 			// progress toggle
-		showProgressToggle.setBounds(0, 100, 225, 30);
+//		showProgressToggle.setBounds(0, 100, 225, 30);
 		
 			// progress label
-		progressDisplay.setFont(new Font("Courier", Font.PLAIN, 20));
-		progressDisplay.setForeground(Color.WHITE);
-		progressDisplay.setBounds(5, 130, 225, 20);
+//		progressDisplay.setFont(new Font("Courier", Font.PLAIN, 20));
+//		progressDisplay.setForeground(Color.WHITE);
+//		progressDisplay.setBounds(5, 130, 225, 20);
 	}
 	
 	public void setupListeners()
@@ -236,22 +236,22 @@ public class PickerPanel extends JPanel
 		});
 		
 		
-		showProgressToggle.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent mouseClick)
-			{
-				if(showProgressToggle.isSelected())
-				{
-					picker.image.setShowProgress(true);
-					progressDisplay.setText(picker.image.getShowProgressString());
-				}
-				else
-				{
-					picker.image.setShowProgress(false);
-					progressDisplay.setText(picker.image.getShowProgressString());
-				}
-			}
-		});
+//		showProgressToggle.addActionListener(new ActionListener()
+//		{
+//			public void actionPerformed(ActionEvent mouseClick)
+//			{
+//				if(showProgressToggle.isSelected())
+//				{
+//					picker.image.setShowProgress(true);
+//					progressDisplay.setText(picker.image.getShowProgressString());
+//				}
+//				else
+//				{
+//					picker.image.setShowProgress(false);
+//					progressDisplay.setText(picker.image.getShowProgressString());
+//				}
+//			}
+//		});
 		
 		
 		openOriginalButton.addActionListener(new ActionListener()
