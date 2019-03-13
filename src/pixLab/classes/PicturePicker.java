@@ -50,18 +50,25 @@ public class PicturePicker
 		panel = new PickerPanel(this);
 	}
 
+	/**
+	 * Opens a file explorer window for selecting an image,
+	 * then opens the image in a new Explorer window
+	 */
 	public static void pickImage()
 	{
 		setPath(FileChooser.pickPath(new JFileChooser()));
 		image = new Picture(picPath);
-		panel.updatePath();
 		image.explorer = new PictureExplorer(image);
+	}
+	
+	public static void openOriginal()
+	{
+		image.show();
 	}
 	
 	public static void setPath(String path)
 	{
 		picPath = path;
-		
 	}
 	
 	public static String getPath()
@@ -83,25 +90,26 @@ public class PicturePicker
 		String saveFolder = null;			
 		if(onWindows)
 		{
-			saveFolder = "H:\\notphotoshop-output\\";
+			saveFolder = "H:\\notphotoshop-output";
 			saveTitle = saveTitle.substring(saveTitle.lastIndexOf("\\"));
 		}
 		else
 		{
-			saveFolder = "/Users/rfai3591/Desktop/NotPhotoshop_output/";
-			saveTitle = saveTitle.substring(saveTitle.lastIndexOf("/"));
+			saveFolder = "/Users/rfai3591/Desktop/NotPhotoshop_output";
+			saveTitle = saveTitle.substring(saveTitle.lastIndexOf("/"), saveTitle.lastIndexOf("."));
+			saveTitle += "-" + panel.nameOfGlitch + ".png";
 		}
 		
 		try
 		{
-			ImageIO.write(buffer, "png", new File(saveFolder + saveTitle + ".png"));
+			ImageIO.write(buffer, "png", new File(saveFolder + saveTitle));
 		}
 		catch(IOException ioerror)
 		{
 			System.out.println("Colossal error: ");
 			System.out.println(ioerror);
 		}
-		JOptionPane.showMessageDialog(null, "Image successfully saved to " + saveFolder + saveTitle + ".png");
+		JOptionPane.showMessageDialog(null, "Image successfully saved to " + saveFolder + saveTitle);
 	}
 	
 	public static void saveCustomName()
@@ -113,14 +121,14 @@ public class PicturePicker
 		String saveTitle = JOptionPane.showInputDialog(null, "File name: ", "Original image: " + originalTitle);
 		try
 		{
-			ImageIO.write(buffer, "png", new File(saveFolder + saveTitle + ".png"));
+			ImageIO.write(buffer, "png", new File(saveFolder + saveTitle));
 		}
 		catch(IOException ioerror)
 		{
 			System.out.println("Colossal error: ");
 			System.out.println(ioerror);
 		}
-		JOptionPane.showMessageDialog(null, "Image successfully saved to " + saveFolder + saveTitle + ".png");	
+		JOptionPane.showMessageDialog(null, "Image successfully saved to " + saveFolder+ saveTitle);	
 	}
 	
 	public static String fetchOS()
@@ -132,7 +140,6 @@ public class PicturePicker
 	public static void main(String[] args)
 	{
 		pickImage();
-
 	}
 
 }

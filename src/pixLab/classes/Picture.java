@@ -1801,7 +1801,17 @@ public class Picture extends SimplePicture
 	  
   }
   
-  
+  public void containsFace(Pixel[][] sourceGrid)
+  {
+	  int maxRow = sourceGrid.length - 1;
+	  int maxCol = sourceGrid[0].length - 1;
+	  boolean[][] facePixel;
+	  
+	  String[] faceEdges;
+	  
+	  Pixel[][] dummyGrid = sourceGrid;
+	 
+  }
   
   /* Main method for testing - each class in Java can have a main 
    * method 

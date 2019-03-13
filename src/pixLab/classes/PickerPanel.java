@@ -23,6 +23,7 @@ public class PickerPanel extends JPanel
 	
 	
 	public String picPath;
+	public String nameOfGlitch;
 	private String showDisplayStatus;
 	
 	private JButton zeroGreenButton;
@@ -45,11 +46,11 @@ public class PickerPanel extends JPanel
 	private JToggleButton showProgressToggle;
 	private JLabel progressDisplay;
 	
-	private JToggleButton hideAfterCompletionToggle;
+	private JButton openOriginalButton;
 	private JLabel hideDisplay;
 	
 	
-	public JLabel picPathLabel;
+	public JLabel notPhotoshopLabel;
 	private JLabel availableGlitchLabel; 
 	
 	private JButton saveButton;
@@ -90,20 +91,23 @@ public class PickerPanel extends JPanel
 
 		
 		this.showProgressToggle = new JToggleButton("Watch glitch in real-time?");
+		showProgressToggle.setEnabled(false);
 		this.progressDisplay = new JLabel("false");
+		progressDisplay.setEnabled(false);
 		progressDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		this.hideAfterCompletionToggle = new JToggleButton("Show original after completion?");
-		hideAfterCompletionToggle.setLocation(525, 100);
-		hideAfterCompletionToggle.setSize(225, 30);
+		this.openOriginalButton = new JButton("Open original");
+		openOriginalButton.setLocation(525, 100);
+		openOriginalButton.setSize(225, 30);
 		this.hideDisplay = new JLabel("false");
+		hideDisplay.setEnabled(false);
 		hideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		hideDisplay.setLocation(525, 130);
 		hideDisplay.setFont(new Font("Courier", Font.PLAIN, 20));
 		hideDisplay.setForeground(Color.WHITE);
 		hideDisplay.setSize(225, 20);
 		
-		this.picPathLabel = new JLabel("image path: " + picPath);
+		this.notPhotoshopLabel = new JLabel("NotPhotoshop");
 		
 		this.availableGlitchLabel = new JLabel("available glitches: ");
 		
@@ -124,7 +128,7 @@ public class PickerPanel extends JPanel
 		this.add(saveButton);
 		this.add(saveCustomButton);
 		
-		this.add(picPathLabel);
+		this.add(notPhotoshopLabel);
 		this.add(availableGlitchLabel);
 		
 		this.add(zeroGreenButton);
@@ -146,7 +150,7 @@ public class PickerPanel extends JPanel
 		this.add(showProgressToggle);
 		this.add(progressDisplay);
 		
-		this.add(hideAfterCompletionToggle);
+		this.add(openOriginalButton);
 		this.add(hideDisplay);
 		
 
@@ -158,10 +162,10 @@ public class PickerPanel extends JPanel
 	{
 		// labels
 			// pickPathLabel
-		picPathLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		picPathLabel.setFont(new Font("Courier", Font.PLAIN, 30));
-		picPathLabel.setForeground(Color.WHITE);
-		picPathLabel.setBounds(0, 0, 750, 100);
+		notPhotoshopLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		notPhotoshopLabel.setFont(new Font("Futura", Font.PLAIN, 65));
+		notPhotoshopLabel.setForeground(Color.WHITE);
+		notPhotoshopLabel.setBounds(0, 0, 750, 88);
 		
 			// availableGlitchesLabel
 		availableGlitchLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -211,7 +215,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.pickImage();
 				picPath = picker.image.getTitle();
-				updatePath();
 			}
 		});
 	
@@ -251,22 +254,11 @@ public class PickerPanel extends JPanel
 		});
 		
 		
-		hideAfterCompletionToggle.addActionListener(new ActionListener()
+		openOriginalButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent mouseClick)
 			{
-				if(showProgressToggle.isSelected())
-				{
-					picker.image.setShowAfterCompletion(true);
-					showDisplayStatus = picker.image.getShowAfterCompletionString();
-					hideDisplay.setText(showDisplayStatus);					
-				}
-				else
-				{
-					picker.image.setShowAfterCompletion(false);
-					showDisplayStatus = picker.image.getShowAfterCompletionString();
-					hideDisplay.setText(showDisplayStatus);
-				}
+				picker.openOriginal();
 			}
 		});
 		
@@ -276,6 +268,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.zeroGreen();
+				nameOfGlitch = "zeroGreen";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -288,6 +281,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.mirrorVertical();
+				nameOfGlitch = "mirrorVertical";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -300,6 +294,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.glitchGang();
+				nameOfGlitch = "glitchGang";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -312,6 +307,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.fizzle();
+				nameOfGlitch = "glitchGang";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -324,6 +320,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.fizzleRemastered();
+				nameOfGlitch = "fizzleRemastered";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -338,6 +335,7 @@ public class PickerPanel extends JPanel
 				String imageToHidePath = FileChooser.pickPath(new JFileChooser());
 				Picture imageToHide = new Picture(imageToHidePath);
 				picker.image.hidePicture(imageToHide);
+				nameOfGlitch = "hidePicture";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -350,6 +348,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.revealPicture();
+				nameOfGlitch = "revealPicture";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -362,6 +361,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.takeChunks();
+				nameOfGlitch = "takeChunks";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -374,6 +374,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.onlyHighest();
+				nameOfGlitch = "onlyHighest";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -386,6 +387,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.destruc();
+				nameOfGlitch = "destruc";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -398,6 +400,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.sweep();
+				nameOfGlitch = "sweep";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -410,6 +413,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.clumberize();
+				nameOfGlitch = "clumberize";
 //				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
@@ -422,6 +426,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.boringSort();
+				nameOfGlitch = "sort";
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -433,6 +438,7 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.elongate();
+				nameOfGlitch = "elongate";
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();				
 			}
@@ -444,15 +450,10 @@ public class PickerPanel extends JPanel
 			public void actionPerformed(ActionEvent mouseClick)
 			{
 				picker.image.longoSort();
+				nameOfGlitch = "longoSort";
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
 		});
-	}
-	
-	
-	public void updatePath()
-	{
-		picPathLabel.setText("image path: " + picker.image.getTitle());
 	}
 }
