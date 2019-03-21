@@ -273,6 +273,13 @@ public class Picture extends SimplePicture
   
   
   
+  
+  
+  
+  
+  
+  
+  
   public void longoSort()
   {
 	  Pixel[][] grid = this.getPixels2D();
@@ -824,8 +831,6 @@ public class Picture extends SimplePicture
 
 	  for(int iterations = 0; iterations < 8; iterations++)
 	  {
-		  startRow = getR(maxRow);
-		  startCol = getR(maxCol);
 		 
 		  for(int row = 0; row < maxRow; row ++)
 		  {
@@ -911,6 +916,8 @@ public class Picture extends SimplePicture
 			  }
 		  }
 		  
+		  startRow = getR(maxRow);
+		  startCol = getR(maxCol);
 		  
 		  // little chips
 		  for(int row = startRow; row < startRow + getR((maxRow - startRow) / 4); row ++)
@@ -944,10 +951,10 @@ public class Picture extends SimplePicture
 		  
 		
 		  
-		  for(int row = getR(maxRow - 1), col = getR(maxCol); row < maxRow && col < maxCol; row ++, col ++)
+		  for(int row = getR(maxRow - 1), col = getR(maxCol - 1); row < maxRow && col < maxCol; row ++, col ++)
 		  {
 			  
-			  frickedGrid[row][col].setGreen(frickedGrid[maxRow - row][maxCol - col].getGreen() + iterations);
+			  frickedGrid[row][col].setGreen(frickedGrid[maxRow - row][maxCol - col].getGreen() + iterations * 3);
 			  frickedGrid[row][col].setBlue(frickedGrid[row][col].getBlue() - getR(256 - iterations));
 			  
 			  if(showProgress)

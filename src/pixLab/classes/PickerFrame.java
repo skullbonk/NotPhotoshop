@@ -25,7 +25,7 @@ public class PickerFrame extends JFrame
 	private void setupFrame()
 	{
 		this.setContentPane(pickPanel);
-		this.setSize(800, 500);
+		this.setSize(750, 400);
 		this.setTitle("Not Photoshop");
 		this.setResizable(true);
 		this.setVisible(true);
