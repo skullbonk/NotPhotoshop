@@ -43,7 +43,6 @@ public class PickerPanel extends JPanel
 	private JButton elongateButton;
 	private JButton longoSortButton;
 	
-//	private JToggleButton showProgressToggle;
 	private JLabel progressDisplay;
 	
 	private JButton openOriginalButton;
@@ -58,6 +57,10 @@ public class PickerPanel extends JPanel
 	public Picture preGlitchedImage;
 	public BufferedImage preGlitchedBuffer;
 	
+	
+/**
+ * 
+ */
 	public PickerPanel(PicturePicker picker)
 	{
 		super();
@@ -85,27 +88,8 @@ public class PickerPanel extends JPanel
 		this.boringSortButton = new JButton("sort");
 		this.elongateButton = new JButton("elongate");
 		this.longoSortButton = new JButton("longo sort");
-		longoSortButton.setSize(150, 30);
-		longoSortButton.setLocation(450, 320);
-
-
-		
-//		this.showProgressToggle = new JToggleButton("Watch glitch in real-time?");
-//		showProgressToggle.setEnabled(false);
-//		this.progressDisplay = new JLabel("false");
-//		progressDisplay.setEnabled(false);
-//		progressDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		this.openOriginalButton = new JButton("original");
-		openOriginalButton.setLocation(325, 85);
-		openOriginalButton.setSize(100, 30);
-//		this.hideDisplay = new JLabel("false");
-//		hideDisplay.setEnabled(false);
-//		hideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-//		hideDisplay.setLocation(525, 130);
-//		hideDisplay.setFont(new Font("Courier", Font.PLAIN, 20));
-//		hideDisplay.setForeground(Color.WHITE);
-//		hideDisplay.setSize(225, 20);
 		
 		this.notPhotoshopLabel = new JLabel("NotPhotoshop");
 		
@@ -117,7 +101,9 @@ public class PickerPanel extends JPanel
 		setupListeners();		
 	}
 	
-
+/**
+ * Adds all GUI elements to the panel
+ */
 	public void setupPanel()
 	{
 		this.setPreferredSize(new Dimension(750, 400));
@@ -146,18 +132,13 @@ public class PickerPanel extends JPanel
 		this.add(boringSortButton);
 		this.add(elongateButton);
 		this.add(longoSortButton);
-		
-//		this.add(showProgressToggle);
-//		this.add(progressDisplay);
-		
 		this.add(openOriginalButton);
-//		this.add(hideDisplay);
-		
-
-		
-
 	}
 	
+	
+/**
+* Sets all layout constraints for GUI elements
+*/
 	public void setupLayout()
 	{
 		// labels
@@ -178,6 +159,10 @@ public class PickerPanel extends JPanel
 			// save/load
 		saveButton.setBounds(425, 85, 75, 30);
 		loadButton.setBounds(250, 85, 75, 30);
+		
+			// open original
+		openOriginalButton.setLocation(325, 85);
+		openOriginalButton.setSize(100, 30);
 			
 			// glitch buttons
 		zeroGreenButton.setBounds(0, 240, 150, 30);
@@ -197,14 +182,8 @@ public class PickerPanel extends JPanel
 		boringSortButton.setLocation(150, 320);
 		elongateButton.setSize(150, 30);
 		elongateButton.setLocation(300, 320);
-		
-			// progress toggle
-//		showProgressToggle.setBounds(0, 100, 225, 30);
-		
-			// progress label
-//		progressDisplay.setFont(new Font("Courier", Font.PLAIN, 20));
-//		progressDisplay.setForeground(Color.WHITE);
-//		progressDisplay.setBounds(5, 130, 225, 20);
+		longoSortButton.setSize(150, 30);
+		longoSortButton.setLocation(450, 320);
 	}
 	
 	public void setupListeners()
@@ -236,24 +215,6 @@ public class PickerPanel extends JPanel
 		});
 		
 		
-//		showProgressToggle.addActionListener(new ActionListener()
-//		{
-//			public void actionPerformed(ActionEvent mouseClick)
-//			{
-//				if(showProgressToggle.isSelected())
-//				{
-//					picker.image.setShowProgress(true);
-//					progressDisplay.setText(picker.image.getShowProgressString());
-//				}
-//				else
-//				{
-//					picker.image.setShowProgress(false);
-//					progressDisplay.setText(picker.image.getShowProgressString());
-//				}
-//			}
-//		});
-		
-		
 		openOriginalButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent mouseClick)
@@ -269,7 +230,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.zeroGreen();
 				nameOfGlitch = "zeroGreen";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -282,7 +242,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.mirrorVertical();
 				nameOfGlitch = "mirrorVertical";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -295,7 +254,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.glitchGang();
 				nameOfGlitch = "glitchGang";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -308,7 +266,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.fizzle();
 				nameOfGlitch = "glitchGang";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -321,7 +278,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.fizzleRemastered();
 				nameOfGlitch = "fizzleRemastered";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -336,7 +292,6 @@ public class PickerPanel extends JPanel
 				Picture imageToHide = new Picture(imageToHidePath);
 				picker.image.hidePicture(imageToHide);
 				nameOfGlitch = "hidePicture";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -349,7 +304,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.revealPicture();
 				nameOfGlitch = "revealPicture";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -362,7 +316,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.takeChunks();
 				nameOfGlitch = "takeChunks";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -375,7 +328,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.onlyHighest();
 				nameOfGlitch = "onlyHighest";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -388,7 +340,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.destruc();
 				nameOfGlitch = "destruc";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -401,7 +352,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.sweep();
 				nameOfGlitch = "sweep";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
@@ -414,7 +364,6 @@ public class PickerPanel extends JPanel
 			{
 				picker.image.clumberize();
 				nameOfGlitch = "clumberize";
-//				picker.explorerInstance.repaint();
 				picker.image.explorer.setVisible(picker.image.getShowAfterCompletion());
 				picker.image.repaintExplorer();
 			}
