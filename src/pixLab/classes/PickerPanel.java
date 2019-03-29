@@ -14,13 +14,15 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+/**
+ * GUI for selecting and processing images
+ * @author rfai3591
+ */
 public class PickerPanel extends JPanel
 {
 	private PicturePicker picker;
-	
 	private JButton loadButton;
-	private JButton saveCustomButton;
-	
+//	private JButton saveCustomButton; // Now irrelevant, but I don't wanna delete it
 	
 	public String picPath;
 	public String nameOfGlitch;
@@ -57,9 +59,8 @@ public class PickerPanel extends JPanel
 	public Picture preGlitchedImage;
 	public BufferedImage preGlitchedBuffer;
 	
-	
 /**
- * 
+ * Initializes and sets up a panel using PicturePicker as a controller
  */
 	public PickerPanel(PicturePicker picker)
 	{
@@ -69,9 +70,7 @@ public class PickerPanel extends JPanel
 		
 		this.loadButton = new JButton("load");		
 		this.saveButton = new JButton("save");
-		this.saveCustomButton = new JButton("save (custom title)");
-		saveCustomButton.setSize(200, 30);
-		saveCustomButton.setLocation(275, 115);
+//		this.saveCustomButton = new JButton("save (custom title)");
 		this.zeroGreenButton = new JButton("zero green");
 		this.mirrorVerticalButton = new JButton("mirror vertical");
 		this.glitchGangButton = new JButton("glitch gang");
@@ -95,7 +94,6 @@ public class PickerPanel extends JPanel
 		
 		this.availableGlitchLabel = new JLabel("available glitches: ");
 		
-		
 		setupPanel();
 		setupLayout();
 		setupListeners();		
@@ -112,7 +110,7 @@ public class PickerPanel extends JPanel
 		
 		this.add(loadButton);
 		this.add(saveButton);
-		this.add(saveCustomButton);
+//		this.add(saveCustomButton);
 		
 		this.add(notPhotoshopLabel);
 		this.add(availableGlitchLabel);
@@ -135,7 +133,6 @@ public class PickerPanel extends JPanel
 		this.add(openOriginalButton);
 	}
 	
-	
 /**
 * Sets all layout constraints for GUI elements
 */
@@ -146,46 +143,51 @@ public class PickerPanel extends JPanel
 		notPhotoshopLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		notPhotoshopLabel.setFont(new Font("Futura", Font.PLAIN, 65));
 		notPhotoshopLabel.setForeground(Color.WHITE);
-		notPhotoshopLabel.setBounds(0, 0, 750, 88);
+		notPhotoshopLabel.setBounds(0, 17, 750, 88);
 		
 			// availableGlitchesLabel
 		availableGlitchLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		availableGlitchLabel.setFont(new Font("Courier", Font.ITALIC, 20));
+		availableGlitchLabel.setFont(new Font("Courier", Font.ITALIC, 30));
 		availableGlitchLabel.setForeground(Color.WHITE);
-		availableGlitchLabel.setSize(750, 20);
-		availableGlitchLabel.setLocation(0, 160);
+		availableGlitchLabel.setSize(750, 29);
+		availableGlitchLabel.setLocation(1, 164);
 		
 		// buttons
 			// save/load
-		saveButton.setBounds(425, 85, 75, 30);
-		loadButton.setBounds(250, 85, 75, 30);
+		saveButton.setBounds(425, 103, 75, 40);
+		loadButton.setBounds(250, 103, 75, 40);
+//		saveCustomButton.setSize(200, 30);
+//		saveCustomButton.setLocation(275, 115);
 		
 			// open original
-		openOriginalButton.setLocation(325, 85);
-		openOriginalButton.setSize(100, 30);
+		openOriginalButton.setLocation(325, 103);
+		openOriginalButton.setSize(100, 40);
 			
 			// glitch buttons
-		zeroGreenButton.setBounds(0, 240, 150, 30);
-		mirrorVerticalButton.setBounds(150, 240, 150, 30);
-		glitchGangButton.setBounds(300, 240, 150, 30);
-		fizzleButton.setBounds(600, 240, 150, 30);
-		fizzleRemasteredButton.setBounds(0, 280, 150, 30);
-		hidePictureButton.setBounds(375, 200, 150, 30);
-		revealPictureButton.setBounds(225, 200, 150, 30);
-		takeChunksButton.setBounds(150, 280, 150, 30);
-		onlyHighestButton.setBounds(450, 240, 150, 30);
-		destrucButton.setBounds(450, 280, 150, 30);
-		sweepButton.setBounds(300, 280, 150, 30);
-		clumberizeButton.setSize(150, 30);
+		zeroGreenButton.setBounds(0, 240, 150, 35);
+		mirrorVerticalButton.setBounds(150, 240, 150, 35);
+		glitchGangButton.setBounds(300, 240, 150, 35);
+		fizzleButton.setBounds(600, 240, 150, 35);
+		fizzleRemasteredButton.setBounds(0, 280, 150, 35);
+		hidePictureButton.setBounds(375, 200, 150, 35);
+		revealPictureButton.setBounds(225, 200, 150, 35);
+		takeChunksButton.setBounds(150, 280, 150, 35);
+		onlyHighestButton.setBounds(450, 240, 150, 35);
+		destrucButton.setBounds(450, 280, 150, 35);
+		sweepButton.setBounds(300, 280, 150, 35);
+		clumberizeButton.setSize(150, 35);
 		clumberizeButton.setLocation(600, 280);
-		boringSortButton.setSize(150, 30);
+		boringSortButton.setSize(150, 35);
 		boringSortButton.setLocation(150, 320);
-		elongateButton.setSize(150, 30);
+		elongateButton.setSize(150, 35);
 		elongateButton.setLocation(300, 320);
-		longoSortButton.setSize(150, 30);
+		longoSortButton.setSize(150, 35);
 		longoSortButton.setLocation(450, 320);
 	}
 	
+	/**
+	 * Links all buttons with their associated operations
+	 */
 	public void setupListeners()
 	{
 		loadButton.addActionListener(new ActionListener()
@@ -202,10 +204,11 @@ public class PickerPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent mouseClick)
 			{
-				picker.saveImage();
+				picker.saveCustomName();
 			}
 		});
 		
+		/*
 		saveCustomButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent mouseClick)
@@ -213,7 +216,7 @@ public class PickerPanel extends JPanel
 				picker.saveCustomName();
 			}
 		});
-		
+		*/
 		
 		openOriginalButton.addActionListener(new ActionListener()
 		{

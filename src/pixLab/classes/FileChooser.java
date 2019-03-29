@@ -101,6 +101,16 @@ public class FileChooser
 
 		return fileName;
 	}
+	
+	public static String pickADirectory()
+	{
+		JFileChooser folderChooser = new JFileChooser();
+		folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		folderChooser.setDialogTitle("Select a folder to save to");
+		
+		String folder = pickPath(folderChooser);
+		return folder;
+	}
 
 	/**
 	 * Method to get the directory for the media
