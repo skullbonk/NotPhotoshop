@@ -94,7 +94,9 @@ public class Picture extends SimplePicture
   public PictureExplorer explorer;
   public boolean showAfterCompletion = false;
   
-  
+  /**
+   * Attempts 
+   */
   public void elongate()
   {
 	  Pixel[][] grid = this.getPixels2D();
@@ -131,11 +133,8 @@ public class Picture extends SimplePicture
 				  {
 					  prev = grid[row][col];
 				  }
-			  }
-			  
-			  
+			  }  
 			  here = grid[row][col];
-			  
 			  
 			  if(!(row == maxRow - 1))
 			  {
@@ -160,7 +159,6 @@ public class Picture extends SimplePicture
 				  }
 			  }
 			  
-			  
 			  diffRed = difference(red(here), red(next));
 			  diffGreen = difference(green(here), green(next));
 			  diffBlue = difference(blue(here), blue(next));
@@ -181,7 +179,6 @@ public class Picture extends SimplePicture
 					  {
 						  index = extendUntil - 1;
 					  }
-
 					  toast[row][index].setColor(here.getColor());
 				  }
 			  }
@@ -245,7 +242,6 @@ public class Picture extends SimplePicture
 	  }
 	  
 	  // commit to grid
-	  
 	  for(int row = 0; row < maxRow; row ++)
 	  {
 		  for(int col = 0; col < maxCol; col ++)
@@ -255,6 +251,12 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  /**
+   * Returns the difference between two supplied color values, subtracting the lesser from the greater of the two
+   * @param color1 A color
+   * @param color2 Another color
+   * @return The difference between the two colors
+   */
   public int difference(int color1, int color2)
   {
 	  if(color1 > color2)
@@ -271,15 +273,9 @@ public class Picture extends SimplePicture
 	  }
   }
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
+ /**
+  * Attempts to combine elongate() and boringSort(). Doesn't really work as well as I'd hoped. Yet.
+  */
   public void longoSort()
   {
 	  Pixel[][] grid = this.getPixels2D();
@@ -342,15 +338,13 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  
   public int avgColorDifference(Pixel source, Pixel next)
   {
 	  int avgSourceTotal = (red(source) + green(source) + blue(source)) / 3;
 	  int avgNextTotal = (red(next) + green(next) + blue(next)) / 3;
 	  return difference(avgSourceTotal, avgNextTotal);
   }
-  
-  
-  
   
   
   public void boringSort()
@@ -363,8 +357,6 @@ public class Picture extends SimplePicture
 	  int testColIndex = 0;
 	  Pixel test;
 	  int maxPossibleColor = 256 + 256 + 256;
-	  
-	  
 	  
 	  for(int testTotal = (maxPossibleColor); testTotal > 0; testTotal --)
 	  {
@@ -388,9 +380,6 @@ public class Picture extends SimplePicture
 		  }
 	  }
 	  
-	  
-	  
-	  
 	  for(int row = 0; row < maxRow - 1; row ++)
 	  {
 		  for(int col = 0; col < maxCol - 1; col ++)
@@ -401,20 +390,32 @@ public class Picture extends SimplePicture
   }
   
   
+  /**
+   * Gets the sum of all the pixel's color values
+   * @param source The pixel whose colors are to be summed
+   * @return The total color value of the pixel
+   */
   public int totalColor(Pixel source)
   {
 	  return (red(source) + green(source) + blue(source));
   }
   
+  
+  /**
+   * Gets the average of the colors of the source pixel
+   * @param source Pixel to get the average color value of
+   * @return The average of all color values of the pixel
+   */
   public int getAverage(Pixel source)
   {
 	  int average = (red(source) + green(source) + blue(source)) / 3;
 	  return average;
   }
   
-  
-  
-  
+ 
+  /**
+   * amplifies colors to the point where everything ends up just kind of grayscale-y purple. not super interesting.
+   */
   public void clumberize()
   {
 	  Pixel[][] grid = this.getPixels2D();
@@ -466,9 +467,7 @@ public class Picture extends SimplePicture
 				  modGrid[row][col] = result;
 			  }
 		  }
-		  
-		  
-		  
+		 
 		  for(int commitRow = 0; commitRow < maxRow; commitRow ++)
 		  {
 			  if(getShowProgress())
@@ -478,6 +477,7 @@ public class Picture extends SimplePicture
 					  this.repaintExplorer();
 				  }
 			  }
+			  
 			  for(int commitCol = 0; commitCol < maxCol; commitCol ++)
 			  {
 				  grid[commitRow][commitCol].setColor(modGrid[commitRow][commitCol].getColor());
