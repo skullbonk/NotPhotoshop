@@ -133,7 +133,14 @@ public class PicturePicker
 		buffer = image.getBufferedImage();
 		String saveFolder = FileChooser.pickADirectory();
 		String originalTitle = image.getTitle();
-		originalTitle = originalTitle.substring(originalTitle.lastIndexOf("/"));
+		if(!onWindows)
+		{			
+			originalTitle = originalTitle.substring(originalTitle.lastIndexOf("/"));
+		}
+		else
+		{
+			originalTitle = originalTitle.substring(originalTitle.lastIndexOf("\\"));			
+		}
 		String saveTitle = JOptionPane.showInputDialog(null, "Enter a name for the new file", "Original: " + saveFolder + originalTitle, JOptionPane.INFORMATION_MESSAGE);
 		try
 		{
@@ -147,7 +154,14 @@ public class PicturePicker
 				{
 					saveTitle = saveTitle.substring(0, saveTitle.indexOf("."));
 				}
-				ImageIO.write(buffer, "png", new File(saveFolder + saveTitle + ".png"));
+				if(!onWindows)
+				{
+					ImageIO.write(buffer, "png", new File(saveFolder + "/" + saveTitle + ".png"));
+				}
+				else
+				{
+					ImageIO.write(buffer, "png", new File(saveFolder + "\\" + saveTitle + ".png"));
+				}
 				saved = true;
 			}
 		}
@@ -170,7 +184,7 @@ public class PicturePicker
 					JOptionPane.showMessageDialog(null, "Image successfully saved to " + saveFolder + "/" + saveTitle + ".png");
 				}
 			}
-		}
+		}	
 	}
 	
 	/**
