@@ -86,28 +86,30 @@ public class Picture extends SimplePicture
       " height " + getHeight() 
       + " width " + getWidth();
     return output;
-    
   }
   
-  public boolean showProgress = false;
-  public Random random = new Random();
-  public PictureExplorer explorer;
-  public boolean showAfterCompletion = false;
+  public boolean showProgress = false; // This is meant to control a realtime view of the glitch, but it doesn't really work with my buttons
+  public Random random = new Random(); // For generating random numbers
+  public PictureExplorer explorer; // The picture explorer window
+  public boolean showAfterCompletion = false; // Whether or not the glitched image pops up after glitch completion. Only used for one specific personal project. 
   
   /**
-   * Attempts 
+   * Attempts to stretch out bits of the image.
+   * It kinda sucks, I plan to implement some 
+   * sort of edge detection to improve it.
    */
   public void elongate()
   {
-	  Pixel[][] grid = this.getPixels2D();
-	  Pixel[][] toast = grid;
-	  Pixel prev; Pixel here; Pixel next;
-	  int maxRow = grid.length - 1, maxCol = grid[0].length - 1;
-	  int diffRed; int diffGreen; int diffBlue;
-	  int extendUntil;
-	  Pixel overlapped;
-	  int olDiffRed, olDiffGreen, olDiffBlue;
+	  Pixel[][] grid = this.getPixels2D(); // Grid of pixels in the original image
+	  Pixel[][] toast = grid; // Post-glitch grid
+	  Pixel prev, here, next; // Pixels for the previous, current, and next locations on the grid
+	  int maxRow = grid.length - 1, maxCol = grid[0].length - 1; // Used for preventing ArrayIndexOutOfBounds errors
+	  int diffRed, diffGreen, diffBlue; // Difference between color values
+	  int extendUntil; // The next pixel with sufficient differences
+	  Pixel overlapped; // The hidden pixel below
+	  int olDiffRed, olDiffGreen, olDiffBlue; // Differences between color values for the overlapped pixel
 	  
+	  // This entire section is just for preventing array index issues
 	  for(int row = 0; row < maxRow; row ++)
 	  {
 		  for(int col = 0; col < maxCol; col ++)
@@ -159,6 +161,7 @@ public class Picture extends SimplePicture
 				  }
 			  }
 			  
+			  // This is where the actual glitch code begins. It compares pixels to eachother and determines whether or not and how far to extend pieces of the image.
 			  diffRed = difference(red(here), red(next));
 			  diffGreen = difference(green(here), green(next));
 			  diffBlue = difference(blue(here), blue(next));
@@ -185,6 +188,7 @@ public class Picture extends SimplePicture
 		  }
 	  }
 	  
+	  // Basically a second iteration of the glitch, but in a different direction
 	  for(int col = 0; col < maxCol; col ++)
 	  {
 		  for(int row = 0; row < maxRow; row ++)
@@ -234,7 +238,6 @@ public class Picture extends SimplePicture
 					  {
 						  index = extendUntil - 1;
 					  }
-
 					  toast[index][col].setColor(here.getColor());
 				  }
 			  }
@@ -1735,22 +1738,31 @@ public class Picture extends SimplePicture
 	  return String.valueOf(showProgress);
   }
   
+  
   public void setShowAfterCompletion(boolean flag)
   {
 	  showAfterCompletion = flag;
   }
+  
   
   public boolean getShowAfterCompletion()
   {
 	  return showAfterCompletion;
   }
   
+  /**
+   * 
+   * @return Whether or not to show the 
+   */
   public String getShowAfterCompletionString()
   {
 	  return String.valueOf(showAfterCompletion);
   }
   
-  
+  /**
+   * Returns a random double value
+   * @return Random double
+   */
   public double getRDouble()
   {
 	  double rDouble = 0.0;
@@ -1760,28 +1772,22 @@ public class Picture extends SimplePicture
 	  return rDouble;
   }
   
-  public boolean willFrick()
-  {
-	  int rInt = 0;
-	  rInt = getR(1);
-	  
-	  if(rInt == 1)
-	  {
-		  return true;
-	  }
-	  else
-	  {
-		  return false;
-	  }
-  }
-  
-  
+  /**
+   * Cuts an integer in half for lazy people like me
+   * @param input The value to halve
+   * @return Half of the supplied integer
+   */
   public int makeHalf(int input)
   {
 	  int half = input / 2;
 	  return half;
   }
   
+  /**
+   * Ensures the supplied integer is greater than 0, for safe division
+   * @param input Integer to check
+   * @returns An integer greater than 0
+   */
   public int notZero(int input)
   {
 	  int toUnZero = input;
@@ -1791,6 +1797,7 @@ public class Picture extends SimplePicture
 	  }
 	  return toUnZero;
   }
+  
   
   public double notZeroDouble(double input)
   {
@@ -1802,11 +1809,13 @@ public class Picture extends SimplePicture
 	  return toUnZero;
   }
   
+  
   public int rMod(int[] arrayOfMods)
   {
 	  return arrayOfMods[getR(arrayOfMods.length)];
 	  
   }
+  
   
   public void containsFace(Pixel[][] sourceGrid)
   {
@@ -1828,12 +1837,9 @@ public class Picture extends SimplePicture
 //			  if()
 		  }
 	  }
-	  
-	  
-	  
 	  Pixel[][] dummyGrid = sourceGrid;
-	 
   }
+  
   
   /* Main method for testing - each class in Java can have a main 
    * method 
