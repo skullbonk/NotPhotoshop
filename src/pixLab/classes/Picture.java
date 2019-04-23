@@ -361,6 +361,7 @@ public class Picture extends SimplePicture
 	  Pixel test;
 	  int maxPossibleColor = 256 + 256 + 256;
 	  
+	  // analyze pixels, build sorted grid
 	  for(int testTotal = (maxPossibleColor); testTotal > 0; testTotal --)
 	  {
 		  for(int row = 0; row < maxRow; row ++)
@@ -383,6 +384,7 @@ public class Picture extends SimplePicture
 		  }
 	  }
 	  
+	  // replace displayed grid with sorted grid
 	  for(int row = 0; row < maxRow - 1; row ++)
 	  {
 		  for(int col = 0; col < maxCol - 1; col ++)
@@ -489,8 +491,7 @@ public class Picture extends SimplePicture
 	  }  
   }
   
-  
-  
+ 
   // return color value for specified pixel
   public int red(Pixel source)
   {
@@ -506,7 +507,6 @@ public class Picture extends SimplePicture
   }
   
   
-  
   /** Method to set the blue to 0 */
   public void zeroBlue()
   {
@@ -520,6 +520,7 @@ public class Picture extends SimplePicture
     }
   }
   
+  
   public void zeroGreen()
   {
 	  Pixel[][] pixels = this.getPixels2D();
@@ -531,6 +532,7 @@ public class Picture extends SimplePicture
 		  }
 	  }
   }
+  
   
   public void zeroRed()
   {
@@ -547,22 +549,6 @@ public class Picture extends SimplePicture
 	  }
   }
   
-  
-  
-//  public void zeroGreen()
-//  {
-//	  Pixel[][] pixels = this.getPixels2D();
-//	  for (int row = 0; row < pixels.length; row++)
-//	  {
-//		  for (int col = 0; col < pixels[0].length; col++)
-//		  {
-//			  pixels[row][col].setGreen(0);
-//			  
-//			  Pixel tempPixel = pixels[row][col];
-//			  tempPixel.setGreen(0);  
-//		  }
-//	  }
-//  }
   
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
@@ -583,27 +569,7 @@ public class Picture extends SimplePicture
       }
     } 
   }
-  
-  
-  /*
-  public void mirrorVerticallyTheOtherWay()
-  {
-	  Pixel[][] pixels = this.getPixels2D();
-	  Pixel leftPixel = null;
-	  Pixel rightPixel = null;
-	  int width = pixels[0].length;
-	  for (int row = 0; row < pixels.length; row++)
-	  {
-		  for (int col = 0; col < width / 2; col++) 
-		  {
-			  leftPixel = pixels[row][col];
-			  rightPixel = pixels[row][width - 1 - col];
-			  rightPixel.setColor(leftPixel.getColor());
-		  }
-	  }  
-  }
-  */
-  
+
   
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
@@ -644,37 +610,12 @@ public class Picture extends SimplePicture
 			  for (int col = 230; col < 353; col++)
 			  {
 				  oldPixel = pixels[count][col];
-			  
 				  newPixel = pixels[count][col + 180];
-			  
-//				  newPixel = pixels[row][rando.nextInt(pixels[0].length)];
-			  
 				  newPixel.setColor(oldPixel.getColor());
 			  }
-
 	  }
   }
   
-  
-  
-  public void chopItUp()
-  {
-	  Random random = new Random();
-	  SimplePicture image = new SimplePicture();
-	  Pixel originalPixel = null;
-	  Pixel freshPixel = null;
-	  Pixel[][] replaceBox = this.getPixels2D();
-	  
-	  int reps = 0;
-	  int rRow = 0;
-	  int rCol = 0;
-	  for (reps = 0; reps < random.nextInt(7); reps++)
-	  {
-		  
-		  
-	  }
-	  
-  }
   
   public void glitchGang()
   {
@@ -689,26 +630,19 @@ public class Picture extends SimplePicture
 	  {
 		  int randomRow = random.nextInt(pixelRef.length - 16);
 		  int randomCol = random.nextInt(pixelRef[0].length -16);
-		  
-		  
+
 		  for (int row = randomRow; row < randomRow + random.nextInt((pixelRef.length - randomRow) - 2); row++)
 		  {
 			  for(int col = randomCol; col < randomCol + random.nextInt((pixelRef[0].length - randomCol) - 2); col++)
 			  {
 				  startPixel = pixelRef[row][col];
-				  
-				  
 				  int endRowMax = (pixelRef.length - row - 1);
 				  int endColMax = (pixelRef[0].length - col - 1);
 				  
 				  startPixel.setColor(pixelRef[row][col].getColor());
-				
-				  endPixel = pixelRef[row + random.nextInt(endRowMax)][col + random.nextInt(endColMax)];
-				  
+				  endPixel = pixelRef[row + random.nextInt(endRowMax)][col + random.nextInt(endColMax)];				  
 				  endPixel.setColor(startPixel.getColor());
-				  
-				  
-				  
+				  				  
 				  if(endPixel.getRed() > 127)
 				  {
 					  endPixel.setRed(startPixel.getRed() - random.nextInt(startPixel.getRed()));
@@ -716,8 +650,7 @@ public class Picture extends SimplePicture
 				  if(endPixel.getRed() < 128)
 				  {
 					  endPixel.setRed(startPixel.getRed() + random.nextInt(256 - startPixel.getRed()));
-				  }
-				  
+				  }				  
 				
 				  if(endPixel.getGreen() > 127)
 				  {
@@ -726,13 +659,13 @@ public class Picture extends SimplePicture
 				  if(endPixel.getGreen() < 128)
 				  {
 					  endPixel.setGreen(startPixel.getGreen() + random.nextInt(256 - startPixel.getGreen()));
-				  }
-				  
+				  }				  
 				 
 				  if(endPixel.getBlue() > 127)
 				  {
 					  endPixel.setBlue(startPixel.getBlue() - random.nextInt(startPixel.getBlue()));
 				  }
+				  
 				  if(endPixel.getBlue() < 128)
 				  {
 					  endPixel.setBlue(startPixel.getBlue() + random.nextInt(256 - startPixel.getBlue()));
@@ -741,6 +674,7 @@ public class Picture extends SimplePicture
 		  }	  
 	  }
   }
+  
   
   public void fizzle()
   {
@@ -760,14 +694,11 @@ public class Picture extends SimplePicture
 	  
 	  int newRow;
 	  int newCol;
-	 
-	 
-	  
+	 	 	  
 	  for(int reps = 0; reps < 30; reps++)
 	  {  
 		  startRow = getR(maxRow - 2);
-		  startCol = getR(maxCol - 2);
-		  
+		  startCol = getR(maxCol - 2);		  
 		  endRow = startRow + getR((maxRow - startRow) / 2);
 		  endCol = startCol + getR((maxCol - startCol) / 2);
 		  
@@ -776,18 +707,13 @@ public class Picture extends SimplePicture
 			  for(int col = startCol; col < endCol; col++)
 			  {
 				  newRow = (startRow + endRow / maxRow); 
-				  newCol = (startCol + endCol / maxCol);
-				
+				  newCol = (startCol + endCol / maxCol);				
 				  original = pixelRef[newRow][newCol];
 				  original.setColor(pixelRef[newRow][newCol].getColor());
 				  replace = original;
 				  replace.setColor(original.getColor());
 				  replace.setBlue(pixelRef[getR(newRow)][getR(newCol)].getBlue() - getR(original.getRed()) );
-				  dupe[row][col].setColor(replace.getColor());
-				 
-						  
-				  
-			
+				  dupe[row][col].setColor(replace.getColor());				 						  				  			
 			  }  
 		  }
 		  
@@ -797,13 +723,11 @@ public class Picture extends SimplePicture
 			  {				 
 				  pixelRef[row][col].setColor(dupe[row][col].getColor());
 			  }
-		  }
-		  
+		  }		  
 	  }
   }
   
-  
-  
+   
   public void fizzleRemastered()
   {
 	  Pixel[][] grid = this.getPixels2D();
@@ -1100,12 +1024,7 @@ public class Picture extends SimplePicture
 								  result.setRed(source.getRed() + (source.getBlue() / 3));
 							  }
 						  }
-						  
-						  
-						  subGrid[rowMod][colMod].setColor(result.getColor());	  
-						  
-						  
-						  
+						  subGrid[rowMod][colMod].setColor(result.getColor());	    
 					  }
 				  }  
 			  }
@@ -1712,6 +1631,7 @@ public class Picture extends SimplePicture
 	  return safeGrid[row][col];
   }
   
+
   public int getR(int max)
   {
 	  Random random = new Random();
@@ -1839,7 +1759,7 @@ public class Picture extends SimplePicture
 	  }
 	  Pixel[][] dummyGrid = sourceGrid;
   }
-  
+    
   
   /* Main method for testing - each class in Java can have a main 
    * method 
